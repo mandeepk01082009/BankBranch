@@ -29,6 +29,7 @@
               <a href="{{ route('dcos_contacts') }}" class="nav-item nav-link {{ request()->is('cms-admin/dcos_contacts') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Bank Nodals </a>
               <a href="{{ route('govt_schemes') }}" class="nav-item nav-link {{ request()->is('cms-admin/govt_schemes') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Govt Schemes</a>
               <a href="{{ route('bank_branches') }}" class="nav-item nav-link {{ request()->is('cms-admin/bank_branches') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Bank Branches</a>
+              <a href="{{ route('services') }}" class="nav-item nav-link {{ request()->is('cms-admin/services') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Services</a>
               {{-- <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
               <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
               <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a> --}}

@@ -57,7 +57,19 @@ Route::group(['namespace' => 'admin','prefix'=>'cms-admin', 'middleware' => ['au
     
     Route::patch('/update_bank_branch/{id}',[App\Http\Controllers\admin\BankBranchesController::class, 'update'])->name('update_bank_branch'); 
 
-    Route::post('delete_bank_branch/{id}',[App\Http\Controllers\admin\BankBranchesController::class, 'destroy'])->name('delete_bank_branch'); 
+    Route::delete('delete_bank_branch/{id}',[App\Http\Controllers\admin\BankBranchesController::class, 'destroy'])->name('delete_bank_branch');
+    
+    Route::get('/add_service', [App\Http\Controllers\admin\ServicesController::class, 'index'])->name('add_service'); 
+
+    Route::post('/store_service', [App\Http\Controllers\admin\ServicesController::class, 'create'])->name('store_service');
+
+    Route::get('services', [App\Http\Controllers\admin\ServicesController::class, 'show'])->name('services'); 
+
+    Route::get('/edit_service/{id}', [App\Http\Controllers\admin\ServicesController::class, 'edit'])->name('edit_service');
+    
+    Route::patch('/update_service/{id}',[App\Http\Controllers\admin\ServicesController::class, 'update'])->name('update_service'); 
+
+    Route::delete('delete_service/{id}',[App\Http\Controllers\admin\ServicesController::class, 'destroy'])->name('delete_service'); 
     
     });
 

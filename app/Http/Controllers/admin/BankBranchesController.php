@@ -5,7 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DcosContact; 
-use App\Models\BankBranches;
+use App\Models\BankBranches;   
+use Illuminate\Support\Facades\DB;
 
 class BankBranchesController extends Controller
 {
