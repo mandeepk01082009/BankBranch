@@ -9,52 +9,45 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('add_govt_scheme') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
-                    <h6 class="mb-4">Govt Schemes</h6>
+                    <a href="{{ route('add_bank_branch') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
+                    <h6 class="mb-4">Bank Branches</h6>
                     <div class="mt-3" style="margin-top: 10px;">
                         <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">Sr. No.</th>
-                                    <th scope="col">Name of Ministry</th>
-                                    <th scope="col">Name of Departments</th>
-                                    <th scope="col">Scheme</th>
-                                    <th scope="col">Sub Scheme</th>
-                                    <th scope="col">Sector</th>
-                                    <th scope="col">Objective</th>
-                                    <th scope="col">Beneficaries Type</th>
-                                    <th scope="col">Grant</th>
-                                    <th scope="col">Source of Information</th>
+                                    <th scope="col">Bank Name</th>
+                                    <th scope="col">Branch Address</th>
+                                    <th scope="col">Concerned Person</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Remark</th>
+                                    <th scope="col">Created Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($govt_schemes as $govt_scheme)
+                                @foreach ($bank_branch as $bank_branches)
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
-                                        <td>{{ $govt_scheme->sort_col }}</td>
-                                        <td>{{ $govt_scheme->name_of_ministry }}</td>
-                                        <td>{{ $govt_scheme->name_of_departments }}</td>
-                                        <td>{{ $govt_scheme->scheme }}</td>
-                                        <td>{{ $govt_scheme->sub_scheme }}</td>
-                                        <td>{{ $govt_scheme->sector }}</td>
-                                        <td><textarea>{{ $govt_scheme->objective }}</textarea></td>
-                                        <td>{{ $govt_scheme->beneficaries_type }}</td>
-                                        <td>{{ $govt_scheme->grant }}</td>
-                                        <td>{{ $govt_scheme->source_of_information }}</td>
-                                        <td>{{ $govt_scheme->status == 1 ? 'Active' : '' }}</td>
-                                        <td>{{ $govt_scheme->remark }}</td>
+                                        <td>{{ $bank_branches->sort_col }}</td>
+                                        <td>{{ $bank_branches->bankName->bank_name ?? '-' }}</td>
+                                        <td>{{ $bank_branches->branch_address }}</td>
+                                        <td>{{ $bank_branches->concerned_person }}</td>
+                                        <td>{{ $bank_branches->mobile }}</td>
+                                        <td>{{ $bank_branches->email }}</td>
+                                        <td>{{ $bank_branches->status == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $bank_branches->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('edit_govt_scheme', $govt_scheme->id) }}"
+                                            <a href="{{ route('edit_bank_branch', $bank_branches->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>
                                                 <i class="fa fa-edit" style="font-size:20px">
                                                 </i>
                                             </a>
+                                            
                                             <form method="POST"
-                                                action="{{ route('delete_govt_scheme', $govt_scheme->id) }}">
+                                                action="{{ route('delete_bank_branch', $bank_branches->id) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <input name="_method" type="hidden" value="DELETE">
@@ -87,4 +80,5 @@
             }
         });
     </script>
+
 @endsection

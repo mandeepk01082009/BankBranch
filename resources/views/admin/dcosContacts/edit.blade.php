@@ -10,22 +10,13 @@
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
                     <a href="{{ route('dcos_contacts') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
-                    <h6 class="mb-4">DCO Contact Form</h6>
+                    <h6 class="mb-4">Edit Bank</h6>
                     <form action="{{ route('update_dcos_contact',$dcosContacts->id) }}" method="post">
                         @csrf
                         @method('PATCH')               
 
                         <input type="hidden" name="id" id="id" value="{{ $dcosContacts->id }}">  
-                        <div class="mb-3">
-                            <label for="sort">Sort Number</label>
-                            <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
-                                name="sort_col" id="sort_col" placeholder="Sr No." value="{{ $dcosContacts->sort_col }}" />
-                            @error('sort_col')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                       
                         <div class="mb-3">
                             <label for="sort">Bank Name</label>
                             <input class="form-control @error('bank_name') is-invalid @enderror" type="text"
@@ -67,20 +58,16 @@
                             </span>
                         @enderror
                         </div>
-                        {{-- <div class="mb-3">
+                        <div class="mb-3">
                             <label for="sort">Sort Number</label>
-                            <input class="form-control @error('bank_name') is-invalid @enderror" type="text"
-                                name="sort_col" id="sort_col" placeholder="sort_col" />
+                            <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
+                                name="sort_col" id="sort_col" placeholder="Sr No." value="{{ $dcosContacts->sort_col }}" />
                             @error('sort_col')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> --}}
-                        {{-- <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div> --}}
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

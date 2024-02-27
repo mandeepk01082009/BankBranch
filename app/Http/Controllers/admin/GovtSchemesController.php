@@ -53,7 +53,7 @@ class GovtSchemesController extends Controller
 
  public function show()
     {  
-        $govt_schemes = GovtSchemes::orderBy('sort_col', 'asc')->get();
+        $govt_schemes = GovtSchemes::where('status',1)->orderBy('sort_col', 'asc')->get();
         return view('admin.govtSchemes.index')           
             ->with('govt_schemes', $govt_schemes);         
     }
@@ -97,11 +97,18 @@ class GovtSchemesController extends Controller
     return redirect('/cms-admin/govt_schemes');        
     }
 
+    // public function destroy(string $id)             
+    // {
+    //     $govt_schemes = GovtSchemes::find($id);    
+    //     $govt_schemes->delete();        
+    //     return redirect('/cms-admin/govt_schemes');                                                                  
+    // }
+
     public function destroy(string $id)             
-    {
-        $govt_schemes = GovtSchemes::find($id);    
-        $govt_schemes->delete();        
-        return redirect('/cms-admin/govt_schemes');                                                                  
-    }
+{
+    $dcosContact = DB::table('govt_schemes')->where('id', $id)->update(['status' => 0]);
+
+    return redirect('/cms-admin/govt_schemes');    
+}
 
 }

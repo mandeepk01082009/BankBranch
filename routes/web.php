@@ -45,7 +45,19 @@ Route::group(['namespace' => 'admin','prefix'=>'cms-admin', 'middleware' => ['au
     
     Route::patch('/update_govt_scheme/{id}',[App\Http\Controllers\admin\GovtSchemesController::class, 'update'])->name('update_govt_scheme'); 
 
-    Route::delete('delete_govt_scheme/{id}',[App\Http\Controllers\admin\GovtSchemesController::class, 'destroy'])->name('delete_govt_scheme');  
+    Route::delete('delete_govt_scheme/{id}',[App\Http\Controllers\admin\GovtSchemesController::class, 'destroy'])->name('delete_govt_scheme'); 
+    
+    Route::get('/add_bank_branch', [App\Http\Controllers\admin\BankBranchesController::class, 'index'])->name('add_bank_branch'); 
+
+    Route::post('/store_bank_branch', [App\Http\Controllers\admin\BankBranchesController::class, 'create'])->name('store_bank_branch');
+
+    Route::get('bank_branches', [App\Http\Controllers\admin\BankBranchesController::class, 'show'])->name('bank_branches'); 
+
+    Route::get('/edit_bank_branch/{id}', [App\Http\Controllers\admin\BankBranchesController::class, 'edit'])->name('edit_bank_branch');
+    
+    Route::patch('/update_bank_branch/{id}',[App\Http\Controllers\admin\BankBranchesController::class, 'update'])->name('update_bank_branch'); 
+
+    Route::post('delete_bank_branch/{id}',[App\Http\Controllers\admin\BankBranchesController::class, 'destroy'])->name('delete_bank_branch'); 
     
     });
 

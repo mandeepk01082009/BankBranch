@@ -10,8 +10,9 @@
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
                     <a href="{{ route('add_dcos_contact') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
-                    <h6 class="mb-4">DCOS Contact List</h6>
+                    <h6 class="mb-4">Bank Names</h6>
                     <div class="mt-3" style="margin-top: 10px;">
+                        <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -20,6 +21,8 @@
                                     <th scope="col">DCO Name</th>
                                     <th scope="col">Mobile</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Created Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -32,12 +35,16 @@
                                         <td>{{ $dcosContacts->dco_name }}</td>
                                         <td>{{ $dcosContacts->mobile }}</td>
                                         <td>{{ $dcosContacts->email }}</td>
+                                        <td>{{ $dcosContacts->status == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $dcosContacts->created_at }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('edit_dcos_contact', $dcosContacts->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>
                                                 <i class="fa fa-edit" style="font-size:20px">
                                                 </i>
                                             </a>
+                                            
+                                            
                                             <form method="POST"
                                                 action="{{ route('delete_dcos_contact', $dcosContacts->id) }}">
                                                 @csrf
@@ -54,6 +61,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,4 +79,5 @@
             }
         });
     </script>
+
 @endsection

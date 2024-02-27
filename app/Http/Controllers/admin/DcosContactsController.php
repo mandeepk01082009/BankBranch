@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DcosContact; 
+use Illuminate\Support\Facades\DB;
 
 class DcosContactsController extends Controller
 {
@@ -30,6 +31,7 @@ class DcosContactsController extends Controller
     'dco_name' => $request->input('dco_name'), 
     'email' => $request->input('email'), 
     'mobile' => $request->input('mobile'), 
+    'status' => 1, // Set the default value for the 'active' field 
  ]);
       
      $dcosContacts->save();
@@ -42,7 +44,7 @@ class DcosContactsController extends Controller
 
  public function show()
     {  
-        $dcosContact = DcosContact::orderBy('sort_col', 'asc')->get();
+        $dcosContact = DcosContact::where('status',1)->orderBy('sort_col', 'asc')->get();
         return view('admin.dcosContacts.index')           
             ->with('dcosContact', $dcosContact);         
     }
@@ -68,17 +70,26 @@ class DcosContactsController extends Controller
         $dcosContacts->mobile = $request->input('mobile');
 
         $dcosContacts->email = $request->input('email');
+
+        $dcosContacts->status = 1;
     
     $dcosContacts->update();                 
 
     return redirect('/cms-admin/dcos_contacts');        
     }
 
+    // public function destroy(string $id)             
+    // {
+    //     $dcosContacts = DcosContact::find($id);    
+    //     $dcosContacts->delete();        
+    //     return redirect('/cms-admin/dcos_contacts');                                                                  
+    // }
+
     public function destroy(string $id)             
-    {
-        $dcosContacts = DcosContact::find($id);    
-        $dcosContacts->delete();        
-        return redirect('/cms-admin/dcos_contacts');                                                                  
-    }
+{
+    $dcosContact = DB::table('dcos_contacts')->where('id', $id)->update(['status' => 0]);
+
+    return redirect('/cms-admin/dcos_contacts');
+}
 
 }
