@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Schemes extends Model
 {
     use HasFactory;
-    protected $table = 'govt_schemes';
+    protected $table = 'schemes';
     protected $primaryKey = 'id';
     protected $fillable = [
         'sort_col',

@@ -11,7 +11,7 @@
                 <div class="bg-light rounded h-100 p-4">
                     <a href="{{ route('schemes') }}"><button type="button" class="btn btn-primary"
                             style="float: right;">Back</button></a>
-                    <h6 class="mb-4">Add Govt. Scheme</h6>
+                    <h6 class="mb-4">Add Scheme</h6>
                     <form action="{{ route('store_scheme') }}" method="post">
                         @csrf
                         <div class="mb-3">
