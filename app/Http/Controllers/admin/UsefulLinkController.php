@@ -4,17 +4,14 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\DcosContact;
-use App\Models\Services;
+use App\Models\UsefulLinks;
 use Illuminate\Support\Facades\DB;
 
-
-
-class ServicesController extends Controller
+class UsefulLinkController extends Controller
 {
     public function index()
     {
-        return view('admin.services.form');              
+        return view('admin.UsefulLinks.form');              
     }
 
    
@@ -22,14 +19,14 @@ class ServicesController extends Controller
     {
      $data = $request->validate([
         'sort_col' => 'required|integer',
-        'service_name' => 'required|string|max:255',
+        'useful_link' => 'required|string|max:255',
         'link' => 'required',
         'logo' => 'required|image',     
  ]);
  
- $services = Services::create([
+ $useful_link = UsefulLinks::create([
     'sort_col' => $request->input('sort_col'), 
-    'service_name' => $request->input('service_name'), 
+    'useful_link' => $request->input('useful_link'), 
     'link' => $request->input('link'), 
     'logo' => '', 
     'status' => 1, // Set the default value for the 'active' field 
@@ -40,64 +37,64 @@ class ServicesController extends Controller
     $extention = $file->getClientOriginalName();
     $filename = time(). '.' . $extention;
     $file->move('storage/',$filename);
-    $services->logo = $filename;       
+    $useful_link->logo = $filename;       
 }   
-     $services->save();
+     $useful_link->save();
  
   //return response()->json(['success'=>'Files uploaded successfully.']); 
   
-  return redirect('/cms-admin/services');   
+  return redirect('/cms-admin/useful_links');   
 
 }
 
  public function show()
     {  
-        $service = Services::where('status',1)->orderBy('sort_col', 'asc')->get();
-        return view('admin.services.index')           
-            ->with('service', $service);         
+        $useful_link = UsefulLinks::where('status',1)->orderBy('sort_col', 'asc')->get();
+        return view('admin.UsefulLinks.index')           
+            ->with('useful_link', $useful_link);         
     }
 
     public function edit(string $id)
     {
-        $service = Services::find($id);                 
+        $useful_link = UsefulLinks::find($id);                 
         // show the edit form and pass the   
-        return view('admin.services.edit',compact('service'));         
+        return view('admin.UsefulLinks.edit',compact('useful_link'));         
     }    
 
     public function update(Request $request, string $id)
 {
-    $service = Services::find($id);  
+    $useful_link = UsefulLinks::find($id);  
     
-    $service->sort_col = $request->input('sort_col');
-    $service->service_name = $request->input('service_name');
-    $service->link = $request->input('link');
-    $service->status = 1;
+    $useful_link->sort_col = $request->input('sort_col');
+    $useful_link->useful_link = $request->input('useful_link');
+    $useful_link->link = $request->input('link');
+    $useful_link->status = 1;
 
     if ($request->hasFile('logo')) {
         $file = $request->file('logo');
         $extension = $file->getClientOriginalExtension();
         $filename = time() . '.' . $extension;
         $file->move(public_path('storage'), $filename);
-        $service->logo = $filename;
+        $useful_link->logo = $filename;
     }
 
-    $service->update();                 
+    $useful_link->update();                 
 
-    return redirect('/cms-admin/services');        
+    return redirect('/cms-admin/useful_links');        
 }
 
     // public function destroy(string $id)             
     // {
     //     $dcosContacts = DcosContact::find($id);    
     //     $dcosContacts->delete();        
-    //     return redirect('/cms-admin/services');                                                                  
+    //     return redirect('/cms-admin/useful_links');                                                                  
     // }
 
     public function destroy(string $id)             
 {
-    $dcosContact = DB::table('services')->where('id', $id)->update(['status' => 0]);
+    $useful_link = DB::table('useful_links')->where('id', $id)->update(['status' => 0]);
 
-    return redirect('/cms-admin/services');
+    return redirect('/cms-admin/useful_links');
 }
 
 }

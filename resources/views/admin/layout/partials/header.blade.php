@@ -30,6 +30,11 @@
               <a href="{{ route('govt_schemes') }}" class="nav-item nav-link {{ request()->is('cms-admin/govt_schemes') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Govt Schemes</a>
               <a href="{{ route('bank_branches') }}" class="nav-item nav-link {{ request()->is('cms-admin/bank_branches') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Bank Branches</a>
               <a href="{{ route('services') }}" class="nav-item nav-link {{ request()->is('cms-admin/services') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Services</a>
+              <a href="{{ route('useful_links') }}" class="nav-item nav-link {{ request()->is('cms-admin/useful_links') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Useful Links</a>
+              <a href="{{ route('public_notices') }}" class="nav-item nav-link {{ request()->is('cms-admin/public_notices') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Public Notices</a>
+              <a href="{{ route('departments') }}" class="nav-item nav-link {{ request()->is('cms-admin/departments') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Department</a>
+              {{-- <a href="{{ route('schemes') }}" class="nav-item nav-link {{ request()->is('cms-admin/schemes') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Schemes</a> --}}
+              <a href="{{ route('advertisement_rates') }}" class="nav-item nav-link {{ request()->is('cms-admin/advertisement_rates') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Ads. Rates</a>
               {{-- <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
               <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
               <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a> --}}

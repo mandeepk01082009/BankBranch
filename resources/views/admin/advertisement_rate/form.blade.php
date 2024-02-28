@@ -9,40 +9,50 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('services') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
-                    <h6 class="mb-4">Add Bank</h6>
-                    <form action="{{ route('store_service') }}" method="post" enctype="multipart/form-data">
-                        @csrf
+                    <a href="{{ route('advertisement_rates') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
+                    <h6 class="mb-4">Add Advertisement Rate</h6>
+                    <form action="{{ route('store_advertisement_rate') }}" method="post">
+                        @csrf      
+                        <div class="mb-3">
+                            <label for="sort">Advertisement Slot</label>
+                            <input class="form-control @error('advertisement_slot') is-invalid @enderror" type="text"
+                                name="advertisement_slot" id="advertisement_slot" placeholder="Advertisement Slot" />
+                            @error('advertisement_slot')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="sort">Minimum Days</label>
+                            <input class="form-control @error('minimum_days') is-invalid @enderror" type="text"
+                                name="minimum_days" id="minimum_days" placeholder="Minimum Days" />
+                            @error('minimum_days')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="per_day_rate" class="form-label">Per Day Rate</label>
+                            <input type="text" class="form-control @error('per_day_rate') is-invalid @enderror" name="per_day_rate" placeholder="Per Day Rate"  id="exampleInputper_day_rate1" aria-describedby="per_day_rateHelp">
+                            @error('per_day_rate')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="sort">Size</label>
+                            <input class="form-control @error('size') is-invalid @enderror" type="text"
+                                name="size" id="size" placeholder="Size" />
+                            @error('size')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                        
-                        <div class="mb-3">
-                            <label for="sort">Service Name</label>
-                            <input class="form-control @error('service_name') is-invalid @enderror" type="text"
-                                name="service_name" id="service_name" placeholder="Service Name" />
-                            @error('service_name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="sort">Link</label>
-                            <input class="form-control @error('link') is-invalid @enderror" type="text"
-                                name="link" id="link" placeholder="Link" />
-                            @error('link')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="sort">Logo</label>
-                            <input type="file" name="logo" id="logo" class="form-control @error('logo') is-invalid @enderror">  
-                            @error('logo')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
                         <div class="mb-3">
                             <label for="sort">Sort Number</label>
                             <input class="form-control @error('sort_col') is-invalid @enderror" type="text"

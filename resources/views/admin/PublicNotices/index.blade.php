@@ -9,34 +9,35 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('add_service') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
-                    <h6 class="mb-4">Services</h6>
+                    <a href="{{ route('add_public_notice') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
+                    <h6 class="mb-4">Public Notices</h6>
                     <div class="mt-3" style="margin-top: 10px;">
                         <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Sr. No.</th>
-                                    <th scope="col">Service Name</th>
-                                    <th scope="col">Link</th>
-                                    <th scope="col">Logo</th>
+                                    {{-- <th scope="col">Sr. No.</th> --}}
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">View</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Created Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($service as $services)
+                                @foreach ($public_notice as $public_notices)
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
-                                        <td>{{ $services->sort_col }}</td>
-                                        <td>{{ $services->service_name }}</td>
-                                        <td>{{ $services->link }}</td>
-                                        <td><img src="{{ asset('storage/' . $services->logo) }}" width="70px" height="70px"></td>
-                                        <td>{{ $services->status == 1 ? 'Active' : ''  }}</td>
-                                        <td>{{ $services->created_at }}</td>
+                                        <td>{{ $public_notices->sort_col }}</td>
+                                        <td>{{ $public_notices->title }}</td>
+                                        <td>{{ $public_notices->created_at->format('Y-m-d') }}</td>
+                                        <td>
+                                            <a href="{{ asset('storage/' . $public_notices->notice) }}" target="_blank"><i class="fa fa-file-text" style="font-size:30px;"></i></a>
+                                        </td>
+                                        <td>{{ $public_notices->status == 1 ? 'Active' : ''  }}</td>
+                                        
                                         <td class="text-center">
-                                            <a href="{{ route('edit_service', $services->id) }}"
+                                            <a href="{{ route('edit_public_notice', $public_notices->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>
                                                 <i class="fa fa-edit" style="font-size:20px">
                                                 </i>
@@ -44,7 +45,7 @@
                                             
                                             
                                             <form method="POST"
-                                                action="{{ route('delete_service', $services->id) }}">
+                                                action="{{ route('delete_public_notice', $public_notices->id) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <input name="_method" type="hidden" value="DELETE">

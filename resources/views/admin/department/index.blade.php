@@ -9,34 +9,36 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('add_service') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
-                    <h6 class="mb-4">Services</h6>
+                    <a href="{{ route('add_department') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
+                    <h6 class="mb-4">Bank Names</h6>
                     <div class="mt-3" style="margin-top: 10px;">
                         <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">Sr. No.</th>
-                                    <th scope="col">Service Name</th>
-                                    <th scope="col">Link</th>
-                                    <th scope="col">Logo</th>
+                                    <th scope="col">Department Name</th>
+                                    <th scope="col">Contact Person</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Contact</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Created Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($service as $services)
+                                @foreach ($department as $departments)
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
-                                        <td>{{ $services->sort_col }}</td>
-                                        <td>{{ $services->service_name }}</td>
-                                        <td>{{ $services->link }}</td>
-                                        <td><img src="{{ asset('storage/' . $services->logo) }}" width="70px" height="70px"></td>
-                                        <td>{{ $services->status == 1 ? 'Active' : ''  }}</td>
-                                        <td>{{ $services->created_at }}</td>
+                                        <td>{{ $departments->sort_col }}</td>
+                                        <td>{{ $departments->department_name }}</td>
+                                        <td>{{ $departments->contact_person }}</td>
+                                        <td>{{ $departments->email }}</td>
+                                        <td>{{ $departments->contact }}</td>
+                                        <td>{{ $departments->status == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $departments->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('edit_service', $services->id) }}"
+                                            <a href="{{ route('edit_department', $departments->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>
                                                 <i class="fa fa-edit" style="font-size:20px">
                                                 </i>
@@ -44,7 +46,7 @@
                                             
                                             
                                             <form method="POST"
-                                                action="{{ route('delete_service', $services->id) }}">
+                                                action="{{ route('delete_department', $departments->id) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <input name="_method" type="hidden" value="DELETE">
@@ -53,7 +55,7 @@
                                                     data-toggle="tooltip" title='Delete'> <i class="fa fa-trash"
                                                         style="font-size:20px">
                                                     </i></button>
-                                            </form>                    
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

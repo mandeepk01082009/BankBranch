@@ -9,34 +9,36 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('add_service') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
-                    <h6 class="mb-4">Services</h6>
+                    <a href="{{ route('add_advertisement_rate') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
+                    <h6 class="mb-4">Advertisement Rates</h6>
                     <div class="mt-3" style="margin-top: 10px;">
                         <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">Sr. No.</th>
-                                    <th scope="col">Service Name</th>
-                                    <th scope="col">Link</th>
-                                    <th scope="col">Logo</th>
+                                    <th scope="col">Advertisement Slot</th>
+                                    <th scope="col">Minimum Days</th>
+                                    <th scope="col">Per Day Rate</th>
+                                    <th scope="col">Size</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Created Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($service as $services)
+                                @foreach ($advertisement_rate as $advertisement_rates)
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
-                                        <td>{{ $services->sort_col }}</td>
-                                        <td>{{ $services->service_name }}</td>
-                                        <td>{{ $services->link }}</td>
-                                        <td><img src="{{ asset('storage/' . $services->logo) }}" width="70px" height="70px"></td>
-                                        <td>{{ $services->status == 1 ? 'Active' : ''  }}</td>
-                                        <td>{{ $services->created_at }}</td>
+                                        <td>{{ $advertisement_rates->sort_col }}</td>
+                                        <td>{{ $advertisement_rates->advertisement_slot }}</td>
+                                        <td>{{ $advertisement_rates->minimum_days }}</td>
+                                        <td>{{ $advertisement_rates->per_day_rate }}</td>
+                                        <td>{{ $advertisement_rates->size }}</td>
+                                        <td>{{ $advertisement_rates->status == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $advertisement_rates->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('edit_service', $services->id) }}"
+                                            <a href="{{ route('edit_advertisement_rate', $advertisement_rates->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>
                                                 <i class="fa fa-edit" style="font-size:20px">
                                                 </i>
@@ -44,7 +46,7 @@
                                             
                                             
                                             <form method="POST"
-                                                action="{{ route('delete_service', $services->id) }}">
+                                                action="{{ route('delete_advertisement_rate', $advertisement_rates->id) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <input name="_method" type="hidden" value="DELETE">
@@ -53,7 +55,7 @@
                                                     data-toggle="tooltip" title='Delete'> <i class="fa fa-trash"
                                                         style="font-size:20px">
                                                     </i></button>
-                                            </form>                    
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

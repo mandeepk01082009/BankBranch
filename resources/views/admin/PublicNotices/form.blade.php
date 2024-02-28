@@ -9,35 +9,28 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('services') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
-                    <h6 class="mb-4">Add Bank</h6>
-                    <form action="{{ route('store_service') }}" method="post" enctype="multipart/form-data">
+                    <a href="{{ route('public_notices') }}"><button type="button" class="btn btn-primary"
+                            style="float: right;">Back</button></a>
+                    <h6 class="mb-4">Add Notice</h6>
+                    <form action="{{ route('store_public_notice') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                       
+
                         <div class="mb-3">
-                            <label for="sort">Service Name</label>
-                            <input class="form-control @error('service_name') is-invalid @enderror" type="text"
-                                name="service_name" id="service_name" placeholder="Service Name" />
-                            @error('service_name')
+                            <label for="sort">Title</label>
+                            <input class="form-control @error('title') is-invalid @enderror" type="text" name="title"
+                                id="title" placeholder="Title" />
+                            @error('title')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="sort">Link</label>
-                            <input class="form-control @error('link') is-invalid @enderror" type="text"
-                                name="link" id="link" placeholder="Link" />
-                            @error('link')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="sort">Logo</label>
-                            <input type="file" name="logo" id="logo" class="form-control @error('logo') is-invalid @enderror">  
-                            @error('logo')
+                            <label for="sort">Upload Notice</label>
+                            <input type="file" name="notice"
+                                accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                id="notice" class="form-control @error('notice') is-invalid @enderror">
+                            @error('notice')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
