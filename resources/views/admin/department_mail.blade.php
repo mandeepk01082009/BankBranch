@@ -16,7 +16,7 @@
         <!-- Header -->
         <table role="presentation" border="0" cellspacing="0" width="100%">
 
-            <tr>Dear Bank Nodal,</tr><br><br>
+            <tr>Dear Department,</tr><br><br>
         </table>
 
         <!-- Body -->

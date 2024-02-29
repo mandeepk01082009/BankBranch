@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Department; 
 use App\Models\User; 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail; 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str; // Add this line
+use App\Mail\UserCreated;
 
 class DepartmentController extends Controller
 {
@@ -15,7 +19,7 @@ class DepartmentController extends Controller
         return view('admin.department.form');              
     }
 
-   
+    
     public function create(Request $request)  
     {
      $data = $request->validate([
@@ -24,20 +28,31 @@ class DepartmentController extends Controller
         'contact_person' => 'required|string|max:255',
         'email' => 'required|email',  
         'mobile' => 'required',   
-        'password' => 'required',    
  ]);
+
+ // Generate a random password
+ $password = Str::random(12); // Assuming you are using the Illuminate\Support\Str class
+
  $department = User::create([
-    'sort_col' => $request->input('sort_col'), 
-    'department_name' => $request->input('department_name'), 
-    'contact_person' => $request->input('contact_person'), 
-    'email' => $request->input('email'), 
-    'mobile' => $request->input('mobile'), 
-    'password' => $request->input('password'), 
+    'sort_col' => $data['sort_col'],
+    'department_name' =>$data['department_name'], 
+    'contact_person' => $data['contact_person'], 
+   'email' => $data['email'],
+   'mobile' => $data['mobile'],
+   'password' => Hash::make($password), // Use the generated password directly
     'is_active' => 1, // Set the default value for the 'active' field 
     'user_type_id' => 4,
  ]);
       
-     $department->save();
+     // Adjust the data array to include the password for the email
+     $data['password'] = $password; // Add this line to include the password in the data array
+    
+     // Now, you can safely pass $data to the view or mail class, and it will include the 'password'
+ 
+     Mail::send('admin.department_mail', $data, function($message) use ($data){
+         $message->to($data['email'], $data['contact_person']);  
+         $message->subject('Login with this credentials');   
+     });
  
   //return response()->json(['success'=>'Files uploaded successfully.']); 
   
@@ -73,8 +88,6 @@ class DepartmentController extends Controller
         $department->mobile = $request->input('mobile');
 
         $department->email = $request->input('email');
-
-        $department->password = $request->input('password');
 
         $department->is_active = 1;
 

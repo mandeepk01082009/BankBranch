@@ -52,7 +52,7 @@ class DcosContactsController extends Controller
     
         Mail::send('admin.mail', $data, function($message) use ($data){
             $message->to($data['email'], $data['dco_name']);  
-            $message->subject('Thanks for contacting Amrit Soap');   
+            $message->subject('Login with this credentials');   
         });
     
         return redirect('/cms-admin/dcos_contacts');

@@ -8,6 +8,10 @@ use App\Models\DcosContact;
 use App\Models\BankBranches;   
 use App\Models\User;   
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail; 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str; // Add this line
+use App\Mail\UserCreated;
 
 class BankBranchesController extends Controller
 {
@@ -17,6 +21,7 @@ class BankBranchesController extends Controller
         return view('admin.BankBranches.form',compact('bank'));              
     }
 
+    
     public function create(Request $request)  
     {
      $data = $request->validate([
@@ -26,22 +31,33 @@ class BankBranchesController extends Controller
         'mobile' => 'required',  
         'branch_address' => 'required',
         'concerned_person' => 'required',
-        'password' => 'required',  
  ]);
+
+ // Generate a random password
+ $password = Str::random(12); // Assuming you are using the Illuminate\Support\Str class
  
  $bank_branch = User::create([
-    'sort_col' => $request->input('sort_col'), 
-    'bank_id' => $request->input('bank_id'), 
-    'email' => $request->input('email'), 
-    'mobile' => $request->input('mobile'), 
+    'sort_col' => $data['sort_col'],
+    'bank_id' => $data['bank_id'], 
+    'email' => $data['email'],
+    'mobile' => $data['mobile'],
+    'password' => Hash::make($password), // Use the generated password directly
     'is_active' => 1, // Set the default value for the 'active' field 
     'user_type_id' => 3, 
-    'branch_address' => $request->input('branch_address'), 
-    'concerned_person' => $request->input('concerned_person'), 
-    'password' => $request->input('password'), 
+    'branch_address' => $data['branch_address'],
+    'concerned_person' => $data['concerned_person'],
  ]);
       
-     $bank_branch->save();
+    // Adjust the data array to include the password for the email
+    $data['password'] = $password; // Add this line to include the password in the data array
+    
+    // Now, you can safely pass $data to the view or mail class, and it will include the 'password'
+
+    Mail::send('admin.bank_branch_mail', $data, function($message) use ($data){
+        $message->to($data['email'], $data['concerned_person']);  
+        $message->subject('Login with this credentials');   
+    });
+
  
   //return response()->json(['success'=>'Files uploaded successfully.']); 
   

@@ -59,7 +59,7 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="sort">Password</label>
                             <input class="form-control @error('password') is-invalid @enderror" type="text"
                                 name="password" id="password" placeholder="Password" value="{{ $department->password }}" />
@@ -69,7 +69,7 @@
                                 </span>
                             @enderror
                         </div>
-                       
+                        -->
                         <div class="mb-3">
                             <label for="sort">Sort Number</label>
                             <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
