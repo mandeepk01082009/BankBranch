@@ -47,9 +47,20 @@
                         </div>
                         <div class="mb-3">
                             <label for="sort">Contact</label>
-                            <input class="form-control @error('contact') is-invalid @enderror" type="text"
-                                name="contact" id="contact" placeholder="Contact" />
-                            @error('contact')
+                            <input class="form-control @error('mobile') is-invalid @enderror" type="text"
+                                name="mobile" id="mobile" placeholder="Mobile" />
+                            @error('mobile')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sort">Password</label>
+                            <input class="form-control @error('password') is-invalid @enderror" type="text"
+                                name="password" id="password" placeholder="Password" />
+                            @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

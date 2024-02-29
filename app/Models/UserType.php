@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DcosContact extends Model
+class UserType extends Model
 {
     use HasFactory;
-    protected $table = 'dcos_contacts';
+    protected $table = 'user_types';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'sort_col',
-        'email',
-        'mobile',
-        'bank_name',
-        'dco_name',
+        'name',
+        'active',
     ];
 }

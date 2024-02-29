@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Department; 
+use App\Models\User; 
 use Illuminate\Support\Facades\DB;
 
 class DepartmentController extends Controller
@@ -22,16 +23,18 @@ class DepartmentController extends Controller
         'department_name' => 'required|string|max:255',
         'contact_person' => 'required|string|max:255',
         'email' => 'required|email',  
-        'contact' => 'required',    
+        'mobile' => 'required',   
+        'password' => 'required',    
  ]);
- 
- $department = Department::create([
+ $department = User::create([
     'sort_col' => $request->input('sort_col'), 
     'department_name' => $request->input('department_name'), 
     'contact_person' => $request->input('contact_person'), 
     'email' => $request->input('email'), 
-    'contact' => $request->input('contact'), 
-    'status' => 1, // Set the default value for the 'active' field 
+    'mobile' => $request->input('mobile'), 
+    'password' => $request->input('password'), 
+    'is_active' => 1, // Set the default value for the 'active' field 
+    'user_type_id' => 4,
  ]);
       
      $department->save();
@@ -44,14 +47,14 @@ class DepartmentController extends Controller
 
  public function show()
     {  
-        $department = Department::where('status',1)->orderBy('sort_col', 'asc')->get();
+        $department = User::where('is_active',1)->where('user_type_id',4)->orderBy('sort_col', 'asc')->get();
         return view('admin.department.index')           
             ->with('department', $department);         
     }
 
     public function edit(string $id)
     {
-        $department = Department::find($id);                 
+        $department = User::find($id);                 
         // show the edit form and pass the   
         return view('admin.department.edit',compact('department'));         
     }    
@@ -59,7 +62,7 @@ class DepartmentController extends Controller
     public function update(Request $request, string $id)
     {
        
-        $department = Department::find($id);  
+        $department = User::find($id);  
         
         $department->sort_col = $request->input('sort_col');
 
@@ -67,11 +70,15 @@ class DepartmentController extends Controller
 
         $department->contact_person = $request->input('contact_person');
 
-        $department->contact = $request->input('contact');
+        $department->mobile = $request->input('mobile');
 
         $department->email = $request->input('email');
 
-        $department->status = 1;
+        $department->password = $request->input('password');
+
+        $department->is_active = 1;
+
+        $department->user_type_id = 4;
     
     $department->update();                 
 
@@ -87,7 +94,7 @@ class DepartmentController extends Controller
 
     public function destroy(string $id)             
 {
-    $department = DB::table('departments')->where('id', $id)->update(['status' => 0]);
+    $department = DB::table('users')->where('id', $id)->update(['is_active' => 0]);
 
     return redirect('/cms-admin/departments');
 }

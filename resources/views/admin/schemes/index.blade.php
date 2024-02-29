@@ -32,7 +32,7 @@
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
                                         <td>{{ $schemes->sort_col }}</td>
-                                        <td>{{ $schemes->department->department_name }}</td>
+                                        <td>{{ $schemes->user->department_name }}</td>
                                         <td>{{ $schemes->scheme_category }}</td>
                                         <td><textarea>{{ $schemes->description_of_scheme }}</textarea></td>
                                         <td>{{ $schemes->eligibility_criteria }}</td>

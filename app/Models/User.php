@@ -21,6 +21,18 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'sort_col',
+        'email',
+        'mobile',
+        'bank_name',
+        'dco_name',
+        'is_active',
+        'user_type_id',
+        'bank_id',
+        'branch_address',
+        'concerned_person',
+        'department_name',
+        'contact_person',
     ];
 
     /**
@@ -42,4 +54,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function user()
+    {
+         return $this->hasOne(User::class,'id','bank_id');
+    }
 }

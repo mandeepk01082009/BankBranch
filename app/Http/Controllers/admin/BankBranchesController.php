@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DcosContact; 
 use App\Models\BankBranches;   
+use App\Models\User;   
 use Illuminate\Support\Facades\DB;
 
 class BankBranchesController extends Controller
 {
     public function index()
     {
-        $bank = DcosContact::where('status',1)->get();
+        $bank = User::where('is_active',1)->get();
         return view('admin.BankBranches.form',compact('bank'));              
     }
 
@@ -24,17 +25,20 @@ class BankBranchesController extends Controller
         'email' => 'required|email',  
         'mobile' => 'required',  
         'branch_address' => 'required',
-        'concerned_person' => 'required',  
+        'concerned_person' => 'required',
+        'password' => 'required',  
  ]);
  
- $bank_branch = BankBranches::create([
+ $bank_branch = User::create([
     'sort_col' => $request->input('sort_col'), 
     'bank_id' => $request->input('bank_id'), 
     'email' => $request->input('email'), 
     'mobile' => $request->input('mobile'), 
-    'status' => 1, // Set the default value for the 'active' field 
+    'is_active' => 1, // Set the default value for the 'active' field 
+    'user_type_id' => 3, 
     'branch_address' => $request->input('branch_address'), 
     'concerned_person' => $request->input('concerned_person'), 
+    'password' => $request->input('password'), 
  ]);
       
      $bank_branch->save();
@@ -47,15 +51,15 @@ class BankBranchesController extends Controller
 
  public function show()
     {  
-        $bank_branch = BankBranches::where('status',1)->orderBy('sort_col', 'asc')->get();
+        $bank_branch = User::where('is_active',1)->where('user_type_id',3)->orderBy('sort_col', 'asc')->get();
         return view('admin.BankBranches.index')           
             ->with('bank_branch', $bank_branch);       
     }
 
     public function edit(string $id)
     {
-        $bank = DcosContact::where('status',1)->get();
-        $bank_branch = BankBranches::find($id);                 
+        $bank = User::where('is_active',1)->get();
+        $bank_branch = User::find($id);                 
         // show the edit form and pass the   
         return view('admin.BankBranches.edit',compact('bank_branch','bank'));         
     }    
@@ -77,7 +81,9 @@ class BankBranchesController extends Controller
 
         $bank_branch->email = $request->input('email');
 
-        $bank_branch->status = 1;
+        $bank_branch->is_active = 1;
+
+        $bank_branch->user_type_id = 3;
     
     $bank_branch->update();                 
 
@@ -86,7 +92,7 @@ class BankBranchesController extends Controller
 
     public function destroy(string $id)             
     {
-        $dcosContact = DB::table('bank_branches')->where('id', $id)->update(['status' => 0]);
+        $dcosContact = DB::table('users')->where('id', $id)->update(['is_active' => 0]);
     
         return redirect('/cms-admin/bank_branches');
     }

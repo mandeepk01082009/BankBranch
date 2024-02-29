@@ -20,9 +20,9 @@ class Schemes extends Model
         'active',
     ];
 
-    public function department()
+    public function user()
     {
-         return $this->hasOne(Department::class,'id','department_id');
+         return $this->hasOne(User::class,'id','department_id');
     }
 
 }

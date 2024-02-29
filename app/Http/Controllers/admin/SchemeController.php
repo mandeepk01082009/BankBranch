@@ -12,7 +12,7 @@ class SchemeController extends Controller
 {
     public function index()
     {
-        $department = Department::where('status',1)->get();
+        $department = User::where('status',1)->get();
         return view('admin.schemes.form',compact('department'));              
     }
    
@@ -54,7 +54,7 @@ class SchemeController extends Controller
 
     public function edit(string $id)
     {
-        $department = Department::where('status',1)->get();
+        $department = User::where('status',1)->get();
         $scheme = Schemes::find($id);                 
         // show the edit form and pass the   
         return view('admin.schemes.edit',compact('scheme','department'));         

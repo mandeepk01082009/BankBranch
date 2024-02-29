@@ -32,12 +32,12 @@
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
                                         <td>{{ $bank_branches->sort_col }}</td>
-                                        <td>{{ $bank_branches->bankName->bank_name ?? '-' }}</td>
+                                        <td>{{ $bank_branches->user->bank_name ?? '-' }}</td>
                                         <td>{{ $bank_branches->branch_address }}</td>
                                         <td>{{ $bank_branches->concerned_person }}</td>
                                         <td>{{ $bank_branches->mobile }}</td>
                                         <td>{{ $bank_branches->email }}</td>
-                                        <td>{{ $bank_branches->status == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $bank_branches->is_active == 1 ? 'Active' : ''  }}</td>
                                         <td>{{ $bank_branches->created_at }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('edit_bank_branch', $bank_branches->id) }}"

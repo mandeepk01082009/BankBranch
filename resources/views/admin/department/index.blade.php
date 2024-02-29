@@ -34,8 +34,8 @@
                                         <td>{{ $departments->department_name }}</td>
                                         <td>{{ $departments->contact_person }}</td>
                                         <td>{{ $departments->email }}</td>
-                                        <td>{{ $departments->contact }}</td>
-                                        <td>{{ $departments->status == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $departments->mobile }}</td>
+                                        <td>{{ $departments->is_active == 1 ? 'Active' : ''  }}</td>
                                         <td>{{ $departments->created_at }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('edit_department', $departments->id) }}"
