@@ -16,7 +16,7 @@
 
     <title>Crteated Monetary System</title>
     <link rel="icon" type="image/x-icon" href="{{asset('favicon.ico')}}">
-    @include('bank_nodals.layout.partials.styles')     
+    @include('department.layout.partials.styles')     
 
     @yield('styles')    
 
@@ -27,7 +27,7 @@
 <body>
 
     {{-- MAIN NAVIGATION BAR --}}
-    @include('bank_nodals.layout.partials.header')   
+    @include('department.layout.partials.header')   
 
     {{-- MAIN CONTENT --}}
     <div class="main">
@@ -35,9 +35,9 @@
     </div>
 
     {{-- FOOTER --}}
-    @include('bank_nodals.layout.partials.footer')       
+    @include('department.layout.partials.footer')       
 
-    @include('bank_nodals.layout.partials.scripts')
+    @include('department.layout.partials.scripts')
  
     @yield('scripts')
 

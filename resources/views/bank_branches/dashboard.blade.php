@@ -33,7 +33,7 @@
         </div>
     </div>
 </x-app-layout> --}}
-@extends('bank_nodals.layout.app')            
+@extends('bank_branches.layout.app')            
 
 @section('styles')    
 @endsection

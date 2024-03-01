@@ -17,11 +17,23 @@
         @csrf
         @method('patch')
 
+        @if($user->department_name)
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-input-label for="department_name" :value="__('Name of Department')" />
+            <x-text-input id="department_name" name="department_name" type="text" class="mt-1 block w-full" :value="old('department_name', $user->department_name)" required autofocus autocomplete="department_name" />
+            <x-input-error class="mt-2" :messages="$errors->get('department_name')" />
         </div>
+        @endif
+
+        @if($user->contact_person)
+        <div>
+            <x-input-label for="contact_person" :value="__('Contact Person')" />
+            <x-text-input id="contact_person" name="contact_person" type="text" class="mt-1 block w-full" :value="old('contact_person', $user->contact_person)" required autofocus autocomplete="contact_person" />
+            <x-input-error class="mt-2" :messages="$errors->get('contact_person')" />
+        </div>
+        @endif
+
+        
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -46,6 +58,20 @@
                 </div>
             @endif
         </div>
+
+        <div>
+            <x-input-label for="mobile" :value="__('Contact')" />
+            <x-text-input id="mobile" name="mobile" type="text" class="mt-1 block w-full" :value="old('mobile', $user->mobile)" required autofocus autocomplete="mobile" />
+            <x-input-error class="mt-2" :messages="$errors->get('mobile')" />
+        </div>
+
+        @if($user->name)
+        <div>
+            <x-input-label for="name" :value="__('Name')" />
+            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        </div>
+        @endif
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>

@@ -28,8 +28,34 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // dd(auth()->user()->user_type_id);
+        // if(auth()->user()->user_type_id == 1){
+        //     return redirect('cms-admin');
+        // }
+        // else if(auth()->user()->user_type_id == 2){
+        //     return redirect('bank-nodals');
+        // }
+        // else if(auth()->user()->user_type_id == 3){
+        //     return redirect('bank-branhes');
+        // }
+        // else if(auth()->user()->user_type_id == 4){
+        //     return redirect('department');
+        // }
+        if (auth()->user()->user_type_id == 1) {
+            return redirect()->route('dashboard');
+        } elseif (auth()->user()->user_type_id == 2) {
+            return redirect()->route('bank_nodals_dashboard');
+        } elseif (auth()->user()->user_type_id == 3) {
+            return redirect()->route('bank_branches_dashboard');
+        } elseif (auth()->user()->user_type_id == 4) {
+            return redirect()->route('department_dashboard');
+        } 
+        // else {
+        //     // Handle other user types or invalid user_type_id
+        //     return redirect()->route('dashboard'); // For example, redirect to a default dashboard
+        // }
+        
+        
     }
 
     /**

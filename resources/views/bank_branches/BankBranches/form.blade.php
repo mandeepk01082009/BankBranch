@@ -1,4 +1,4 @@
-@extends('bank_nodals.layout.app')
+@extends('bank_branches.layout.app')
 
 @section('styles')
 @endsection
@@ -9,15 +9,20 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('bank_nodals') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
-                    <h6 class="mb-4">Add Bank Nodal</h6>
-                    <form action="{{ route('store_bank_nodal') }}" method="post">
+                    <a href="{{ route('branches') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
+                    <h6 class="mb-4">Add Bank Branch</h6>
+                    <form action="{{ route('store-branch') }}" method="post">
                         @csrf
                        
                         <div class="mb-3">
                             <label for="sort">Bank Name</label>
-                            <input class="form-control @error('bank_name') is-invalid @enderror" type="text"
-                                name="bank_name" id="bank_name" placeholder="Bank Name" />
+                            <select class="form-select" name="bank_id" >  
+                                <option value="">Choose Bank</option>
+                                @foreach($bank as $banks)
+                                <option value="{{$banks->id}}">{{$banks->bank_name}}</option>
+                             @endforeach    
+                                   
+                            </select>
                             @error('bank_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -25,10 +30,20 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="sort">DCO Name</label>
-                            <input class="form-control @error('dco_name') is-invalid @enderror" type="text"
-                                name="dco_name" id="dco_name" placeholder="DCO Name" />
-                            @error('dco_name')
+                            <label for="sort">Branch Address</label>
+                            <input class="form-control @error('branch_address') is-invalid @enderror" type="text"
+                                name="branch_address" id="branch_address" placeholder="Branch Address" />
+                            @error('branch_address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="sort">Concerned Person</label>
+                            <input class="form-control @error('concerned_person') is-invalid @enderror" type="text"
+                                name="concerned_person" id="concerned_person" placeholder="Concerned Person" />
+                            @error('concerned_person')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -55,7 +70,8 @@
                             </span>
                         @enderror
                         </div>
-                        {{-- <div class="mb-3">
+
+                        <!-- <div class="mb-3">
                             <label for="sort">Password</label>
                             <input class="form-control @error('password') is-invalid @enderror" type="text"
                                 name="password" id="password" placeholder="Password" />
@@ -64,7 +80,9 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> --}}
+                        </div> -->
+                       
+                       
                         <div class="mb-3">
                             <label for="sort">Sort Number</label>
                             <input class="form-control @error('sort_col') is-invalid @enderror" type="text"

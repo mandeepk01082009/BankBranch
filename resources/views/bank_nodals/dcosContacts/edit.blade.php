@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('bank_nodals.layout.app')
 
 @section('styles')
 @endsection
@@ -9,9 +9,9 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('dcos_contacts') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
+                    <a href="{{ route('bank_nodals') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
                     <h6 class="mb-4">Edit Bank</h6>
-                    <form action="{{ route('update_dcos_contact',$dcosContacts->id) }}" method="post">
+                    <form action="{{ route('update_bank_nodal',$dcosContacts->id) }}" method="post">
                         @csrf
                         @method('PATCH')               
 
@@ -58,7 +58,7 @@
                             </span>
                         @enderror
                         </div>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="sort">Password</label>
                             <input class="form-control @error('password') is-invalid @enderror" type="text"
                                 name="password" id="password" placeholder="Password" value="{{ $dcosContacts->password }}" />
@@ -67,7 +67,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="mb-3">
                             <label for="sort">Sort Number</label>
                             <input class="form-control @error('sort_col') is-invalid @enderror" type="text"

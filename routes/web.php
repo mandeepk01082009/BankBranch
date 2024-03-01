@@ -18,24 +18,62 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::group(['namespace' => 'admin','prefix'=>'bank-nodals', 'middleware' => ['auth', 'verified']], function() {
-//     Route::get('/', function () {
-//         return view('dashboard');
-//     })->name('dashboard');
+Route::group(['namespace' => 'admin','prefix'=>'bank-nodals', 'middleware' => ['auth', 'verified']], function() {
+    Route::get('/', function () {
+        return view('bank_nodals.dashboard');
+    })->name('bank_nodals_dashboard');
 
-//     Route::get('/add_dcos_contact', [App\Http\Controllers\admin\DcosContactsController::class, 'index'])->name('add_dcos_contact'); 
+    Route::get('/add_bank_nodal', [App\Http\Controllers\BankNodalsController::class, 'index'])->name('add_bank_nodal'); 
 
-//     Route::post('/store_dcos_contact', [App\Http\Controllers\admin\DcosContactsController::class, 'create'])->name('store_dcos_contact');
+    Route::post('/store_bank_nodal', [App\Http\Controllers\BankNodalsController::class, 'create'])->name('store_bank_nodal');
 
-//     Route::get('dcos_contacts', [App\Http\Controllers\admin\DcosContactsController::class, 'show'])->name('dcos_contacts'); 
+    Route::get('bank_nodals', [App\Http\Controllers\BankNodalsController::class, 'show'])->name('bank_nodals'); 
 
-//     Route::get('/edit_dcos_contact/{id}', [App\Http\Controllers\admin\DcosContactsController::class, 'edit'])->name('edit_dcos_contact');
+    Route::get('/edit_bank_nodal/{id}', [App\Http\Controllers\BankNodalsController::class, 'edit'])->name('edit_bank_nodal');
     
-//     Route::patch('/update_dcos_contact/{id}',[App\Http\Controllers\admin\DcosContactsController::class, 'update'])->name('update_dcos_contact'); 
+    Route::patch('/update_bank_nodal/{id}',[App\Http\Controllers\BankNodalsController::class, 'update'])->name('update_bank_nodal'); 
 
-//     Route::delete('delete_dcos_contact/{id}',[App\Http\Controllers\admin\DcosContactsController::class, 'destroy'])->name('delete_dcos_contact');  
+    Route::delete('delete_bank_nodal/{id}',[App\Http\Controllers\BankNodalsController::class, 'destroy'])->name('delete_bank_nodal');  
 
-// });
+});
+
+Route::group(['namespace' => 'admin','prefix'=>'bank-branches', 'middleware' => ['auth', 'verified']], function() {
+    Route::get('/', function () {
+        return view('bank_branches.dashboard');
+    })->name('bank_branches_dashboard');
+
+    Route::get('/add-branch', [App\Http\Controllers\BankBranchController::class, 'index'])->name('add-branch'); 
+
+    Route::post('/store-branch', [App\Http\Controllers\BankBranchController::class, 'create'])->name('store-branch');
+
+    Route::get('branches', [App\Http\Controllers\BankBranchController::class, 'show'])->name('branches'); 
+
+    Route::get('/edit-branch/{id}', [App\Http\Controllers\BankBranchController::class, 'edit'])->name('edit-branch');
+    
+    Route::patch('/update-branch/{id}',[App\Http\Controllers\BankBranchController::class, 'update'])->name('update-branch'); 
+
+    Route::delete('delete-branch/{id}',[App\Http\Controllers\BankBranchController::class, 'destroy'])->name('delete-branch');  
+
+});
+
+Route::group(['namespace' => 'admin','prefix'=>'department', 'middleware' => ['auth', 'verified']], function() {
+    Route::get('/', function () {
+        return view('department.dashboard');
+    })->name('department_dashboard');
+
+    Route::get('/add_dept', [App\Http\Controllers\DepartmentController::class, 'index'])->name('add_dept'); 
+
+    Route::post('/store_dept', [App\Http\Controllers\DepartmentController::class, 'create'])->name('store_dept');
+
+    Route::get('depts', [App\Http\Controllers\DepartmentController::class, 'show'])->name('depts'); 
+
+    Route::get('/edit_dept/{id}', [App\Http\Controllers\DepartmentController::class, 'edit'])->name('edit_dept');
+    
+    Route::patch('/update_dept/{id}',[App\Http\Controllers\DepartmentController::class, 'update'])->name('update_dept'); 
+
+    Route::delete('delete_dept/{id}',[App\Http\Controllers\DepartmentController::class, 'destroy'])->name('delete_dept');  
+
+});
 
 Route::group(['namespace' => 'admin','prefix'=>'cms-admin', 'middleware' => ['auth', 'verified']], function() {
     Route::get('/', function () {

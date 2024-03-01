@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\DcosContact; 
-use App\Models\BankBranches;   
 use App\Models\User;   
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail; 
@@ -13,12 +10,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str; // Add this line
 use App\Mail\UserCreated;
 
-class BankBranchesController extends Controller
+class BankBranchController extends Controller
 {
     public function index()
     {
         $bank = User::where('is_active',1)->where('user_type_id',2)->get();
-        return view('admin.BankBranches.form',compact('bank'));              
+        return view('bank_branches.BankBranches.form',compact('bank'));              
     }
 
     
@@ -61,14 +58,14 @@ class BankBranchesController extends Controller
  
   //return response()->json(['success'=>'Files uploaded successfully.']); 
   
-  return redirect('/cms-admin/bank_branches');   
+  return redirect('/bank-branches/branches');   
 
 }
 
  public function show()
     {  
         $bank_branch = User::where('is_active',1)->where('user_type_id',3)->orderBy('sort_col', 'asc')->get();
-        return view('admin.BankBranches.index')           
+        return view('bank_branches.BankBranches.index')           
             ->with('bank_branch', $bank_branch);       
     }
 
@@ -77,7 +74,7 @@ class BankBranchesController extends Controller
         $bank = User::where('is_active',1)->where('user_type_id',2)->get();
         $bank_branch = User::find($id);                 
         // show the edit form and pass the   
-        return view('admin.BankBranches.edit',compact('bank_branch','bank'));         
+        return view('bank_branches.BankBranches.edit',compact('bank_branch','bank'));         
     }    
 
     public function update(Request $request, string $id)
@@ -103,14 +100,14 @@ class BankBranchesController extends Controller
     
     $bank_branch->update();                 
 
-    return redirect('/cms-admin/bank_branches');        
+    return redirect('/bank-branches/branches');        
     }
 
     public function destroy(string $id)             
     {
         $dcosContact = DB::table('users')->where('id', $id)->update(['is_active' => 0]);
     
-        return redirect('/cms-admin/bank_branches');
+        return redirect('/bank-branches/branches');
     }
 
 }

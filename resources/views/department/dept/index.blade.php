@@ -1,4 +1,4 @@
-@extends('bank_nodals.layout.app')
+@extends('department.layout.app')
 
 @section('styles')
 @endsection
@@ -9,36 +9,36 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    {{-- <a href="{{ route('add_bank_nodal') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a> --}}
-                    <h6 class="mb-4">Bank Nodal</h6>
+                    <a href="{{ route('add_dept') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
+                    <h6 class="mb-4">Department</h6>
                     <div class="mt-3" style="margin-top: 10px;">
                         <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    {{-- <th scope="col">Sr. No.</th> --}}
-                                    <th scope="col">Bank Name</th>
-                                    <th scope="col">DCO Name</th>
-                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Sr. No.</th>
+                                    <th scope="col">Department Name</th>
+                                    <th scope="col">Contact Person</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Contact</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Created Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($dcosContact as $dcosContacts) --}}
+                                @foreach ($department as $departments)
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
-                                        {{-- <td>{{ $dcosContacts->sort_col }}</td> --}}
-                                        <td>{{ $dcosContact->bank_name }}</td>
-                                        <td>{{ $dcosContact->dco_name }}</td>
-                                        <td>{{ $dcosContact->mobile }}</td>
-                                        <td>{{ $dcosContact->email }}</td>
-                                        <td>{{ $dcosContact->is_active == 1 ? 'Active' : ''  }}</td>
-                                        <td>{{ $dcosContact->created_at }}</td>
+                                        <td>{{ $departments->sort_col }}</td>
+                                        <td>{{ $departments->department_name }}</td>
+                                        <td>{{ $departments->contact_person }}</td>
+                                        <td>{{ $departments->email }}</td>
+                                        <td>{{ $departments->mobile }}</td>
+                                        <td>{{ $departments->is_active == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $departments->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('edit_bank_nodal', $dcosContact->id) }}"
+                                            <a href="{{ route('edit_dept', $departments->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>
                                                 <i class="fa fa-edit" style="font-size:20px">
                                                 </i>
@@ -46,7 +46,7 @@
                                             
                                             
                                             <form method="POST"
-                                                action="{{ route('delete_bank_nodal', $dcosContact->id) }}">
+                                                action="{{ route('delete_dept', $departments->id) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <input name="_method" type="hidden" value="DELETE">
@@ -58,7 +58,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                {{-- @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                         </div>

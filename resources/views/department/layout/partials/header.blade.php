@@ -12,7 +12,7 @@
   <div class="sidebar pe-4 pb-3">
       <nav class="navbar bg-light navbar-light">
           <a href="{{ route('dashboard') }}" class="navbar-brand mx-4 mb-3">
-              <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Bank Nodals</h3>
+              <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Department</h3>
           </a>
           <div class="d-flex align-items-center ms-4 mb-4">
               <div class="position-relative">
@@ -21,12 +21,12 @@
               </div>
               <div class="ms-3">
                   <h6 class="mb-0">Jhon Doe</h6>
-                  <span>Bank Nodals</span>
+                  <span>Department</span>
               </div>
           </div>
           <div class="navbar-nav w-100">
-              <a href="{{ route('bank_nodals_dashboard') }}" class="nav-item nav-link  {{ request()->is('bank-nodals') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-              <a href="{{ route('bank_nodals') }}" class="nav-item nav-link {{ request()->is('bank-nodals/bank_nodals') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Bank Nodals </a>
+              <a href="{{ route('department_dashboard') }}" class="nav-item nav-link  {{ request()->is('department') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+              <a href="{{ route('depts') }}" class="nav-item nav-link {{ request()->is('department_dashboard/depts') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Department</a>
               {{-- <a href="{{ route('govt_schemes') }}" class="nav-item nav-link {{ request()->is('cms-admin/govt_schemes') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Govt Schemes</a>
               <a href="{{ route('bank_branches') }}" class="nav-item nav-link {{ request()->is('cms-admin/bank_branches') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Bank Branches</a>
               <a href="{{ route('services') }}" class="nav-item nav-link {{ request()->is('cms-admin/services') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Services</a>
@@ -74,7 +74,7 @@
                       <span class="d-none d-lg-inline-flex">John Doe</span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                    <a href="{{ route('profile.edit') }}" class="dropdown-item">My Profile</a>
+                      <a href="{{ route('profile.edit') }}" class="dropdown-item">My Profile</a>
                       <a href="#" class="dropdown-item">Settings</a>
                       {{-- <a href="#" class="dropdown-item">Log Out</a> --}}
                       <form method="POST" action="{{ route('logout') }}">
