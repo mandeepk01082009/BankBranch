@@ -187,6 +187,18 @@ Route::group(['namespace' => 'admin','prefix'=>'cms-admin', 'middleware' => ['au
     Route::patch('/update_scheme/{id}',[App\Http\Controllers\admin\SchemeController::class, 'update'])->name('update_scheme'); 
 
     Route::delete('delete_scheme/{id}',[App\Http\Controllers\admin\SchemeController::class, 'destroy'])->name('delete_scheme');
+
+    Route::get('/add_slider', [App\Http\Controllers\admin\SliderController::class, 'index'])->name('add_slider'); 
+
+    Route::post('/store_slider', [App\Http\Controllers\admin\SliderController::class, 'create'])->name('store_slider');
+
+    Route::get('sliders', [App\Http\Controllers\admin\SliderController::class, 'show'])->name('sliders'); 
+
+    Route::get('/edit_slider/{id}', [App\Http\Controllers\admin\SliderController::class, 'edit'])->name('edit_slider');
+    
+    Route::patch('/update_slider/{id}',[App\Http\Controllers\admin\SliderController::class, 'update'])->name('update_slider'); 
+
+    Route::delete('delete_slider/{id}',[App\Http\Controllers\admin\SliderController::class, 'destroy'])->name('delete_slider');
     
     });
 
