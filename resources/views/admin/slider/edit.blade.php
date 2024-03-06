@@ -12,7 +12,7 @@
                     <a href="{{ route('sliders') }}"><button type="button" class="btn btn-primary"
                             style="float: right;">Back</button></a>
                     <h6 class="mb-4">Edit slider</h6>
-                    <form action="{{ route('update_slider', $slider->id) }}" method="post">
+                    <form action="{{ route('update_slider', $slider->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
 
@@ -43,12 +43,12 @@
                             <label for="sort">Image</label>
                             <!-- Show the current image -->
                             @if ($slider->image)
-                                <img src="{{ asset('storage/' . $slider->image) }}" alt="Current image"
+                                <img src="{{ asset('storage/' . $slider->image) }}" 
                                     style="max-width: 70px; max-height: 70px;">
                             @endif
 
                             <!-- File input for image -->
-                            <input type="file" name="image" id="image"
+                            <input type="file" name="image" value="{{ $slider->image }}"
                                 class="form-control @error('image') is-invalid @enderror">
 
                             @error('image')

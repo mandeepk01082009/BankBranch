@@ -35,6 +35,8 @@
               <a href="{{ route('departments') }}" class="nav-item nav-link {{ request()->is('cms-admin/departments') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Department</a>
                <a href="{{ route('schemes') }}" class="nav-item nav-link {{ request()->is('cms-admin/schemes') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Schemes</a> 
               <a href="{{ route('advertisement_rates') }}" class="nav-item nav-link {{ request()->is('cms-admin/advertisement_rates') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Ads. Rates</a>
+              <a href="{{ route('sliders') }}" class="nav-item nav-link {{ request()->is('cms-admin/sliders') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Slider</a>
+              <a href="{{ route('csr_categories') }}" class="nav-item nav-link {{ request()->is('cms-admin/csr_categories') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>CSR Category</a>
               {{-- <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
               <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
               <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a> --}}

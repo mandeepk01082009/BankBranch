@@ -199,6 +199,30 @@ Route::group(['namespace' => 'admin','prefix'=>'cms-admin', 'middleware' => ['au
     Route::patch('/update_slider/{id}',[App\Http\Controllers\admin\SliderController::class, 'update'])->name('update_slider'); 
 
     Route::delete('delete_slider/{id}',[App\Http\Controllers\admin\SliderController::class, 'destroy'])->name('delete_slider');
+
+    Route::get('/add_csr_category', [App\Http\Controllers\admin\CSRCategoryController::class, 'index'])->name('add_csr_category'); 
+
+    Route::post('/store_csr_category', [App\Http\Controllers\admin\CSRCategoryController::class, 'create'])->name('store_csr_category');
+
+    Route::get('csr_categories', [App\Http\Controllers\admin\CSRCategoryController::class, 'show'])->name('csr_categories'); 
+
+    Route::get('/edit_csr_category/{id}', [App\Http\Controllers\admin\CSRCategoryController::class, 'edit'])->name('edit_csr_category');
+    
+    Route::patch('/update_csr_category/{id}',[App\Http\Controllers\admin\CSRCategoryController::class, 'update'])->name('update_csr_category'); 
+
+    Route::delete('delete_csr_category/{id}',[App\Http\Controllers\admin\CSRCategoryController::class, 'destroy'])->name('delete_csr_category');
+
+    Route::get('/add_csr_request', [App\Http\Controllers\admin\CSR_RequestController::class, 'index'])->name('add_csr_request'); 
+
+    Route::post('/store_csr_request', [App\Http\Controllers\admin\CSR_RequestController::class, 'create'])->name('store_csr_request');
+
+    Route::get('csr_requests', [App\Http\Controllers\admin\CSR_RequestController::class, 'show'])->name('csr_requests'); 
+
+    Route::get('/edit_csr_request/{id}', [App\Http\Controllers\admin\CSR_RequestController::class, 'edit'])->name('edit_csr_request');
+    
+    Route::patch('/update_csr_request/{id}',[App\Http\Controllers\admin\CSR_RequestController::class, 'update'])->name('update_csr_request'); 
+
+    Route::delete('delete_csr_request/{id}',[App\Http\Controllers\admin\CSR_RequestController::class, 'destroy'])->name('delete_csr_request');
     
     });
 

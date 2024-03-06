@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Schemes; 
+use App\Models\User; 
 use App\Models\Department; 
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +13,7 @@ class SchemeController extends Controller
 {
     public function index()
     {
-        $department = User::where('status',1)->get();
+        $department = User::where('is_active',1)->where('user_type_id',4)->get();
         return view('admin.schemes.form',compact('department'));              
     }
    
@@ -54,7 +55,7 @@ class SchemeController extends Controller
 
     public function edit(string $id)
     {
-        $department = User::where('status',1)->get();
+        $department = User::where('is_active',1)->where('user_type_id',4)->get();
         $scheme = Schemes::find($id);                 
         // show the edit form and pass the   
         return view('admin.schemes.edit',compact('scheme','department'));         
@@ -93,7 +94,7 @@ class SchemeController extends Controller
 
     public function destroy(string $id)             
 {
-    $scheme = DB::table('schemes')->where('id', $id)->update(['status' => 0]);
+    $scheme = DB::table('schemes')->where('id', $id)->update(['active' => 0]);
 
     return redirect('/cms-admin/schemes');
 }

@@ -9,46 +9,37 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('services') }}"><button type="button" class="btn btn-primary"
+                    <a href="{{ route('csr_categories') }}"><button type="button" class="btn btn-primary"
                             style="float: right;">Back</button></a>
-                    <h6 class="mb-4">Edit Service</h6>
-                    <form action="{{ route('update_service', $service->id) }}" method="post" enctype="multipart/form-data">
+                    <h6 class="mb-4">Edit CSR Category</h6>
+                    <form action="{{ route('update_csr_category', $csr_category->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
 
-                        <input type="hidden" name="id" id="id" value="{{ $service->id }}" enctype="multipart/form-data">
+                        <input type="hidden" name="id" id="id" value="{{ $csr_category->id }}" enctype="multipart/form-data">
 
                         <div class="mb-3">
-                            <label for="sort">Service Name</label>
-                            <input class="form-control @error('service_name') is-invalid @enderror" type="text"
-                                name="service_name" id="service_name" placeholder="Service Name"
-                                value="{{ $service->service_name }}" />
-                            @error('service_name')
+                            <label for="sort">Name of CSR Category</label>
+                            <input class="form-control @error('csr_category_name') is-invalid @enderror" type="text"
+                                name="csr_category_name" id="csr_category_name" value="{{ $csr_category->csr_category_name }}" placeholder="Name of CSR Category" />
+                            @error('csr_category_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label for="sort">Link</label>
-                            <input class="form-control @error('link') is-invalid @enderror" type="text" name="link"
-                                id="link" placeholder="Link" value="{{ $service->link }}" />
-                            @error('link')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+
+                        
                         <div class="mb-3">
                             <label for="sort">Logo</label>
                             <!-- Show the current logo -->
-                            @if ($service->logo)
-                                <img src="{{ asset('storage/' . $service->logo) }}" 
+                            @if ($csr_category->logo)
+                                <img src="{{ asset('storage/' . $csr_category->logo) }}" 
                                     style="max-width: 70px; max-height: 70px;">
                             @endif
 
                             <!-- File input for logo -->
-                            <input type="file" name="logo" id="logo"
+                            <input type="file" name="logo" id="logo" value="{{ $csr_category->logo }}"
                                 class="form-control @error('logo') is-invalid @enderror">
 
                             @error('logo')
@@ -59,7 +50,7 @@
                         <div class="mb-3">
                             <label for="sort">Sort Number</label>
                             <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
-                                name="sort_col" id="sort_col" placeholder="Sr No." value="{{ $service->sort_col }}" />
+                                name="sort_col" id="sort_col" placeholder="Sr No." value="{{ $csr_category->sort_col }}" />
                             @error('sort_col')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

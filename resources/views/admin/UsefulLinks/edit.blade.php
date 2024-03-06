@@ -12,7 +12,7 @@
                     <a href="{{ route('useful_links') }}"><button type="button" class="btn btn-primary"
                             style="float: right;">Back</button></a>
                     <h6 class="mb-4">Edit Link</h6>
-                    <form action="{{ route('update_useful_link', $useful_link->id) }}" method="post">
+                    <form action="{{ route('update_useful_link', $useful_link->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
 
@@ -43,7 +43,7 @@
                             <label for="sort">Logo</label>
                             <!-- Show the current logo -->
                             @if ($useful_link->logo)
-                                <img src="{{ asset('storage/' . $useful_link->logo) }}" alt="Current Logo"
+                                <img src="{{ asset('storage/' . $useful_link->logo) }}" 
                                     style="max-width: 70px; max-height: 70px;">
                             @endif
 
