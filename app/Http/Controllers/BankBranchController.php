@@ -64,7 +64,7 @@ class BankBranchController extends Controller
 
  public function show()
     {  
-        $bank_branch = User::where('is_active',1)->where('user_type_id',3)->orderBy('sort_col', 'asc')->get();
+        $bank_branch = auth()->user();
         return view('bank_branches.BankBranches.index')           
             ->with('bank_branch', $bank_branch);       
     }
@@ -84,7 +84,7 @@ class BankBranchController extends Controller
         
         $bank_branch->sort_col = $request->input('sort_col');
 
-        $bank_branch->bank_id = $request->input('bank_id');
+        // $bank_branch->bank_id = $request->input('bank_id');
 
         $bank_branch->concerned_person = $request->input('concerned_person');
 

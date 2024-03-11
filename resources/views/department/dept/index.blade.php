@@ -9,44 +9,44 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('add_dept') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
+                    {{-- <a href="{{ route('add_dept') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a> --}}
                     <h6 class="mb-4">Department</h6>
                     <div class="mt-3" style="margin-top: 10px;">
                         <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Sr. No.</th>
+                                    {{-- <th scope="col">Sr. No.</th> --}}
                                     <th scope="col">Department Name</th>
                                     <th scope="col">Contact Person</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Contact</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Created Date</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($department as $departments)
+                                {{-- @foreach ($department as $department) --}}
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
-                                        <td>{{ $departments->sort_col }}</td>
-                                        <td>{{ $departments->department_name }}</td>
-                                        <td>{{ $departments->contact_person }}</td>
-                                        <td>{{ $departments->email }}</td>
-                                        <td>{{ $departments->mobile }}</td>
-                                        <td>{{ $departments->is_active == 1 ? 'Active' : ''  }}</td>
-                                        <td>{{ $departments->created_at }}</td>
+                                        {{-- <td>{{ $department->sort_col }}</td> --}}
+                                        <td>{{ $department->department_name }}</td>
+                                        <td>{{ $department->contact_person }}</td>
+                                        <td>{{ $department->email }}</td>
+                                        <td>{{ $department->mobile }}</td>
+                                        <td>{{ $department->is_active == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $department->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('edit_dept', $departments->id) }}"
+                                            <a href="{{ route('edit_dept', $department->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>
                                                 <i class="fa fa-edit" style="font-size:20px">
                                                 </i>
                                             </a>
                                             
                                             
-                                            <form method="POST"
-                                                action="{{ route('delete_dept', $departments->id) }}">
+                                            {{-- <form method="POST"
+                                                action="{{ route('delete_dept', $department->id) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <input name="_method" type="hidden" value="DELETE">
@@ -55,10 +55,10 @@
                                                     data-toggle="tooltip" title='Delete'> <i class="fa fa-trash"
                                                         style="font-size:20px">
                                                     </i></button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                     </tr>
-                                @endforeach
+                                {{-- @endforeach --}}
                             </tbody>
                         </table>
                         </div>

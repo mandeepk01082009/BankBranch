@@ -60,7 +60,7 @@ class DepartmentController extends Controller
 
  public function show()
     {  
-        $department = User::where('is_active',1)->where('user_type_id',4)->orderBy('sort_col', 'asc')->get();
+        $department = auth()->user();
         return view('department.dept.index')           
             ->with('department', $department);         
     }

@@ -17,7 +17,7 @@
 
                         <input type="hidden" name="id" id="id" value="{{ $dcosContacts->id }}">  
                        
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="sort">Bank Name</label>
                             <input class="form-control @error('bank_name') is-invalid @enderror" type="text"
                                 name="bank_name" id="bank_name" placeholder="Bank Name" value="{{ $dcosContacts->bank_name }}" />
@@ -26,7 +26,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="mb-3">
                             <label for="sort">DCO Name</label>
                             <input class="form-control @error('dco_name') is-invalid @enderror" type="text"
@@ -68,7 +68,7 @@
                                 </span>
                             @enderror
                         </div> --}}
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="sort">Sort Number</label>
                             <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
                                 name="sort_col" id="sort_col" placeholder="Sr No." value="{{ $dcosContacts->sort_col }}" />
@@ -77,7 +77,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

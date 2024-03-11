@@ -83,7 +83,7 @@ class BankNodalsController extends Controller
         
         $dcosContacts->sort_col = $request->input('sort_col');
 
-        $dcosContacts->bank_name = $request->input('bank_name');
+       // $dcosContacts->bank_name = $request->input('bank_name');
 
         $dcosContacts->dco_name = $request->input('dco_name');
 

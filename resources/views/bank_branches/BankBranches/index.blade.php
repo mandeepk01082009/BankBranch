@@ -9,14 +9,14 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('add-branch') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
+                    {{-- <a href="{{ route('add-branch') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a> --}}
                     <h6 class="mb-4">Bank Branches</h6>
                     <div class="mt-3" style="margin-top: 10px;">
                         <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Sr. No.</th>
+                                    {{-- <th scope="col">Sr. No.</th> --}}
                                     <th scope="col">Bank Name</th>
                                     <th scope="col">Branch Address</th>
                                     <th scope="col">Concerned Person</th>
@@ -24,30 +24,30 @@
                                     <th scope="col">Email</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Created Date</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($bank_branch as $bank_branches)
+                                {{-- @foreach ($bank_branch as $bank_branch) --}}
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
-                                        <td>{{ $bank_branches->sort_col }}</td>
-                                        <td>{{ $bank_branches->user->bank_name ?? '-' }}</td>
-                                        <td>{{ $bank_branches->branch_address }}</td>
-                                        <td>{{ $bank_branches->concerned_person }}</td>
-                                        <td>{{ $bank_branches->mobile }}</td>
-                                        <td>{{ $bank_branches->email }}</td>
-                                        <td>{{ $bank_branches->is_active == 1 ? 'Active' : ''  }}</td>
-                                        <td>{{ $bank_branches->created_at }}</td>
+                                        {{-- <td>{{ $bank_branche->sort_col }}</td> --}}
+                                        <td>{{ $bank_branch->user->bank_name ?? '-' }}</td>
+                                        <td>{{ $bank_branch->branch_address }}</td>
+                                        <td>{{ $bank_branch->concerned_person }}</td>
+                                        <td>{{ $bank_branch->mobile }}</td>
+                                        <td>{{ $bank_branch->email }}</td>
+                                        <td>{{ $bank_branch->is_active == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $bank_branch->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('edit-branch', $bank_branches->id) }}"
+                                            <a href="{{ route('edit-branch', $bank_branch->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>
                                                 <i class="fa fa-edit" style="font-size:20px">
                                                 </i>
                                             </a>
                                             
-                                            <form method="POST"
-                                                action="{{ route('delete-branch', $bank_branches->id) }}">
+                                            {{-- <form method="POST"
+                                                action="{{ route('delete-branch', $bank_branch->id) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <input name="_method" type="hidden" value="DELETE">
@@ -56,10 +56,10 @@
                                                     data-toggle="tooltip" title='Delete'> <i class="fa fa-trash"
                                                         style="font-size:20px">
                                                     </i></button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                     </tr>
-                                @endforeach
+                                {{-- @endforeach --}}
                             </tbody>
                         </table>
                         </div>

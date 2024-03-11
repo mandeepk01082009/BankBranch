@@ -17,7 +17,7 @@
 
                         <input type="hidden" name="id" id="id" value="{{ $bank_branch->id }}">  
                        
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="sort">Bank Name</label>
                             <select class="form-select" name="bank_id" >  
                                 <option value="">Choose Bank</option>
@@ -31,7 +31,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="mb-3">
                             <label for="sort">Branch Address</label>
                             <input class="form-control @error('branch_address') is-invalid @enderror" type="text"
@@ -85,7 +85,7 @@
                             @enderror
                         </div> -->
                        
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="sort">Sort Number</label>
                             <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
                                 name="sort_col" id="sort_col" placeholder="Sr No." value="{{ $bank_branch->sort_col }}" />
@@ -94,7 +94,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

@@ -17,6 +17,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/apply-loan', function () {
+    return view('frontend/apply-loan');
+});
+Route::get('/apply-loan-otp', function () {
+    return view('frontend/apply-loan-otp');
+});
+Route::get('/track-loan-status', function () {
+    return view('frontend/track-loan-status');
+});
+Route::get('/about-us', function () {
+    return view('frontend/about-us');
+});
+Route::get('/contact-us', function () {
+    return view('frontend/contact-us');
+});
 
 Route::group(['namespace' => 'admin','prefix'=>'bank-nodals', 'middleware' => ['auth', 'verified']], function() {
     Route::get('/', function () {

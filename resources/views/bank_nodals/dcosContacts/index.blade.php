@@ -23,7 +23,7 @@
                                     <th scope="col">Email</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Created Date</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,7 +45,7 @@
                                             </a>
                                             
                                             
-                                            <form method="POST"
+                                            {{-- <form method="POST"
                                                 action="{{ route('delete_bank_nodal', $dcosContact->id) }}">
                                                 @csrf
                                                 @method('delete')
@@ -55,7 +55,7 @@
                                                     data-toggle="tooltip" title='Delete'> <i class="fa fa-trash"
                                                         style="font-size:20px">
                                                     </i></button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                     </tr>
                                 {{-- @endforeach --}}
