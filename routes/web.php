@@ -13,25 +13,36 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'index'])->name('index');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/apply-loan', function () {
-    return view('frontend/apply-loan');
-});
-Route::get('/apply-loan-otp', function () {
-    return view('frontend/apply-loan-otp');
-});
-Route::get('/track-loan-status', function () {
-    return view('frontend/track-loan-status');
-});
-Route::get('/about-us', function () {
-    return view('frontend/about-us');
-});
-Route::get('/contact-us', function () {
-    return view('frontend/contact-us');
-});
+Route::get('/apply-loan', [App\Http\Controllers\frontend\IndexController::class, 'applyLoan'])->name('apply-loan');
+
+Route::get('/apply-loan-otp', [App\Http\Controllers\frontend\IndexController::class, 'applyLoanOtp'])->name('apply-loan-otp');
+
+Route::get('/track-loan-status', [App\Http\Controllers\frontend\IndexController::class, 'trackLoanStatus'])->name('apply-loan-otp');
+
+Route::get('/about-us', [App\Http\Controllers\frontend\IndexController::class, 'aboutUs'])->name('about-us');
+
+Route::get('/contact-us', [App\Http\Controllers\frontend\IndexController::class, 'contactUs'])->name('contact-us');
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// Route::get('/apply-loan', function () {
+//     return view('frontend/apply-loan');
+// });
+// Route::get('/apply-loan-otp', function () {
+//     return view('frontend/apply-loan-otp');
+// });
+// Route::get('/track-loan-status', function () {
+//     return view('frontend/track-loan-status');
+// });
+// Route::get('/about-us', function () {
+//     return view('frontend/about-us');
+// });
+// Route::get('/contact-us', function () {
+//     return view('frontend/contact-us');
+// });
 
 Route::group(['namespace' => 'admin','prefix'=>'bank-nodals', 'middleware' => ['auth', 'verified']], function() {
     Route::get('/', function () {
