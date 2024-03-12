@@ -10,7 +10,7 @@
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
                     <a href="{{ route('dcos_contacts') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
-                    <h6 class="mb-4">Edit Bank</h6>
+                    <h6 class="mb-4">Edit Bank Nodal</h6>
                     <form action="{{ route('update_dcos_contact',$dcosContacts->id) }}" method="post">
                         @csrf
                         @method('PATCH')               

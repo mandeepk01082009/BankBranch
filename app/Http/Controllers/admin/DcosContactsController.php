@@ -24,7 +24,7 @@ class DcosContactsController extends Controller
     {
         $data = $request->validate([
             'sort_col' => 'required|integer',
-            'bank_name' => 'required|string|max:255',
+            'bank_name' => 'required|string|max:255|unique:users,bank_name',
             'dco_name' => 'required|string|max:255',
             'email' => 'required|email',
             'mobile' => 'required',

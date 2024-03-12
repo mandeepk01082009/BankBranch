@@ -10,7 +10,7 @@
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
                     <a href="{{ route('dcos_contacts') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
-                    <h6 class="mb-4">Add Bank</h6>
+                    <h6 class="mb-4">Add Bank Nodal</h6>
                     <form action="{{ route('store_dcos_contact') }}" method="post">
                         @csrf
                        
