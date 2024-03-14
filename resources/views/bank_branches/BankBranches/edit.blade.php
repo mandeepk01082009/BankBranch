@@ -74,16 +74,16 @@
                         @enderror
                         </div>
                        
-                        <!-- <div class="mb-3">
-                            <label for="sort">Password</label>
-                            <input class="form-control @error('password') is-invalid @enderror" type="text"
-                                name="password" id="password" placeholder="Password" value="{{ $bank_branch->password}}"  />
-                            @error('password')
+                        <div class="mb-3">
+                            <label for="sort">Block</label>
+                            <input class="form-control @error('block') is-invalid @enderror" type="text"
+                                name="block" id="block" placeholder="Block" value="{{ $bank_branch->block }}" />
+                            @error('block')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> -->
+                        </div>
                        
                         {{-- <div class="mb-3">
                             <label for="sort">Sort Number</label>

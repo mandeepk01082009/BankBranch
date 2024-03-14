@@ -81,7 +81,7 @@ class BankNodalsController extends Controller
        
         $dcosContacts = User::find($id);  
         
-        $dcosContacts->sort_col = $request->input('sort_col');
+        // $dcosContacts->sort_col = $request->input('sort_col');
 
        // $dcosContacts->bank_name = $request->input('bank_name');
 

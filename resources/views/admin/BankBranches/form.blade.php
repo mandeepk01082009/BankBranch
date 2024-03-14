@@ -30,9 +30,9 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="sort">Branch Address</label>
+                            <label for="sort">Branch</label>
                             <input class="form-control @error('branch_address') is-invalid @enderror" type="text"
-                                name="branch_address" id="branch_address" placeholder="Branch Address" />
+                                name="branch_address" id="branch_address" placeholder="Branch" />
                             @error('branch_address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -40,9 +40,9 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="sort">Concerned Person</label>
+                            <label for="sort">Name of Branch Head</label>
                             <input class="form-control @error('concerned_person') is-invalid @enderror" type="text"
-                                name="concerned_person" id="concerned_person" placeholder="Concerned Person" />
+                                name="concerned_person" id="concerned_person" placeholder="Name of Branch Head" />
                             @error('concerned_person')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -71,16 +71,16 @@
                         @enderror
                         </div>
 
-                        <!-- <div class="mb-3">
-                            <label for="sort">Password</label>
-                            <input class="form-control @error('password') is-invalid @enderror" type="text"
-                                name="password" id="password" placeholder="Password" />
-                            @error('password')
+                        <div class="mb-3">
+                            <label for="sort">Block</label>
+                            <input class="form-control @error('block') is-invalid @enderror" type="text"
+                                name="block" id="block" placeholder="Block" />
+                            @error('block')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> -->
+                        </div>
                        
                        
                         <div class="mb-3">

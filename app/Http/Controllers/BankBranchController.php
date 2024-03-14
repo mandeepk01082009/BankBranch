@@ -28,6 +28,7 @@ class BankBranchController extends Controller
         'mobile' => 'required',  
         'branch_address' => 'required',
         'concerned_person' => 'required',
+        'block' => 'required',
  ]);
 
  // Generate a random password
@@ -43,6 +44,7 @@ class BankBranchController extends Controller
     'user_type_id' => 3, 
     'branch_address' => $data['branch_address'],
     'concerned_person' => $data['concerned_person'],
+    'block' => $data['block'],
  ]);
       
     // Adjust the data array to include the password for the email
@@ -82,7 +84,7 @@ class BankBranchController extends Controller
        
         $bank_branch = User::find($id);  
         
-        $bank_branch->sort_col = $request->input('sort_col');
+        // $bank_branch->sort_col = $request->input('sort_col');
 
         // $bank_branch->bank_id = $request->input('bank_id');
 
@@ -93,6 +95,8 @@ class BankBranchController extends Controller
         $bank_branch->mobile = $request->input('mobile');
 
         $bank_branch->email = $request->input('email');
+
+        $bank_branch->block = $request->input('block');
 
         $bank_branch->is_active = 1;
 

@@ -15,6 +15,7 @@ class BankBranches extends Model
         'email',
         'mobile',
         'bank_id',
+        'block',
         'branch_address',
         'concerned_person',
         'status'

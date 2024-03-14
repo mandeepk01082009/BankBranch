@@ -31,6 +31,7 @@ class BankBranchesController extends Controller
         'mobile' => 'required',  
         'branch_address' => 'required',
         'concerned_person' => 'required',
+        'block' => 'required',
  ]);
 
  // Generate a random password
@@ -46,6 +47,7 @@ class BankBranchesController extends Controller
     'user_type_id' => 3, 
     'branch_address' => $data['branch_address'],
     'concerned_person' => $data['concerned_person'],
+    'block' => $data['block'],
  ]);
       
     // Adjust the data array to include the password for the email
@@ -96,6 +98,8 @@ class BankBranchesController extends Controller
         $bank_branch->mobile = $request->input('mobile');
 
         $bank_branch->email = $request->input('email');
+
+        $bank_branch->block = $request->input('block');
 
         $bank_branch->is_active = 1;
 

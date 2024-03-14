@@ -29,6 +29,7 @@ class User extends Authenticatable
         'is_active',
         'user_type_id',
         'bank_id',
+        'block',
         'branch_address',
         'concerned_person',
         'department_name',

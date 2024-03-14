@@ -18,10 +18,11 @@
                                 <tr>
                                     {{-- <th scope="col">Sr. No.</th> --}}
                                     <th scope="col">Bank Name</th>
-                                    <th scope="col">Branch Address</th>
-                                    <th scope="col">Concerned Person</th>
+                                    <th scope="col">Branch</th>
+                                    <th scope="col">Name of Branch Head</th>
                                     <th scope="col">Mobile</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Block</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Created Date</th>
                                     <th scope="col">Edit</th>
@@ -37,6 +38,7 @@
                                         <td>{{ $bank_branch->concerned_person }}</td>
                                         <td>{{ $bank_branch->mobile }}</td>
                                         <td>{{ $bank_branch->email }}</td>
+                                        <td>{{ $bank_branch->block }}</td>
                                         <td>{{ $bank_branch->is_active == 1 ? 'Active' : ''  }}</td>
                                         <td>{{ $bank_branch->created_at }}</td>
                                         <td class="text-center">
