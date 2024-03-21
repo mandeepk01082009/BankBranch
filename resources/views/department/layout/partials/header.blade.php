@@ -11,7 +11,7 @@
   <!-- Sidebar Start -->
   <div class="sidebar pe-4 pb-3">
       <nav class="navbar bg-light navbar-light">
-          <a href="{{ route('dashboard') }}" class="navbar-brand mx-4 mb-3">
+          <a href="{{ route('department_dashboard') }}" class="navbar-brand mx-4 mb-3">
               <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Department</h3>
           </a>
           <div class="d-flex align-items-center ms-4 mb-4">
@@ -20,7 +20,42 @@
                   <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
               </div>
               <div class="ms-3">
-                  <h6 class="mb-0">Jhon Doe</h6>
+                  <h6 class="mb-0">
+                    @if (session()->has('bank_nodal_id'))
+                        
+                    @php
+                        $bankNodal = DB::table('bank_nodals')
+                                        ->where('id', session('bank_nodal_id'))
+                                        ->first();
+                    @endphp
+                    @if ($bankNodal)
+                        <p>{{ $bankNodal->dco_name }}</p>
+                    @endif
+            
+                @elseif(session()->has('bank_branch_id'))
+                    @php
+                        $bankBranch = DB::table('bank_branches')
+                                        ->where('id', session('bank_branch_id'))
+                                        ->first();
+                    @endphp
+                    @if ($bankBranch)
+                        <p>{{ $bankBranch->concerned_person }}</p>
+                    @endif
+            
+                @elseif(session()->has('department_id'))
+                    @php
+                        $department = DB::table('departments')
+                                        ->where('id', session('department_id'))
+                                        ->first();
+                    @endphp
+                    @if ($department)
+                        <p>{{ $department->contact_person }}</p>
+                    @endif
+            
+                @elseif(auth()->check())
+                    <p>{{ auth()->user()->name }}</p>
+                    @endif
+                </h6>
                   <span>Department</span>
               </div>
           </div>
@@ -71,7 +106,43 @@
               <div class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                       <img class="rounded-circle me-lg-2" src="{{ asset('admin/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
-                      <span class="d-none d-lg-inline-flex">John Doe</span>
+                      <span class="d-none d-lg-inline-flex">
+                        @if (session()->has('bank_nodal_id'))
+                        
+                            @php
+                                $bankNodal = DB::table('bank_nodals')
+                                                ->where('id', session('bank_nodal_id'))
+                                                ->first();
+                            @endphp
+                            @if ($bankNodal)
+                                <p>{{ $bankNodal->dco_name }} (Bank Nodal)</p>
+                            @endif
+                    
+                        @elseif(session()->has('bank_branch_id'))
+                            @php
+                                $bankBranch = DB::table('bank_branches')
+                                                ->where('id', session('bank_branch_id'))
+                                                ->first();
+                            @endphp
+                            @if ($bankBranch)
+                                <p>{{ $bankBranch->concerned_person }} (Bank Branch)</p>
+                            @endif
+                    
+                        @elseif(session()->has('department_id'))
+                            @php
+                                $department = DB::table('departments')
+                                                ->where('id', session('department_id'))
+                                                ->first();
+                            @endphp
+                            @if ($department)
+                                <p>{{ $department->contact_person }} (Department)</p>
+                            @endif
+                    
+                        @elseif(auth()->check())
+                            <p>{{ auth()->user()->name }} (Regular User)</p>
+                        @endif
+                    
+                </span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                       <a href="{{ route('profile.edit') }}" class="dropdown-item">My Profile</a>

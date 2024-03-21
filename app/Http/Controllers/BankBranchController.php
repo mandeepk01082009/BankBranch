@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;   
+use App\Models\BankBranches;   
+use App\Models\BankNodal;   
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail; 
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,7 @@ class BankBranchController extends Controller
 {
     public function index()
     {
-        $bank = User::where('is_active',1)->where('user_type_id',2)->get();
+        $bank = BankNodal::where('is_active',1)->get();
         return view('bank_branches.BankBranches.form',compact('bank'));              
     }
 
@@ -34,7 +35,7 @@ class BankBranchController extends Controller
  // Generate a random password
  $password = Str::random(12); // Assuming you are using the Illuminate\Support\Str class
  
- $bank_branch = User::create([
+ $bank_branch = BankBranches::create([
     'sort_col' => $data['sort_col'],
     'bank_id' => $data['bank_id'], 
     'email' => $data['email'],
@@ -66,15 +67,27 @@ class BankBranchController extends Controller
 
  public function show()
     {  
-        $bank_branch = auth()->user();
+        $bankBranchId = session('bank_branch_id');
+        // Adjust the table and column names as necessary
+          $bank_branch = DB::table('bank_branches')
+           ->join('bank_nodals', 'bank_branches.bank_id', '=', 'bank_nodals.id') // Assuming 'bank_id' is the foreign key in 'bank_branches' that references 'banks'
+           ->where('bank_branches.id', $bankBranchId)
+           ->select('bank_branches.*', 'bank_nodals.bank_name as bank_name')
+           ->first();
+
+return view('bank_branches.BankBranches.index')->with('bank_branch', $bank_branch);
+
+    //     // Query the bank_nodals table to get the bank nodal details
+    //     $bank_branch = DB::table('bank_branches')->where('id', $bankBranchId)->first();
+    //    // dd($dcosContact);
         return view('bank_branches.BankBranches.index')           
             ->with('bank_branch', $bank_branch);       
     }
 
     public function edit(string $id)
     {
-        $bank = User::where('is_active',1)->where('user_type_id',2)->get();
-        $bank_branch = User::find($id);                 
+        $bank = BankNodal::where('is_active',1)->get();
+        $bank_branch = BankBranches::find($id);                 
         // show the edit form and pass the   
         return view('bank_branches.BankBranches.edit',compact('bank_branch','bank'));         
     }    
@@ -82,7 +95,7 @@ class BankBranchController extends Controller
     public function update(Request $request, string $id)
     {
        
-        $bank_branch = User::find($id);  
+        $bank_branch = BankBranches::find($id);  
         
         // $bank_branch->sort_col = $request->input('sort_col');
 

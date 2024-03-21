@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+//use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; // This is correctly placed
 
 class User extends Authenticatable
 {
@@ -60,4 +62,11 @@ class User extends Authenticatable
     {
          return $this->hasOne(User::class,'id','bank_id');
     }
+
+// Inside your User model or a dedicated service class
+public function isBankNodal()
+{
+    return DB::table('bank_nodals')->where('email', $this->email)->exists();
+}
+
 }

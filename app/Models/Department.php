@@ -15,8 +15,10 @@ class Department extends Model
         'department_name',
         'contact_person',
         'email',
-        'contact',
-        'status',
+        'mobile',
+        'is_active',
+        'password',
+        'user_type_id',
     ];
 
 }

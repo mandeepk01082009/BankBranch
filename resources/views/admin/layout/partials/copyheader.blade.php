@@ -102,43 +102,43 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         <img class="rounded-circle me-lg-2" src="{{ asset('admin/img/user.jpg') }}" alt=""
                             style="width: 40px; height: 40px;">
-                           
-                                <span class="d-none d-lg-inline-flex">
-                                    @if (session()->has('bank_nodal_id'))
-                                    
-                                        @php
-                                            $bankNodal = DB::table('bank_nodals')
-                                                            ->where('id', session('bank_nodal_id'))
-                                                            ->first();
-                                        @endphp
-                                        @if ($bankNodal)
-                                            <p>{{ $bankNodal->id }} (Bank Nodal)</p>
-                                        @endif
-                                
-                                    @elseif(session()->has('bank_branch_id'))
-                                        @php
-                                            $bankBranch = DB::table('bank_branches')
-                                                            ->where('id', session('bank_branch_id'))
-                                                            ->first();
-                                        @endphp
-                                        @if ($bankBranch)
-                                            <p>{{ $bankBranch->concerned_person }} (Bank Branch)</p>
-                                        @endif
-                                
-                                    @elseif(session()->has('department_id'))
-                                        @php
-                                            $department = DB::table('departments')
-                                                            ->where('id', session('department_id'))
-                                                            ->first();
-                                        @endphp
-                                        @if ($department)
-                                            <p>{{ $department->contact_person }} (Department)</p>
-                                        @endif
-                                
-                                    @elseif(auth()->check())
-                                        <p>{{ auth()->user()->name }} (Regular User)</p>
+                            <span class="d-none d-lg-inline-flex">
+                                @if (session()->has('bank_nodal_id'))
+                                {{ dd(yes) }}
+                                @else
+                                {{ dd(False) }}
+                                    {{-- @php
+                                        $bankNodal = DB::table('bank_nodals')
+                                                        ->where('id', session('bank_nodal_id'))
+                                                        ->first();
+                                    @endphp
+                                    @if ($bankNodal)
+                                        <p>{{ $bankNodal->id }} (Bank Nodal)</p> --}}
                                     @endif
-                                
+                            
+                                @elseif(session()->has('bank_branch_id'))
+                                    @php
+                                        $bankBranch = DB::table('bank_branches')
+                                                        ->where('id', session('bank_branch_id'))
+                                                        ->first();
+                                    @endphp
+                                    @if ($bankBranch)
+                                        <p>{{ $bankBranch->concerned_person }} (Bank Branch)</p>
+                                    @endif
+                            
+                                @elseif(session()->has('department_id'))
+                                    @php
+                                        $department = DB::table('departments')
+                                                        ->where('id', session('department_id'))
+                                                        ->first();
+                                    @endphp
+                                    @if ($department)
+                                        <p>{{ $department->contact_person }} (Department)</p>
+                                    @endif
+                            
+                                @elseif(auth()->check())
+                                    <p>{{ auth()->user()->name }} (Regular User)</p>
+                                @endif
                             </span>
                             
                     </a>

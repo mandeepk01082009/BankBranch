@@ -18,11 +18,13 @@ class BankBranches extends Model
         'block',
         'branch_address',
         'concerned_person',
-        'status'
+        'is_active',
+        'password',
+        'user_type_id',
     ];
 
     public function bankName()
     {
-         return $this->hasOne(DcosContact::class,'id','bank_id');
+         return $this->hasOne(BankNodal::class,'id','bank_id');
     }
 }

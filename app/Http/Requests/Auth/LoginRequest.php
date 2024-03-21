@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class LoginRequest extends FormRequest
 {
@@ -51,6 +53,18 @@ class LoginRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
     }
+
+    public function isBankNodalWithPasswordCheck($email, $password)
+{
+    $bankNodal = DB::table('bank_nodals')->where('email', $email)->first();
+    
+    if ($bankNodal && Hash::check($password, $bankNodal->password)) {
+        // The user is a bank nodal and the password is correct.
+        return true;
+    }
+
+    return false;
+}
 
     /**
      * Ensure the login request is not rate limited.

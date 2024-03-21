@@ -63,10 +63,12 @@ class BankNodalsController extends Controller
 
  public function show()
     {  
-       // $dcosContact = User::where('is_active',1)->where('user_type_id',2)->orderBy('sort_col', 'asc')->get();
-        // $dcosContact =  auth()->user();
-         $dcosContact = auth('bank_nodal')->user();
-         return view('bank_nodals.dcosContacts.index', compact('dcosContact')); 
+        $bankNodalId = session('bank_nodal_id');
+
+        // Query the bank_nodals table to get the bank nodal details
+        $bankNodal = DB::table('bank_nodals')->where('id', $bankNodalId)->first();
+       // dd($dcosContact);
+         return view('bank_nodals.dcosContacts.index', compact('bankNodal')); 
         // return view('bank_nodals.dcosContacts.index')           
         //     ->with('dcosContact', $dcosContact);         
     }
@@ -113,7 +115,7 @@ class BankNodalsController extends Controller
 
     public function destroy(string $id)             
 {
-    $dcosContact = DB::table('bank_nodals')->where('id', $id)->update(['is_active' => 0]);
+    $bankNodal = DB::table('bank_nodals')->where('id', $id)->update(['is_active' => 0]);
 
     return redirect('bank-nodals/bank_nodals');
 }

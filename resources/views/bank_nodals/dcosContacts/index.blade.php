@@ -31,14 +31,14 @@
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
                                         {{-- <td>{{ $dcosContacts->sort_col }}</td> --}}
-                                        <td>{{ $dcosContact->bank_name }}</td>
-                                        <td>{{ $dcosContact->dco_name }}</td>
-                                        <td>{{ $dcosContact->mobile }}</td>
-                                        <td>{{ $dcosContact->email }}</td>
-                                        <td>{{ $dcosContact->is_active == 1 ? 'Active' : ''  }}</td>
-                                        <td>{{ $dcosContact->created_at }}</td>
+                                        <td>{{ $bankNodal->bank_name }}</td>
+                                        <td>{{ $bankNodal->dco_name }}</td>
+                                        <td>{{ $bankNodal->mobile }}</td>
+                                        <td>{{ $bankNodal->email }}</td>
+                                        <td>{{ $bankNodal->is_active == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $bankNodal->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('edit_bank_nodal', $dcosContact->id) }}"
+                                            <a href="{{ route('edit_bank_nodal', $bankNodal->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>
                                                 <i class="fa fa-edit" style="font-size:20px">
                                                 </i>
@@ -46,7 +46,7 @@
                                             
                                             
                                             {{-- <form method="POST"
-                                                action="{{ route('delete_bank_nodal', $dcosContact->id) }}">
+                                                action="{{ route('delete_bank_nodal', $bankNodal->id) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <input name="_method" type="hidden" value="DELETE">

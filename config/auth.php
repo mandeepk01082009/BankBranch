@@ -41,10 +41,10 @@ return [
             'provider' => 'users',
         ],
 
-        'bank_nodal' => [
-            'driver' => 'session',
-            'provider' => 'bank_nodals',
-        ],
+        // 'bank_nodal' => [
+        //     'driver' => 'session',
+        //     'provider' => 'bank_nodals',
+        // ],
     ],
 
     /*
@@ -74,10 +74,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-        'bank_nodals' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\BankNodal::class,
-        ],
+        // 'bank_nodals' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\BankNodal::class,
+        // ],
     ],
 
     /*

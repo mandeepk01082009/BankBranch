@@ -33,7 +33,7 @@ class DepartmentController extends Controller
  // Generate a random password
  $password = Str::random(12); // Assuming you are using the Illuminate\Support\Str class
 
- $department = User::create([
+ $department = Department::create([
     'sort_col' => $data['sort_col'],
     'department_name' =>$data['department_name'], 
     'contact_person' => $data['contact_person'], 
@@ -62,14 +62,14 @@ class DepartmentController extends Controller
 
  public function show()
     {  
-        $department = User::where('is_active',1)->where('user_type_id',4)->orderBy('sort_col', 'asc')->get();
+        $department = Department::where('is_active',1)->orderBy('sort_col', 'asc')->get();
         return view('admin.department.index')           
             ->with('department', $department);         
     }
 
     public function edit(string $id)
     {
-        $department = User::find($id);                 
+        $department = Department::find($id);                 
         // show the edit form and pass the   
         return view('admin.department.edit',compact('department'));         
     }    
@@ -77,7 +77,7 @@ class DepartmentController extends Controller
     public function update(Request $request, string $id)
     {
        
-        $department = User::find($id);  
+        $department = Department::find($id);  
         
         $department->sort_col = $request->input('sort_col');
 
@@ -107,7 +107,7 @@ class DepartmentController extends Controller
 
     public function destroy(string $id)             
 {
-    $department = DB::table('users')->where('id', $id)->update(['is_active' => 0]);
+    $department = DB::table('departments')->where('id', $id)->update(['is_active' => 0]);
 
     return redirect('/cms-admin/departments');
 }

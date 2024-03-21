@@ -33,7 +33,7 @@
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
                                         {{-- <td>{{ $bank_branche->sort_col }}</td> --}}
-                                        <td>{{ $bank_branch->user->bank_name ?? '-' }}</td>
+                                        <td>{{ $bank_branch->bank_name ?? '-' }}</td>
                                         <td>{{ $bank_branch->branch_address }}</td>
                                         <td>{{ $bank_branch->concerned_person }}</td>
                                         <td>{{ $bank_branch->mobile }}</td>
