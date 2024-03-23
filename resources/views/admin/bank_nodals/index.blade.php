@@ -9,7 +9,7 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('add_dcos_contact') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
+                    <a href="{{ route('add-bank-nodal') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
                     <h6 class="mb-4">Bank Nodals</h6>
                     <div class="mt-3" style="margin-top: 10px;">
                         <div class="table-responsive">
@@ -27,18 +27,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dcosContact as $dcosContacts)
+                                @foreach ($bank_nodal as $bank_nodals)
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
-                                        <td>{{ $dcosContacts->sort_col }}</td>
-                                        <td>{{ $dcosContacts->bank_name }}</td>
-                                        <td>{{ $dcosContacts->dco_name }}</td>
-                                        <td>{{ $dcosContacts->mobile }}</td>
-                                        <td>{{ $dcosContacts->email }}</td>
-                                        <td>{{ $dcosContacts->is_active == 1 ? 'Active' : ''  }}</td>
-                                        <td>{{ $dcosContacts->created_at }}</td>
+                                        <td>{{ $bank_nodals->sort_col }}</td>
+                                        <td>{{ $bank_nodals->bank_name }}</td>
+                                        <td>{{ $bank_nodals->dco_name }}</td>
+                                        <td>{{ $bank_nodals->mobile }}</td>
+                                        <td>{{ $bank_nodals->email }}</td>
+                                        <td>{{ $bank_nodals->is_active == 1 ? 'Active' : ''  }}</td>
+                                        <td>{{ $bank_nodals->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('edit_dcos_contact', $dcosContacts->id) }}"
+                                            <a href="{{ route('edit-bank-nodal', $bank_nodals->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>
                                                 <i class="fa fa-edit" style="font-size:20px">
                                                 </i>
@@ -46,7 +46,7 @@
                                             
                                             
                                             <form method="POST"
-                                                action="{{ route('delete_dcos_contact', $dcosContacts->id) }}">
+                                                action="{{ route('delete-bank-nodal', $bank_nodals->id) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <input name="_method" type="hidden" value="DELETE">

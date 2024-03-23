@@ -15,7 +15,7 @@ class BankNodalsController extends Controller
 {
     public function index()
     {
-        return view('bank_nodals.dcosContacts.form');              
+        return view('bank_nodals.bankNodal.form');              
     }
 
    
@@ -33,7 +33,7 @@ class BankNodalsController extends Controller
         $password = Str::random(12); // Assuming you are using the Illuminate\Support\Str class
     
         // Correctly use the generated password when creating the user
-        $dcosContacts = BankNodal::create([
+        $bank_nodal = BankNodal::create([
             'sort_col' => $data['sort_col'],
             'bank_name' => $data['bank_name'],
             'dco_name' => $data['dco_name'],
@@ -68,54 +68,54 @@ class BankNodalsController extends Controller
         // Query the bank_nodals table to get the bank nodal details
         $bankNodal = DB::table('bank_nodals')->where('id', $bankNodalId)->first();
        // dd($dcosContact);
-         return view('bank_nodals.dcosContacts.index', compact('bankNodal')); 
-        // return view('bank_nodals.dcosContacts.index')           
+         return view('bank_nodals.bankNodal.index', compact('bankNodal')); 
+        // return view('bank_nodals.bankNodal.index')           
         //     ->with('dcosContact', $dcosContact);         
     }
 
     public function edit(string $id)
     {
-        $dcosContacts = BankNodal::find($id);                 
+        $bank_nodal = BankNodal::find($id);                 
         // show the edit form and pass the   
-        return view('bank_nodals.dcosContacts.edit',compact('dcosContacts'));         
+        return view('bank_nodals.bankNodal.edit',compact('bank_nodal'));         
     }    
 
     public function update(Request $request, string $id)
     {
        
-        $dcosContacts = BankNodal::find($id);  
+        $bank_nodal = BankNodal::find($id);  
         
-        // $dcosContacts->sort_col = $request->input('sort_col');
+        // $bank_nodal->sort_col = $request->input('sort_col');
 
-       // $dcosContacts->bank_name = $request->input('bank_name');
+       // $bank_nodal->bank_name = $request->input('bank_name');
 
-        $dcosContacts->dco_name = $request->input('dco_name');
+        $bank_nodal->dco_name = $request->input('dco_name');
 
-        $dcosContacts->mobile = $request->input('mobile');
+        $bank_nodal->mobile = $request->input('mobile');
 
-        // $dcosContacts->password = $request->input('password');
+        // $bank_nodal->password = $request->input('password');
 
-        $dcosContacts->email = $request->input('email');
+        $bank_nodal->email = $request->input('email');
 
-        $dcosContacts->is_active = 1;
+        $bank_nodal->is_active = 1;
 
-        $dcosContacts->user_type_id = 2;
+        $bank_nodal->user_type_id = 2;
     
-    $dcosContacts->update();                 
+    $bank_nodal->update();                 
 
     return redirect('bank-nodals/bank_nodals');        
     }
 
     // public function destroy(string $id)             
     // {
-    //     $dcosContacts = DcosContact::find($id);    
-    //     $dcosContacts->delete();        
+    //     $bank_nodal = DcosContact::find($id);    
+    //     $bank_nodal->delete();        
     //     return redirect('bank-nodals/bank_nodals');                                                                  
     // }
 
     public function destroy(string $id)             
 {
-    $bankNodal = DB::table('bank_nodals')->where('id', $id)->update(['is_active' => 0]);
+    $bank_nodal = DB::table('bank_nodals')->where('id', $id)->update(['is_active' => 0]);
 
     return redirect('bank-nodals/bank_nodals');
 }

@@ -117,6 +117,16 @@
                             @enderror
                         </div> 
                         <div class="mb-3">
+                            <label for="sort">Status</label>
+                            <input class="form-control @error('status') is-invalid @enderror" type="text"
+                                name="status" id="status" placeholder="Status" value="{{ $govt_schemes->status }}" />
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div> 
+                        <div class="mb-3">
                             <label for="sort">Remark</label>
                             <input class="form-control @error('remark') is-invalid @enderror" type="text"
                                 name="remark" id="remark" placeholder="Remark" value="{{ $govt_schemes->remark }}" />

@@ -45,7 +45,8 @@
                                         <td>{{ $govt_scheme->beneficaries_type }}</td>
                                         <td>{{ $govt_scheme->grant }}</td>
                                         <td>{{ $govt_scheme->source_of_information }}</td>
-                                        <td>{{ $govt_scheme->status == 1 ? 'Active' : '' }}</td>
+                                        <td>{{ $govt_scheme->status }}</td>
+                                        {{-- <td>{{ $govt_scheme->status == 1 ? 'Active' : '' }}</td> --}}
                                         <td>{{ $govt_scheme->remark }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('edit_govt_scheme', $govt_scheme->id) }}"

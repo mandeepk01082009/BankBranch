@@ -43,6 +43,14 @@ class DepartmentController extends Controller
     'is_active' => 1, // Set the default value for the 'active' field 
     'user_type_id' => 4,
  ]);
+
+ // Additionally, create a user in the users table
+ $user = User::create([
+    'email' => $data['email'],
+    'password' => $department->password,
+    'user_type_id' => 4, // Set the default value directly
+    'user_id' => $department->id, 
+]);    
       
      // Adjust the data array to include the password for the email
      $data['password'] = $password; // Add this line to include the password in the data array

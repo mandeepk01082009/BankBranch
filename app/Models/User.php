@@ -36,6 +36,7 @@ class User extends Authenticatable
         'concerned_person',
         'department_name',
         'contact_person',
+        'user_id',
     ];
 
     /**
@@ -67,6 +68,12 @@ class User extends Authenticatable
 public function isBankNodal()
 {
     return DB::table('bank_nodals')->where('email', $this->email)->exists();
+}
+
+public function bankNodal()
+{
+    // Assuming the relationship is based on the user_id column in the bank_nodals table
+    return $this->hasOne(BankNodal::class, 'user_id');
 }
 
 }

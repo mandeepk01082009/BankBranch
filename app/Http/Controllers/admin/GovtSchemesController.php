@@ -25,7 +25,7 @@ class GovtSchemesController extends Controller
         'objective' => 'required',  
         'beneficaries_type' => 'required',  
         'grant' => 'required',   
-        'source_of_information' => 'required',   
+       // 'source_of_information' => 'required',   
  ]);
  
  $govt_schemes = GovtSchemes::create([
@@ -39,7 +39,8 @@ class GovtSchemesController extends Controller
     'beneficaries_type' => $request->input('beneficaries_type'), 
     'grant' => $request->input('grant'), 
     'source_of_information' => $request->input('source_of_information'),
-    'status' => 1, // Set the default value for the 'active' field 
+    'status' => $request->input('status'),
+    'is_active' => 1, // Set the default value for the 'active' field 
     'remark' => $request->input('remark'), 
  ]);
       
@@ -53,7 +54,7 @@ class GovtSchemesController extends Controller
 
  public function show()
     {  
-        $govt_schemes = GovtSchemes::where('status',1)->orderBy('sort_col', 'asc')->get();
+        $govt_schemes = GovtSchemes::where('is_active',1)->orderBy('sort_col', 'asc')->get();
         return view('admin.govtSchemes.index')           
             ->with('govt_schemes', $govt_schemes);         
     }
@@ -86,9 +87,11 @@ class GovtSchemesController extends Controller
 
         $govt_schemes->grant = $request->input('grant');
 
+        $govt_schemes->status = $request->input('status');
+
         $govt_schemes->source_of_information = $request->input('source_of_information');
 
-        $govt_schemes->status = 1;
+        $govt_schemes->is_active = 1;
 
         $govt_schemes->remark = $request->input('remark');
     
@@ -106,7 +109,7 @@ class GovtSchemesController extends Controller
 
     public function destroy(string $id)             
 {
-    $dcosContact = DB::table('govt_schemes')->where('id', $id)->update(['status' => 0]);
+    $dcosContact = DB::table('govt_schemes')->where('id', $id)->update(['is_active' => 0]);
 
     return redirect('/cms-admin/govt_schemes');    
 }

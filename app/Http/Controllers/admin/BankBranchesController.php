@@ -50,6 +50,14 @@ class BankBranchesController extends Controller
     'concerned_person' => $data['concerned_person'],
     'block' => $data['block'],
  ]);
+
+  // Additionally, create a user in the users table
+  $user = User::create([
+    'email' => $data['email'],
+    'password' => $bank_branch->password,
+    'user_type_id' => 3, // Set the default value directly
+    'user_id' => $bank_branch->id, 
+]);    
       
     // Adjust the data array to include the password for the email
     $data['password'] = $password; // Add this line to include the password in the data array

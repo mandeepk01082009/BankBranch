@@ -35,10 +35,12 @@ class AuthenticatedSessionController extends Controller
         // First, try to authenticate as a regular user (assuming you still have some logic for that)
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
         if ($user && Auth::getProvider()->validateCredentials($user, $credentials)) {
-            Auth::login($user);
-            $request->session()->regenerate();
-            return redirect()->route('dashboard'); // or any other route specific to regular users
-        }
+            // Additional check for user_type_id to be 1
+            if ($user->user_type_id == 1) {
+                Auth::login($user);
+                $request->session()->regenerate();
+                return redirect()->route('dashboard'); // Redirect to dashboard or another route specific to user_type_id 1
+            }
     
         // If not a regular user, check if the user is a bank nodal
         $bankNodal = DB::table('bank_nodals')->where('email', $email)->first();
@@ -88,36 +90,39 @@ class AuthenticatedSessionController extends Controller
             'email' => __('auth.failed'),
         ]);
     }
+}
     
     // public function store(LoginRequest $request): RedirectResponse
     // {
     //     $request->authenticate();
-
+    
     //     $request->session()->regenerate();
-    //     if (auth()->user()->user_type_id == 1) {
+    
+    //     $user = auth()->user();
+    
+    //     if ($user->user_type_id == 1) {
     //         return redirect()->route('dashboard');
-    //     } elseif (auth()->check() && auth()->user()->isBankNodal()) {
-    //         return redirect()->route('bank_nodals_dashboard'); // Use the actual route name
-    //     }
-    //      elseif (auth()->user()->user_type_id == 3) {
+    //     } elseif ($user->user_type_id == 2) {
+    //         return redirect()->route('bank_nodals_dashboard');
+    //     } elseif ($user->user_type_id == 3) {
     //         return redirect()->route('bank_branches_dashboard');
-    //     } elseif (auth()->user()->user_type_id == 4) {
+    //     } elseif ($user->user_type_id == 4) {
     //         return redirect()->route('department_dashboard');
-    //     } 
-    //     // else {
-    //     //     // Handle other user types or invalid user_type_id
-    //     //     return redirect()->route('dashboard'); // For example, redirect to a default dashboard
-    //     // }
-        
-        
+    //     } else {
+    //         // Handle other user types or invalid user_type_id
+    //         return redirect()->route('dashboard'); // For example, redirect to a default dashboard
+    //     }
     // }
-
+    
     /**
      * Destroy an authenticated session.
      */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
+
+         // Clear all custom session variables
+        $request->session()->forget(['bank_nodal_id', 'bank_branch_id', 'department_id']);
 
         $request->session()->invalidate();
 

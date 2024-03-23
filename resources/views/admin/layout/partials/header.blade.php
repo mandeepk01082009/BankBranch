@@ -32,8 +32,8 @@
                 <a href="{{ route('dashboard') }}"
                     class="nav-item nav-link  {{ request()->is('cms-admin') ? 'active' : '' }}"><i
                         class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="{{ route('dcos_contacts') }}"
-                    class="nav-item nav-link {{ request()->is('cms-admin/dcos_contacts') ? 'active' : '' }}"><i
+                <a href="{{ route('bank-nodals') }}"
+                    class="nav-item nav-link {{ request()->is('cms-admin/bank-nodals') ? 'active' : '' }}"><i
                         class="fa fa-th me-2"></i>Bank Nodals </a>
                 <a href="{{ route('govt_schemes') }}"
                     class="nav-item nav-link {{ request()->is('cms-admin/govt_schemes') ? 'active' : '' }}"><i
@@ -136,7 +136,7 @@
                                         @endif
                                 
                                     @elseif(auth()->check())
-                                        <p>{{ auth()->user()->name }} (Regular User)</p>
+                                        <p>{{ auth()->user()->name }} (Admin)</p>
                                     @endif
                                 
                             </span>

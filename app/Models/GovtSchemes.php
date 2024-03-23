@@ -22,6 +22,7 @@ class GovtSchemes extends Model
         'grant',
         'source_of_information',
         'status',
-        'remark'
+        'remark',
+        'is_active',
     ];
 }

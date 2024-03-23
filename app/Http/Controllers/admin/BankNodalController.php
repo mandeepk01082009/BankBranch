@@ -16,7 +16,7 @@ class BankNodalController extends Controller
 {
     public function index()
     {
-        return view('admin.dcosContacts.form');              
+        return view('admin.bank_nodals.form');              
     }
 
    
@@ -33,83 +33,89 @@ class BankNodalController extends Controller
         // Generate a random password
         $password = Str::random(12); // Assuming you are using the Illuminate\Support\Str class
     
-        // Correctly use the generated password when creating the user
-        $dcosContacts = BankNodal::create([
+        // Create the bank nodal
+        $bank_nodal = BankNodal::create([
             'sort_col' => $data['sort_col'],
             'bank_name' => $data['bank_name'],
             'dco_name' => $data['dco_name'],
             'email' => $data['email'],
             'mobile' => $data['mobile'],
-            'password' => Hash::make($password), // Use the generated password directly
+            'password' => Hash::make($password),
             'is_active' => 1,
             'user_type_id' => 2,
         ]);
     
+        // Additionally, create a user in the users table
+        $user = User::create([
+            'email' => $data['email'],
+            'password' => $bank_nodal->password,
+            'user_type_id' => 2, // Set the default value directly
+            'user_id' => $bank_nodal->id, // Assign the id of the BankNodal to bank_nodal_id
+        ]);    
+    
         // Adjust the data array to include the password for the email
-        $data['password'] = $password; // Add this line to include the password in the data array
+        $data['password'] = $password; // Include the password in the data array
     
-        // Now, you can safely pass $data to the view or mail class, and it will include the 'password'
-    
-        Mail::send('admin.mail', $data, function($message) use ($data){
-            $message->to($data['email'], $data['dco_name']);  
-            $message->subject('Login with this credentials');   
+        // Send email with credentials
+        Mail::send('admin.mail', $data, function($message) use ($data) {
+            $message->to($data['email'], $data['dco_name']);
+            $message->subject('Login with these credentials');
         });
     
-        return redirect('/cms-admin/dcos_contacts');
+        return redirect('/cms-admin/bank-nodals');
     }
-    
+        
  public function show()
     {  
-        $dcosContact = BankNodal::where('is_active',1)->where('user_type_id',2)->orderBy('sort_col', 'asc')->get();
-        return view('admin.dcosContacts.index')           
-            ->with('dcosContact', $dcosContact);         
-    }
+        $bank_nodal = BankNodal::where('is_active',1)->where('user_type_id',2)->orderBy('sort_col', 'asc')->get();
+        return view('admin.bank_nodals.index',compact('bank_nodal'));                  
+    } 
 
     public function edit(string $id)
     {
-        $dcosContacts = BankNodal::find($id);                 
+        $bank_nodal = BankNodal::find($id);                 
         // show the edit form and pass the   
-        return view('admin.dcosContacts.edit',compact('dcosContacts'));         
+        return view('admin.bank_nodals.edit',compact('bank_nodal'));         
     }    
 
     public function update(Request $request, string $id)
     {
        
-        $dcosContacts = BankNodal::find($id);  
+        $bank_nodal = BankNodal::find($id);  
         
-        $dcosContacts->sort_col = $request->input('sort_col');
+        $bank_nodal->sort_col = $request->input('sort_col');
 
-        $dcosContacts->bank_name = $request->input('bank_name');
+        $bank_nodal->bank_name = $request->input('bank_name');
 
-        $dcosContacts->dco_name = $request->input('dco_name');
+        $bank_nodal->dco_name = $request->input('dco_name');
 
-        $dcosContacts->mobile = $request->input('mobile');
+        $bank_nodal->mobile = $request->input('mobile');
 
-        // $dcosContacts->password = $request->input('password');
+        // $bank_nodal->password = $request->input('password');
 
-        $dcosContacts->email = $request->input('email');
+        $bank_nodal->email = $request->input('email');
 
-        $dcosContacts->is_active = 1;
+        $bank_nodal->is_active = 1;
 
-        $dcosContacts->user_type_id = 2;
+        $bank_nodal->user_type_id = 2;
     
-    $dcosContacts->update();                 
+    $bank_nodal->update();                 
 
-    return redirect('/cms-admin/dcos_contacts');        
+    return redirect('/cms-admin/bank-nodals');        
     }
 
     // public function destroy(string $id)             
     // {
-    //     $dcosContacts = DcosContact::find($id);    
-    //     $dcosContacts->delete();        
-    //     return redirect('/cms-admin/dcos_contacts');                                                                  
+    //     $bank_nodal = DcosContact::find($id);    
+    //     $bank_nodal->delete();        
+    //     return redirect('/cms-admin/bank-nodals');                                                                  
     // }
 
     public function destroy(string $id)             
 {
-    $dcosContact = DB::table('bank_nodals')->where('id', $id)->update(['is_active' => 0]);
+    $bank_nodal = DB::table('bank_nodals')->where('id', $id)->update(['is_active' => 0]);
 
-    return redirect('/cms-admin/dcos_contacts');
+    return redirect('/cms-admin/bank-nodals');
 }
 
 }

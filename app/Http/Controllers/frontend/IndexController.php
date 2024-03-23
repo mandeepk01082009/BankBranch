@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Slider;
 use DB;
+use App\Models\GovtSchemes; 
 class IndexController extends Controller
 {
     // Route::get('/apply-loan', function () {
@@ -26,7 +27,12 @@ class IndexController extends Controller
     public function index()
     {
         $slider = Slider::where('status',1)->get();
-        return view('welcome',compact('slider'));
+        // $perPage = 10;
+        // $govt_schemes = GovtSchemes::where('is_active', 1)
+        //         ->orderBy('sort_col', 'asc')
+        //         ->paginate($perPage);
+         $govt_schemes = GovtSchemes::where('is_active',1)->orderBy('sort_col', 'asc')->get();
+        return view('welcome',compact('slider','govt_schemes'));
     }
 
     public function applyLoan()

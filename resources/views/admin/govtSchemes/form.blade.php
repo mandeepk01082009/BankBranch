@@ -13,16 +13,7 @@
                     <h6 class="mb-4">Add Govt. Scheme</h6>
                     <form action="{{ route('store_govt_scheme') }}" method="post">
                         @csrf
-                        <div class="mb-3">
-                            <label for="sort">Sort Number</label>
-                            <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
-                                name="sort_col" id="sort_col" placeholder="Sr No." />
-                            @error('sort_col')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                        
                         <div class="mb-3">
                             <label for="sort">Name of Ministry</label>
                             <input class="form-control @error('name_of_ministry') is-invalid @enderror" type="text"
@@ -107,7 +98,17 @@
                             <label for="sort">Source of Information</label>
                             <input class="form-control @error('source_of_information') is-invalid @enderror" type="text"
                                 name="source_of_information" id="source_of_information" placeholder="Source Of Information" />
-                            @error('source_of_information')
+                            {{-- @error('source_of_information')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror --}}
+                        </div> 
+                        <div class="mb-3">
+                            <label for="sort">Status</label>
+                            <input class="form-control @error('status') is-invalid @enderror" type="text"
+                                name="status" id="status" placeholder="Status" />
+                            @error('status')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -123,6 +124,16 @@
                                 </span>
                             @enderror
                         </div> 
+                        <div class="mb-3">
+                            <label for="sort">Sort Number</label>
+                            <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
+                                name="sort_col" id="sort_col" placeholder="Sr No." />
+                            @error('sort_col')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                         {{-- <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
                             <label class="form-check-label" for="exampleCheck1">Check me out</label>
