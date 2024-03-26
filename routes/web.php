@@ -21,7 +21,9 @@ Route::post('/get-bank-branches-by-bank-name', [App\Http\Controllers\frontend\In
 
 Route::post('/save-apply-loan', [App\Http\Controllers\frontend\IndexController::class, 'saveApplyLoan'])->name('saveApplyLoan');
 
-Route::get('/apply-loan-otp', [App\Http\Controllers\frontend\IndexController::class, 'applyLoanOtp'])->name('apply-loan-otp');
+Route::get('/apply-loan-otp', [App\Http\Controllers\frontend\IndexController::class, 'applyLoanOtp'])->name('applyLoanOtp');
+
+Route::post('/verify-otp', [App\Http\Controllers\frontend\IndexController::class, 'verifyOtp'])->name('verifyOtp');
 
 Route::get('/track-loan-status', [App\Http\Controllers\frontend\IndexController::class, 'trackLoanStatus'])->name('apply-loan-otp');
 

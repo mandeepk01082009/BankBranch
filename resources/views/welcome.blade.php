@@ -100,9 +100,9 @@
                                     </tbody>
                                 </table>
                                 {{-- Pagination links outside of the table --}}
-                                {{-- <div class="pagination-wrapper">
+                                <div class="pagination-wrapper">
                                     {{ $govt_schemes->links() }}
-                                </div> --}}
+                                </div>
                                 
                             </div>
                             <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">View More</a></p>
