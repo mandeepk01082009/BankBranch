@@ -17,7 +17,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Sr. No.</th>
-                                    <th scope="col">Name of Ministry</th>
+                                    <th scope="col">Sceme Type</th>
                                     <th scope="col">Name of Departments</th>
                                     <th scope="col">Scheme</th>
                                     <th scope="col">Sub Scheme</th>
@@ -25,7 +25,7 @@
                                     <th scope="col">Objective</th>
                                     <th scope="col">Beneficaries Type</th>
                                     <th scope="col">Grant</th>
-                                    <th scope="col">Source of Information</th>
+                                    <th scope="col">Website URL</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Remark</th>
                                     <th scope="col">Action</th>
@@ -36,7 +36,7 @@
                                     <tr>
                                         {{-- <th scope="row">1</th> --}}
                                         <td>{{ $govt_scheme->sort_col }}</td>
-                                        <td>{{ $govt_scheme->name_of_ministry }}</td>
+                                        <td>{{ $govt_scheme->scheme_type }}</td>
                                         <td>{{ $govt_scheme->name_of_departments }}</td>
                                         <td>{{ $govt_scheme->scheme }}</td>
                                         <td>{{ $govt_scheme->sub_scheme }}</td>
@@ -44,8 +44,9 @@
                                         <td><textarea rows="4">{{ $govt_scheme->objective }}</textarea></td>
                                         <td>{{ $govt_scheme->beneficaries_type }}</td>
                                         <td>{{ $govt_scheme->grant }}</td>
-                                        <td>{{ $govt_scheme->source_of_information }}</td>
-                                        <td>{{ $govt_scheme->status == 1 ? 'Active' : '' }}</td>
+                                        <td>{{ $govt_scheme->website_url }}</td>
+                                        <td>{{ $govt_scheme->status }}</td>
+                                        {{-- <td>{{ $govt_scheme->status == 1 ? 'Active' : '' }}</td> --}}
                                         <td>{{ $govt_scheme->remark }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('edit_govt_scheme', $govt_scheme->id) }}"

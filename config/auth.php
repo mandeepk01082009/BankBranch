@@ -40,6 +40,26 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'bank_nodals' => [
+            'driver' => 'session',
+            'provider' => 'bank_nodals',
+        ],
+
+        'bank_branches' => [
+            'driver' => 'session',
+            'provider' => 'bank_branches',
+        ],
+
+        'departments' => [
+            'driver' => 'session',
+            'provider' => 'departments',
+        ],
+
+        'applicants' => [
+            'driver' => 'session',
+            'provider' => 'applicants',
+        ],
     ],
 
     /*
@@ -69,6 +89,22 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'bank_nodals' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\BankNodal::class,
+        ],
+        'bank_branches' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\BankBranches::class,
+        ],
+        'departments' => [ 
+            'driver' => 'eloquent',
+            'model' => App\Models\Department::class,
+        ],
+        'applicants' => [ 
+            'driver' => 'eloquent',
+            'model' => App\Models\ApplyLoans::class,
+        ],
     ],
 
     /*
@@ -93,6 +129,24 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'bank_nodals' => [
+            'provider' => 'bank_nodals',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'bank_branches' => [
+            'provider' => 'bank_branches',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'departments' => [
+            'provider' => 'departments',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

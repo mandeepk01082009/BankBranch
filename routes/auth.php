@@ -12,15 +12,43 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
+    // Route::get('register', [RegisteredUserController::class, 'create'])
+    //             ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    // Route::post('register', [RegisteredUserController::class, 'store']);
 
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->name('login');
+    // Route::get('login', [AuthenticatedSessionController::class, 'create'])
+    //             ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    // Route::get('admin/login', [AuthenticatedSessionController::class, 'createAdmin'])
+    //             ->name('admin_login')->middleware('guest:web');
+
+    Route::get('admin/login', [AuthenticatedSessionController::class, 'createAdmin'])
+                ->name('guest.web_login')->middleware('guest:web');
+            
+    Route::post('admin/login', [AuthenticatedSessionController::class, 'storeAdmin'])->name('guest.web_login.submit');
+            
+    Route::get('bank_nodals/login', [AuthenticatedSessionController::class, 'createBankNodal'])
+                ->name('guest.bank_nodals_login')->middleware('guest:bank_nodals');
+                
+    Route::post('bank_nodals/login', [AuthenticatedSessionController::class, 'storeBankNodal'])->name('guest.bank_nodals_login.submit');
+            
+    Route::get('bank_branches/login', [AuthenticatedSessionController::class, 'createBankBranch'])
+                ->name('guest.bank_branches_login')->middleware('guest:bank_branches');
+            
+    Route::post('bank_branches/login', [AuthenticatedSessionController::class, 'storeBankBranch'])->name('guest.bank_branches_login.submit');
+            
+    Route::get('department/login', [AuthenticatedSessionController::class, 'createDepartment'])
+                ->name('guest.departments_login')->middleware('guest:departments');
+            
+    Route::post('department/login', [AuthenticatedSessionController::class, 'storeDepartment'])->name('guest.departments_login.submit');
+
+    Route::get('applicant/login', [AuthenticatedSessionController::class, 'createApplicant'])
+                ->name('guest.applicants_login')->middleware('guest:applicants');
+            
+    Route::post('applicant/login', [AuthenticatedSessionController::class, 'storeApplicant'])->name('guest.applicants_login.submit');
+
+    //Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');

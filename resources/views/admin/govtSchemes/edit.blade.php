@@ -27,14 +27,18 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="sort">Name of Ministry</label>
-                            <input class="form-control @error('name_of_ministry') is-invalid @enderror" type="text"
-                                name="name_of_ministry" id="name_of_ministry" placeholder="Name of Ministry" value="{{ $govt_schemes->name_of_ministry}}" />
-                            @error('name_of_ministry')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <label for="sort">Scheme Type</label>
+                            <select class="form-select @error('scheme_type') is-invalid @enderror" aria-label="Default select example" name="scheme_type">
+                                <option value="">Please Select Scheme Type</option>
+                                <option value="State Scheme" {{ $govt_schemes->scheme_type == 'State Scheme' ? 'selected' : '' }}>State Scheme</option>
+                                <option value="Center Scheme" {{ $govt_schemes->scheme_type == 'Center Scheme' ? 'selected' : '' }}>Center Scheme</option>
+                                <option value="Combined Scheme" {{ $govt_schemes->scheme_type == 'Combined Scheme' ? 'selected' : '' }}>Combined Scheme</option>
+                            </select>
+                        @error('scheme_type')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         </div>
                         <div class="mb-3">
                             <label for="sort">Name of Departments</label>
@@ -107,10 +111,20 @@
                             @enderror
                         </div> 
                         <div class="mb-3">
-                            <label for="sort">Source of Information</label>
-                            <input class="form-control @error('source_of_information') is-invalid @enderror" type="text"
-                                name="source_of_information" id="source_of_information" placeholder="Source Of Information" value="{{ $govt_schemes->source_of_information }}" />
-                            @error('source_of_information')
+                            <label for="sort">Website URL</label>
+                            <input class="form-control @error('website_url') is-invalid @enderror" type="text"
+                                name="website_url" id="website_url" placeholder="Source Of Information" value="{{ $govt_schemes->website_url }}" />
+                            @error('website_url')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div> 
+                        <div class="mb-3">
+                            <label for="sort">Status</label>
+                            <input class="form-control @error('status') is-invalid @enderror" type="text"
+                                name="status" id="status" placeholder="Status" value="{{ $govt_schemes->status }}" />
+                            @error('status')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

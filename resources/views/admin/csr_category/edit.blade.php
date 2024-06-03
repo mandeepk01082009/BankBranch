@@ -48,6 +48,17 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="sort">Background Color</label>
+                            <input class="form-control @error('bg_color') is-invalid @enderror" type="text"
+                                name="bg_color" id="bg_color" value="{{ $csr_category->bg_color }}"/>
+                            @error('bg_color')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label for="sort">Sort Number</label>
                             <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
                                 name="sort_col" id="sort_col" placeholder="Sr No." value="{{ $csr_category->sort_col }}" />

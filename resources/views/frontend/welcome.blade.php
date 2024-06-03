@@ -170,7 +170,19 @@
             <div class="col-lg-12 text-center mb-4">
                 <h4 class="text-dark">Popular Categories</h4>
             </div>
+            @foreach($category as $categories)
             <div class="col-lg-2">
+                <a href="#">
+                    <div class="card border-0 bg-blue text-white text-center">
+                        <div class="card-body py-4">
+                            <p><i class="fas fa-book-reader fa-3x"></i></p>
+                            <span>{{ $categories->csr_category_name }}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @endforeach
+            {{-- <div class="col-lg-2">
                 <a href="#">
                     <div class="card border-0 bg-blue text-white text-center">
                         <div class="card-body py-4">
@@ -229,7 +241,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

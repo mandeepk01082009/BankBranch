@@ -2,16 +2,43 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Closure;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-class Authenticate extends Middleware
+class Authenticate
 {
     /**
-     * Get the path the user should be redirected to when they are not authenticated.
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string[]  ...$guards
+     * @return mixed
      */
-    protected function redirectTo(Request $request): ?string
+    public function handle(Request $request, Closure $next, ...$guards)
     {
-        return $request->expectsJson() ? null : route('login');
+        $guards = empty($guards) ? [null] : $guards;
+
+        foreach ($guards as $guard) {
+            if ($guard !== null && Auth::guard($guard)->guest()) {
+                if ($request->expectsJson()) {
+                    return response()->json(['error' => 'Unauthorized.'], 401);
+                }
+
+                $loginRouteName = 'guest.' . $guard . '_login';
+
+                if (! Route::has($loginRouteName)) {
+                    throw new \Exception('Login route not defined: ' . $loginRouteName);
+                }
+
+                return redirect()->route($loginRouteName);
+            }
+        }
+
+        return $next($request);
     }
+
 }

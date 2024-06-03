@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DcosContact; 
 use App\Models\BankBranches;   
-use App\Models\User;   
+use App\Models\User; 
+use App\Models\BankNodal;   
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail; 
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class BankBranchesController extends Controller
 {
     public function index()
     {
-        $bank = User::where('is_active',1)->where('user_type_id',2)->get();
+        $bank = BankNodal::where('is_active',1)->get();
         return view('admin.BankBranches.form',compact('bank'));              
     }
 
@@ -37,7 +38,7 @@ class BankBranchesController extends Controller
  // Generate a random password
  $password = Str::random(12); // Assuming you are using the Illuminate\Support\Str class
  
- $bank_branch = User::create([
+ $bank_branch = BankBranches::create([
     'sort_col' => $data['sort_col'],
     'bank_id' => $data['bank_id'], 
     'email' => $data['email'],
@@ -49,6 +50,13 @@ class BankBranchesController extends Controller
     'concerned_person' => $data['concerned_person'],
     'block' => $data['block'],
  ]);
+ // Additionally, create a user in the users table
+        $user = User::create([
+            'email' => $data['email'],
+            'password' => $bank_branch->password,
+            'user_type_id' => 3, // Set the default value directly
+            'user_id' => $bank_branch->id, // Assign the id of the BankNodal to bank_nodal_id
+        ]);    
       
     // Adjust the data array to include the password for the email
     $data['password'] = $password; // Add this line to include the password in the data array
@@ -59,7 +67,6 @@ class BankBranchesController extends Controller
         $message->to($data['email'], $data['concerned_person']);  
         $message->subject('Login with this credentials');   
     });
-
  
   //return response()->json(['success'=>'Files uploaded successfully.']); 
   
@@ -69,15 +76,15 @@ class BankBranchesController extends Controller
 
  public function show()
     {  
-        $bank_branch = User::where('is_active',1)->where('user_type_id',3)->orderBy('sort_col', 'asc')->get();
+        $bank_branch = BankBranches::where('is_active',1)->orderBy('sort_col', 'asc')->get();
         return view('admin.BankBranches.index')           
             ->with('bank_branch', $bank_branch);       
     }
 
     public function edit(string $id)
     {
-        $bank = User::where('is_active',1)->where('user_type_id',2)->get();
-        $bank_branch = User::find($id);                 
+        $bank = BankNodal::where('is_active',1)->get();
+        $bank_branch = BankBranches::find($id);                 
         // show the edit form and pass the   
         return view('admin.BankBranches.edit',compact('bank_branch','bank'));         
     }    
@@ -85,7 +92,7 @@ class BankBranchesController extends Controller
     public function update(Request $request, string $id)
     {
        
-        $bank_branch = User::find($id);  
+        $bank_branch = BankBranches::find($id);  
         
         $bank_branch->sort_col = $request->input('sort_col');
 
@@ -98,6 +105,8 @@ class BankBranchesController extends Controller
         $bank_branch->mobile = $request->input('mobile');
 
         $bank_branch->email = $request->input('email');
+
+        $bank_branch->password = $request->input('password');
 
         $bank_branch->block = $request->input('block');
 
@@ -112,7 +121,7 @@ class BankBranchesController extends Controller
 
     public function destroy(string $id)             
     {
-        $dcosContact = DB::table('users')->where('id', $id)->update(['is_active' => 0]);
+        $bank_branche = DB::table('bank_branches')->where('id', $id)->update(['is_active' => 0]);
     
         return redirect('/cms-admin/bank_branches');
     }

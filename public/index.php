@@ -1,4 +1,11 @@
 <?php
+//echo "ok";
+// phpinfo();
+ ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+//print_r(config()->get('database.connections.mysql'));
+
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;

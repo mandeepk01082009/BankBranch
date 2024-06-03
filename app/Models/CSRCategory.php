@@ -14,6 +14,7 @@ class CSRCategory extends Model
         'sort_col',
         'csr_category_name',
         'logo',
+        'bg_color',
         'is_active',
         'status',
     ];

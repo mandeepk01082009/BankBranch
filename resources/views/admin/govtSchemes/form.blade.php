@@ -13,21 +13,18 @@
                     <h6 class="mb-4">Add Govt. Scheme</h6>
                     <form action="{{ route('store_govt_scheme') }}" method="post">
                         @csrf
+                        
                         <div class="mb-3">
-                            <label for="sort">Sort Number</label>
-                            <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
-                                name="sort_col" id="sort_col" placeholder="Sr No." />
-                            @error('sort_col')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="sort">Name of Ministry</label>
-                            <input class="form-control @error('name_of_ministry') is-invalid @enderror" type="text"
-                                name="name_of_ministry" id="name_of_ministry" placeholder="Name of Ministry" />
-                            @error('name_of_ministry')
+                            <label for="sort">Scheme Type</label>
+                            {{-- <input class="form-control @error('name_of_ministry') is-invalid @enderror" type="text"
+                                name="name_of_ministry" id="name_of_ministry" placeholder="Name of Ministry" /> --}}
+                                <select class="form-select@error('scheme_type') is-invalid @enderror" aria-label="Default select example" name="scheme_type">
+                                    <option value="">Please Select Scheme Type</option>
+                                    <option value="State Scheme">State Scheme</option>
+                                    <option value="Center Scheme">Center Scheme</option>
+                                    <option value="Combined Scheme">Combined Scheme</option>
+                                </select>
+                            @error('scheme_type')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -104,10 +101,20 @@
                             @enderror
                         </div> 
                         <div class="mb-3">
-                            <label for="sort">Source of Information</label>
-                            <input class="form-control @error('source_of_information') is-invalid @enderror" type="text"
-                                name="source_of_information" id="source_of_information" placeholder="Source Of Information" />
-                            @error('source_of_information')
+                            <label for="sort">Website URL</label>
+                            <input class="form-control @error('website_url') is-invalid @enderror" type="text"
+                                name="website_url" id="website_url" placeholder="Source Of Information" />
+                            {{-- @error('website_url')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror --}}
+                        </div> 
+                        <div class="mb-3">
+                            <label for="sort">Status</label>
+                            <input class="form-control @error('status') is-invalid @enderror" type="text"
+                                name="status" id="status" placeholder="Status" />
+                            @error('status')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -123,6 +130,16 @@
                                 </span>
                             @enderror
                         </div> 
+                        <div class="mb-3">
+                            <label for="sort">Sort Number</label>
+                            <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
+                                name="sort_col" id="sort_col" placeholder="Sr No." />
+                            @error('sort_col')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                         {{-- <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
                             <label class="form-check-label" for="exampleCheck1">Check me out</label>

@@ -11,15 +11,37 @@ use Illuminate\Support\Facades\Route;
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
-|
+|  
 */
 Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'index'])->name('index');
 
 Route::get('/apply-loan', [App\Http\Controllers\frontend\IndexController::class, 'applyLoan'])->name('apply-loan');
 
-Route::get('/apply-loan-otp', [App\Http\Controllers\frontend\IndexController::class, 'applyLoanOtp'])->name('apply-loan-otp');
+Route::get('/reload-captcha', [App\Http\Controllers\frontend\IndexController::class, 'reloadCaptcha'])->name('reloadCaptcha');
 
-Route::get('/track-loan-status', [App\Http\Controllers\frontend\IndexController::class, 'trackLoanStatus'])->name('apply-loan-otp');
+Route::post('/get-bank-branches-by-bank-name', [App\Http\Controllers\frontend\IndexController::class, 'getBankBranchesByBankName'])->name('get-bank-branches-by-bank-name');
+
+Route::post('/save-apply-loan', [App\Http\Controllers\frontend\IndexController::class, 'saveApplyLoan'])->name('saveApplyLoan');
+
+Route::match(['get', 'post'], '/apply-loan-otp/{phoneNumber}', [App\Http\Controllers\frontend\IndexController::class, 'applyLoanOtp'])->name('applyLoanOtp');
+
+Route::match(['get', 'post'], '/verify-otp/{phoneNumber}', [App\Http\Controllers\frontend\IndexController::class, 'verifyOtp'])->name('verifyOtp');
+
+Route::get('/track-loan-status', [App\Http\Controllers\frontend\IndexController::class, 'trackLoanStatus'])->name('track-loan-status');
+
+Route::post('/show-loan-status', [App\Http\Controllers\frontend\IndexController::class, 'show_loan_status'])->name('show-loan-status');
+
+Route::match(['get', 'post'], '/track-loan-otp/{phoneNumber}', [App\Http\Controllers\frontend\IndexController::class, 'trackLoanOtp'])->name('trackLoanOtp');
+
+Route::post('/verify_track_loan_otp', [App\Http\Controllers\frontend\IndexController::class, 'verify_track_loan_otp'])->name('verify_track_loan_otp');
+
+Route::post('/update-otp', [App\Http\Controllers\frontend\IndexController::class, 'updateOtp'])->name('updateOtp');
+
+//Route::post('update-otp', 'ApplyLoanController@updateOtp')->name('updateOtp');
+
+Route::get('/sendmessages/{applicantId}', [App\Http\Controllers\ChatController::class, 'messagesSend'])->name('messSend');
+
+Route::post('/messages/store/{applicantId}', [App\Http\Controllers\ChatController::class, 'messagesStore'])->name('messStore');
 
 Route::get('/about-us', [App\Http\Controllers\frontend\IndexController::class, 'aboutUs'])->name('about-us');
 
@@ -43,80 +65,115 @@ Route::get('/contact-us', [App\Http\Controllers\frontend\IndexController::class,
 // Route::get('/contact-us', function () {
 //     return view('frontend/contact-us');
 // });
+// Route::middleware('auth.bank_nodal')->group(function () {
+//     // Your routes here
+// });
 
-Route::group(['namespace' => 'admin','prefix'=>'bank-nodals', 'middleware' => ['auth', 'verified']], function() {
-    Route::get('/', function () {
-        return view('bank_nodals.dashboard');
-    })->name('bank_nodals_dashboard');
+Route::middleware('auth:bank_nodals')->prefix('bank-nodals')->namespace('Admin')->group(function () {
+    Route::middleware('check_user_role:2')->group(function () {
+// Route::group(['namespace' => 'admin','prefix'=>'bank-nodals', 'middleware' => ['auth', 'verified', 'check_user_type:bank_nodal']], function() {
+        Route::get('/', [App\Http\Controllers\BankNodalsController::class, 'bankNodalDashboard'])->name('bank_nodals_dashboard');
 
-    Route::get('/add_bank_nodal', [App\Http\Controllers\BankNodalsController::class, 'index'])->name('add_bank_nodal'); 
+    // Route::get('/add_bank_nodal', [App\Http\Controllers\BankNodalsController::class, 'index'])->name('add_bank_nodal'); 
 
-    Route::post('/store_bank_nodal', [App\Http\Controllers\BankNodalsController::class, 'create'])->name('store_bank_nodal');
+    // Route::post('/store_bank_nodal', [App\Http\Controllers\BankNodalsController::class, 'create'])->name('store_bank_nodal');
 
     Route::get('bank_nodals', [App\Http\Controllers\BankNodalsController::class, 'show'])->name('bank_nodals'); 
 
     Route::get('/edit_bank_nodal/{id}', [App\Http\Controllers\BankNodalsController::class, 'edit'])->name('edit_bank_nodal');
     
-    Route::patch('/update_bank_nodal/{id}',[App\Http\Controllers\BankNodalsController::class, 'update'])->name('update_bank_nodal'); 
+    Route::patch('/update_bank_nodal/{id}',[App\Http\Controllers\BankNodalsController::class, 'update'])->name('update_bank_nodal');
 
-    Route::delete('delete_bank_nodal/{id}',[App\Http\Controllers\BankNodalsController::class, 'destroy'])->name('delete_bank_nodal');  
+    Route::get('filterapplyloan', [App\Http\Controllers\BankNodalsController::class, 'filterapplyloan'])->name('filterapplyloan');
 
+    Route::get('/applicants/{applicant}/view', [App\Http\Controllers\BankNodalsController::class, 'view'])->name('applicant.view');
+    
+    
+    Route::get('/sendmessages/{applicantId}', [App\Http\Controllers\BankNodalsController::class, 'messagesSend'])->name('messageSend');
+
+    Route::post('/messages/store/{applicantId}', [App\Http\Controllers\BankNodalsController::class, 'messagesStore'])->name('messageStore');
+
+// });
+});
 });
 
-Route::group(['namespace' => 'admin','prefix'=>'bank-branches', 'middleware' => ['auth', 'verified']], function() {
-    Route::get('/', function () {
-        return view('bank_branches.dashboard');
-    })->name('bank_branches_dashboard');
+Route::middleware('auth:bank_branches')->prefix('bank-branches')->namespace('Admin')->group(function () {
+    Route::middleware('check_user_role:3')->group(function () {
+Route::get('/', [App\Http\Controllers\BankBranchController::class, 'bankBranchDashboard'])->name('bank_branches_dashboard'); 
 
-    Route::get('/add-branch', [App\Http\Controllers\BankBranchController::class, 'index'])->name('add-branch'); 
+    // Route::get('/add-branch', [App\Http\Controllers\BankBranchController::class, 'index'])->name('add-branch'); 
 
-    Route::post('/store-branch', [App\Http\Controllers\BankBranchController::class, 'create'])->name('store-branch');
+    // Route::post('/store-branch', [App\Http\Controllers\BankBranchController::class, 'create'])->name('store-branch');
 
     Route::get('branches', [App\Http\Controllers\BankBranchController::class, 'show'])->name('branches'); 
 
     Route::get('/edit-branch/{id}', [App\Http\Controllers\BankBranchController::class, 'edit'])->name('edit-branch');
     
-    Route::patch('/update-branch/{id}',[App\Http\Controllers\BankBranchController::class, 'update'])->name('update-branch'); 
-
-    Route::delete('delete-branch/{id}',[App\Http\Controllers\BankBranchController::class, 'destroy'])->name('delete-branch');  
-
-});
-
-Route::group(['namespace' => 'admin','prefix'=>'department', 'middleware' => ['auth', 'verified']], function() {
-    Route::get('/', function () {
-        return view('department.dashboard');
-    })->name('department_dashboard');
-
-    Route::get('/add_dept', [App\Http\Controllers\DepartmentController::class, 'index'])->name('add_dept'); 
-
-    Route::post('/store_dept', [App\Http\Controllers\DepartmentController::class, 'create'])->name('store_dept');
-
-    Route::get('depts', [App\Http\Controllers\DepartmentController::class, 'show'])->name('depts'); 
-
-    Route::get('/edit_dept/{id}', [App\Http\Controllers\DepartmentController::class, 'edit'])->name('edit_dept');
+    Route::patch('/update-branch/{id}',[App\Http\Controllers\BankBranchController::class, 'update'])->name('update-branch');
     
-    Route::patch('/update_dept/{id}',[App\Http\Controllers\DepartmentController::class, 'update'])->name('update_dept'); 
+    Route::get('filter-apply-loan', [App\Http\Controllers\BankBranchController::class, 'filterapplyloan'])->name('filter-apply-loan');
 
-    Route::delete('delete_dept/{id}',[App\Http\Controllers\DepartmentController::class, 'destroy'])->name('delete_dept');  
+    Route::get('/applicant/{applicant}/view', [App\Http\Controllers\BankBranchController::class, 'view'])->name('applicantView');
+
+    Route::get('/sendmessages/{applicantId}', [App\Http\Controllers\BankBranchController::class, 'messagesSend'])->name('messagesSend');
+
+    Route::post('/messages/store/{applicantId}', [App\Http\Controllers\BankBranchController::class, 'messagesStore'])->name('messagesStore');
+    // Route::delete('delete-branch/{id}',[App\Http\Controllers\BankBranchController::class, 'destroy'])->name('delete-branch');  
 
 });
+
+});
+
+Route::middleware('auth:departments')->prefix('department')->namespace('Admin')->group(function () {
+    Route::middleware('check_user_role:4')->group(function () {
+         Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'applicantDashboard'])->name('applicants_dashboard');
+
+        Route::get('depts', [App\Http\Controllers\DepartmentController::class, 'show'])->name('depts'); 
+
+        Route::get('/edit_dept/{id}', [App\Http\Controllers\DepartmentController::class, 'edit'])->name('edit_dept');
+        
+        Route::patch('/update_dept/{id}',[App\Http\Controllers\DepartmentController::class, 'update'])->name('update_dept'); 
+    });
+});
+
+Route::middleware('auth:applicants')->prefix('applicant')->namespace('Admin')->group(function () {
+    Route::middleware('check_user_role:5')->group(function () {
+        
+       Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'applicantDashboard'])->name('applicants_dashboard');
+
+        Route::get('filter-apply-loan', [App\Http\Controllers\frontend\IndexController::class, 'filterapplyloan'])->name('filterapplyloans');
+
+        Route::get('/sendmessages/{applicantId}', [App\Http\Controllers\frontend\IndexController::class, 'messagesSend'])->name('send_message');
+
+        Route::post('/messages/store/{applicantId}', [App\Http\Controllers\frontend\IndexController::class, 'messagesStore'])->name('store_message');
+    });
+});
+
 
 Route::group(['namespace' => 'admin','prefix'=>'cms-admin', 'middleware' => ['auth', 'verified']], function() {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::middleware('check_user_role:1')->group(function () {
 
-    Route::get('/add_dcos_contact', [App\Http\Controllers\admin\DcosContactsController::class, 'index'])->name('add_dcos_contact'); 
+    Route::get('/', [App\Http\Controllers\admin\BankNodalController::class, 'adminDashboard'])->name('dashboard');
 
-    Route::post('/store_dcos_contact', [App\Http\Controllers\admin\DcosContactsController::class, 'create'])->name('store_dcos_contact');
+    Route::get('filterapplyloanapplications/', [App\Http\Controllers\admin\BankNodalController::class, 'filterapplyloan'])->name('filterapplyloanapplications');
 
-    Route::get('dcos_contacts', [App\Http\Controllers\admin\DcosContactsController::class, 'show'])->name('dcos_contacts'); 
+    Route::get('/applicant/{applicant}/view', [App\Http\Controllers\admin\BankNodalController::class, 'applicantView'])->name('applicant_view');
 
-    Route::get('/edit_dcos_contact/{id}', [App\Http\Controllers\admin\DcosContactsController::class, 'edit'])->name('edit_dcos_contact');
+    Route::get('/sendmessages/{applicantId}', [App\Http\Controllers\admin\BankNodalController::class, 'messagesSend'])->name('message_send');
+
+    Route::post('/messages/store/{applicantId}', [App\Http\Controllers\admin\BankNodalController::class, 'messagesStore'])->name('message_store');
+
+    Route::get('/add-bank-nodal', [App\Http\Controllers\admin\BankNodalController::class, 'index'])->name('add-bank-nodal'); 
+
+    Route::post('/store-bank-nodal', [App\Http\Controllers\admin\BankNodalController::class, 'create'])->name('store-bank-nodal');
+
+    Route::get('bank-nodals', [App\Http\Controllers\admin\BankNodalController::class, 'show'])->name('bank-nodals'); 
+
+    Route::get('/edit-bank-nodal/{id}', [App\Http\Controllers\admin\BankNodalController::class, 'edit'])->name('edit-bank-nodal');
     
-    Route::patch('/update_dcos_contact/{id}',[App\Http\Controllers\admin\DcosContactsController::class, 'update'])->name('update_dcos_contact'); 
+    Route::patch('/update-bank-nodal/{id}',[App\Http\Controllers\admin\BankNodalController::class, 'update'])->name('update-bank-nodal'); 
 
-    Route::delete('delete_dcos_contact/{id}',[App\Http\Controllers\admin\DcosContactsController::class, 'destroy'])->name('delete_dcos_contact');  
+    Route::delete('delete-bank-nodal/{id}',[App\Http\Controllers\admin\BankNodalController::class, 'destroy'])->name('delete-bank-nodal');  
 
     Route::get('/add_govt_scheme', [App\Http\Controllers\admin\GovtSchemesController::class, 'index'])->name('add_govt_scheme'); 
 
@@ -249,8 +306,21 @@ Route::group(['namespace' => 'admin','prefix'=>'cms-admin', 'middleware' => ['au
     Route::patch('/update_csr_request/{id}',[App\Http\Controllers\admin\CSR_RequestController::class, 'update'])->name('update_csr_request'); 
 
     Route::delete('delete_csr_request/{id}',[App\Http\Controllers\admin\CSR_RequestController::class, 'destroy'])->name('delete_csr_request');
+
+    Route::get('/add_loan_category', [App\Http\Controllers\admin\LoanCategoryController::class, 'index'])->name('add_loan_category'); 
+
+    Route::post('/store_loan_category', [App\Http\Controllers\admin\LoanCategoryController::class, 'create'])->name('store_loan_category');
+
+    Route::get('loan_categories', [App\Http\Controllers\admin\LoanCategoryController::class, 'show'])->name('loan_categories'); 
+
+    Route::get('/edit_loan_category/{id}', [App\Http\Controllers\admin\LoanCategoryController::class, 'edit'])->name('edit_loan_category');
+    
+    Route::patch('/update_loan_category/{id}',[App\Http\Controllers\admin\LoanCategoryController::class, 'update'])->name('update_loan_category'); 
+
+    Route::delete('delete_loan_category/{id}',[App\Http\Controllers\admin\LoanCategoryController::class, 'destroy'])->name('delete_loan_category');
     
     });
+});
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User; 
+use App\Models\Department; 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail; 
 use Illuminate\Support\Facades\Hash;
@@ -31,7 +32,7 @@ class DepartmentController extends Controller
  // Generate a random password
  $password = Str::random(12); // Assuming you are using the Illuminate\Support\Str class
 
- $department = User::create([
+ $department = Department::create([
     'sort_col' => $data['sort_col'],
     'department_name' =>$data['department_name'], 
     'contact_person' => $data['contact_person'], 
@@ -59,15 +60,29 @@ class DepartmentController extends Controller
 }
 
  public function show()
-    {  
-        $department = auth()->user();
-        return view('department.dept.index')           
-            ->with('department', $department);         
-    }
+{  
+   $departmentId = auth('departments')->user()->id;
+
+   $department = DB::table('departments')
+        ->where('id',$departmentId)
+        ->first();
+
+        return view('department.dept.index', compact('department'));
+}
+
+//  public function show()
+//     {  
+//         //dd(session()->all());
+//         $departmentId = session('department_id');
+//         // Query the bank_nodals table to get the bank nodal details
+//         $department = DB::table('departments')->where('id', $departmentId)->first();
+//         //dd($department);
+//          return view('department.dept.index', compact('department'));      
+//     }
 
     public function edit(string $id)
     {
-        $department = User::find($id);                 
+        $department = Department::find($id);                 
         // show the edit form and pass the   
         return view('department.dept.edit',compact('department'));         
     }    
@@ -75,9 +90,9 @@ class DepartmentController extends Controller
     public function update(Request $request, string $id)
     {
        
-        $department = User::find($id);  
+        $department = Department::find($id);  
         
-        $department->sort_col = $request->input('sort_col');
+        //$department->sort_col = $request->input('sort_col');
 
         $department->department_name = $request->input('department_name');
 
@@ -105,7 +120,7 @@ class DepartmentController extends Controller
 
     public function destroy(string $id)             
 {
-    $department = DB::table('users')->where('id', $id)->update(['is_active' => 0]);
+    $department = DB::table('departments')->where('id', $id)->update(['is_active' => 0]);
 
     return redirect('/department/depts');
 }

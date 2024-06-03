@@ -12,7 +12,7 @@ class GovtSchemes extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'sort_col',
-        'name_of_ministry',
+        'scheme_type',
         'name_of_departments',
         'sector',
         'scheme',
@@ -20,8 +20,9 @@ class GovtSchemes extends Model
         'objective',
         'beneficaries_type',
         'grant',
-        'source_of_information',
+        'website_url',
         'status',
-        'remark'
+        'remark',
+        'is_active',
     ];
 }

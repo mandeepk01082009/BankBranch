@@ -20,6 +20,7 @@ class CSRCategoryController extends Controller
     {
      $data = $request->validate([
         'sort_col' => 'required|integer',
+        'bg_color' => 'required',
         'csr_category_name' => 'required|string|max:255',
         'logo' => 'required|image',     
  ]);
@@ -27,6 +28,7 @@ class CSRCategoryController extends Controller
  $csr_category = CSRCategory::create([
     'sort_col' => $request->input('sort_col'), 
     'csr_category_name' => $request->input('csr_category_name'), 
+    'bg_color' => $request->input('bg_color'),
     'logo' => '', 
     'is_active' => 1, // Set the default value for the 'active' field 
  ]);
@@ -66,6 +68,7 @@ class CSRCategoryController extends Controller
     
     $csr_category->sort_col = $request->input('sort_col');
     $csr_category->csr_category_name = $request->input('csr_category_name');
+    $csr_category->bg_color = $request->input('bg_color');
     $csr_category->is_active = 1;
 
     if ($request->hasFile('logo')) {

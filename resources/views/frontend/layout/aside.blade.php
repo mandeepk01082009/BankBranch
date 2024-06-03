@@ -1,10 +1,11 @@
 <div class="card mb-3">
     <div class="card-body text-center p-1">
-        <img src="assets/images/cm-punjab.jpg" alt="CM Punjab" class="img-fluid mb-3">
-        <h6 class="card-title mb-1">Shri. Bhagwant Mann</h6>
+        {{-- <img src="assets/images/cm-punjab.jpg" alt="CM Punjab" class="img-fluid mb-3"> --}}
+        <img src="{{ asset('assets/images/Aashika-Jain.avif') }}" alt="CM Punjab" class="img-fluid mb-3">
+       {{-- <h6 class="card-title mb-1">Shri. Bhagwant Mann</h6>
         <p class="fw-bold">
             Hon'ble Chief Minister, Punjab
-        </p>
+        </p> --}}
     </div>
 </div>
 

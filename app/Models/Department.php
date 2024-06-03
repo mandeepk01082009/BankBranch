@@ -3,20 +3,30 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Department extends Model
+class Department extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
+
     protected $table = 'departments';
     protected $primaryKey = 'id';
     protected $fillable = [
         'sort_col',
         'department_name',
-        'contact_person',
+        'contact_person',  
         'email',
-        'contact',
-        'status',
+        'mobile',
+        'is_active',
+        'password',
+        'user_type_id',
     ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+
 
 }
