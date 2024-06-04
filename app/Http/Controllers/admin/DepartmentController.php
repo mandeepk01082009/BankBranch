@@ -97,6 +97,8 @@ class DepartmentController extends Controller
 
         $department->email = $request->input('email');
 
+        $department->password = Hash::make($request->input('password'));
+
         $department->is_active = 1;
 
         $department->user_type_id = 4;

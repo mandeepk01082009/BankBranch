@@ -126,13 +126,25 @@ Route::get('/', [App\Http\Controllers\BankBranchController::class, 'bankBranchDa
 
 Route::middleware('auth:departments')->prefix('department')->namespace('Admin')->group(function () {
     Route::middleware('check_user_role:4')->group(function () {
-         Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'applicantDashboard'])->name('applicants_dashboard');
+         Route::get('/', [App\Http\Controllers\DepartmentController::class, 'departmentDashboard'])->name('department_dashboard');
 
         Route::get('depts', [App\Http\Controllers\DepartmentController::class, 'show'])->name('depts'); 
 
         Route::get('/edit_dept/{id}', [App\Http\Controllers\DepartmentController::class, 'edit'])->name('edit_dept');
         
         Route::patch('/update_dept/{id}',[App\Http\Controllers\DepartmentController::class, 'update'])->name('update_dept'); 
+
+        Route::get('/add_csr_request', [App\Http\Controllers\DepartmentController::class, 'addCsrRequest'])->name('addCsrRequest'); 
+
+        Route::post('/store_csr_request', [App\Http\Controllers\DepartmentController::class, 'storeCsrRequest'])->name('store_csr_request');
+    
+        Route::get('csr_requests', [App\Http\Controllers\DepartmentController::class, 'viewCsrRequest'])->name('csr_requests'); 
+    
+        Route::get('/edit_csr_request/{id}', [App\Http\Controllers\DepartmentController::class, 'editCsrRequest'])->name('edit_csr_request');
+        
+        Route::patch('/update_csr_request/{id}',[App\Http\Controllers\DepartmentController::class, 'updateCsrRequest'])->name('update_csr_request'); 
+    
+        Route::delete('delete_csr_request/{id}',[App\Http\Controllers\DepartmentController::class, 'destroy'])->name('delete_csr_request');
     });
 });
 
@@ -295,17 +307,17 @@ Route::group(['namespace' => 'admin','prefix'=>'cms-admin', 'middleware' => ['au
 
     Route::delete('delete_csr_category/{id}',[App\Http\Controllers\admin\CSRCategoryController::class, 'destroy'])->name('delete_csr_category');
 
-    Route::get('/add_csr_request', [App\Http\Controllers\admin\CSR_RequestController::class, 'index'])->name('add_csr_request'); 
+    // Route::get('/add_csr_request', [App\Http\Controllers\admin\CSR_RequestController::class, 'index'])->name('add_csr_request'); 
 
-    Route::post('/store_csr_request', [App\Http\Controllers\admin\CSR_RequestController::class, 'create'])->name('store_csr_request');
+    // Route::post('/store_csr_request', [App\Http\Controllers\admin\CSR_RequestController::class, 'create'])->name('store_csr_request');
 
-    Route::get('csr_requests', [App\Http\Controllers\admin\CSR_RequestController::class, 'show'])->name('csr_requests'); 
+    // Route::get('csr_requests', [App\Http\Controllers\admin\CSR_RequestController::class, 'show'])->name('csr_requests'); 
 
-    Route::get('/edit_csr_request/{id}', [App\Http\Controllers\admin\CSR_RequestController::class, 'edit'])->name('edit_csr_request');
+    // Route::get('/edit_csr_request/{id}', [App\Http\Controllers\admin\CSR_RequestController::class, 'edit'])->name('edit_csr_request');
     
-    Route::patch('/update_csr_request/{id}',[App\Http\Controllers\admin\CSR_RequestController::class, 'update'])->name('update_csr_request'); 
+    // Route::patch('/update_csr_request/{id}',[App\Http\Controllers\admin\CSR_RequestController::class, 'update'])->name('update_csr_request'); 
 
-    Route::delete('delete_csr_request/{id}',[App\Http\Controllers\admin\CSR_RequestController::class, 'destroy'])->name('delete_csr_request');
+    // Route::delete('delete_csr_request/{id}',[App\Http\Controllers\admin\CSR_RequestController::class, 'destroy'])->name('delete_csr_request');
 
     Route::get('/add_loan_category', [App\Http\Controllers\admin\LoanCategoryController::class, 'index'])->name('add_loan_category'); 
 

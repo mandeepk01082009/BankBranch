@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('department.layout.app')
 
 @section('styles')
 @endsection
@@ -11,33 +11,33 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('add_csr_request') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
+                    <a href="{{ route('addCsrRequest') }}"><button type="button" class="btn btn-primary" style="float: right;">Add</button></a>
                     <h6 class="mb-4">CSR Requests</h6>
                     <div class="mt-3" style="margin-top: 10px;">
                         <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Sr. No.</th>
-                                    <th scope="col">Name of Departments</th>
-                                    <th scope="col">Name of CSR Category</th>
-                                    <th scope="col">Details</th>
-                                    <th scope="col">Estimated Expense</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">S/N</th>
+                                    <th scope="col">CSR Category</th>
+                                    <th scope="col">Reason</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Banner</th>
+                                    <th scope="col">Amount</th>
                                     <th scope="col">Action</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                              
                                 @foreach ($csr_request as $csr_requests)
                                     <tr>
-                                        {{-- <th scope="row">1</th> --}}
-                                        <td>{{ $csr_requests->sort_col }}</td>
-                                        <td>{{ $csr_requests->user->department_name }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $csr_requests->csrCategory->csr_category_name }}</td>
-                                        <td><textarea rows="4">{{ $csr_requests->details }}</textarea></td>
-                                        <td>{{ $csr_requests->estimated_expense }}</td>
-                                        <td>{{ $csr_requests->is_active == 1 ? 'Active' : '' }}</td>
+                                        <td>{{ $csr_requests->reason }}</td>
+                                        <td><textarea rows="4">{{ $csr_requests->description }}</textarea></td>
+                                        <td><img src="{{ asset('storage/' . $csr_requests->banner) }}" style="max-width: 150px; max-height:150px"></td>
+                                        <td>{{ $csr_requests->amount }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('edit_csr_request', $csr_requests->id) }}"
                                                 class="btn btn-info btn-sm waves-effect" title='Edit'>

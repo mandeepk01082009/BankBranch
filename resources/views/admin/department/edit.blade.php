@@ -1,4 +1,4 @@
-@extends('department.layout.app')
+@extends('admin.layout.app')
 
 @section('styles')
 @endsection
@@ -9,9 +9,9 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <a href="{{ route('depts') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
+                    <a href="{{ route('departments') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
                     <h6 class="mb-4">Edit Department</h6>
-                    <form action="{{ route('update_dept',$department->id) }}" method="post">
+                    <form action="{{ route('update_department',$department->id) }}" method="post">
                         @csrf
                         @method('PATCH')               
 
@@ -59,7 +59,7 @@
                             @enderror
                         </div>
 
-                         <div class="mb-3">
+                        <div class="mb-3">
                             <label for="sort">Password</label>
                             <input class="form-control @error('password') is-invalid @enderror" type="text"
                                 name="password" id="password"/>
@@ -70,7 +70,7 @@
                             @enderror
                         </div>
                         
-                        {{-- <div class="mb-3">
+                        <div class="mb-3">
                             <label for="sort">Sort Number</label>
                             <input class="form-control @error('sort_col') is-invalid @enderror" type="text"
                                 name="sort_col" id="sort_col" placeholder="Sr No." value="{{ $department->sort_col }}" />
@@ -79,7 +79,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> --}}
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

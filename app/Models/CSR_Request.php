@@ -11,11 +11,12 @@ class CSR_Request extends Model
     protected $table = 'csr_requests';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'sort_col',
+        'reason',
         'department_id',
         'csr_category_id',
-        'details',
-        'estimated_expense',
+        'description',
+        'amount',
+        'banner',
         'is_active',
     ];
 

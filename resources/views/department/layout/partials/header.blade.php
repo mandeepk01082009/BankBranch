@@ -33,7 +33,9 @@
           </div>
           <div class="navbar-nav w-100">
               <a href="{{ route('department_dashboard') }}" class="nav-item nav-link  {{ request()->is('department') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-              <a href="{{ route('depts') }}" class="nav-item nav-link {{ request()->is('department_dashboard/depts') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Department</a>
+              <a href="{{ route('depts') }}" class="nav-item nav-link {{ request()->is('department/depts') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Department</a>
+              {{-- <a href="{{ route('addCsrRequest') }}" class="nav-item nav-link {{ request()->is('department/add_csr_request') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Add CSR Request</a> --}}
+              <a href="{{ route('csr_requests') }}" class="nav-item nav-link {{ request()->is('department/csr_requests') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>CSR Requests</a>
           </div>
       </nav>
   </div>
