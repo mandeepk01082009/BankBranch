@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Models\GovtSchemes; 
 use App\Models\CSRCategory;
+use App\Models\CSR_Request;
 use App\Models\ApplyLoans;
 use App\Models\Applys;
 use App\Models\Message;
@@ -31,6 +32,25 @@ class IndexController extends Controller
         // $govt_schemes = GovtSchemes::where('is_active',1)->orderBy('sort_col', 'asc')->get();
         return view('welcome',compact('slider','govt_schemes','category'));
     }
+
+    public function showCsrRequests($categoryId)
+{
+    $category = CSRCategory::find($categoryId);
+    $csrRequests = $category->csrRequests;
+
+    return view('frontend.csr-requests', compact('csrRequests', 'category'));
+}
+
+// public function showRequestsByCategory($categoryId)
+// {
+//     $csrRequests = CSRRequest::whereHas('csrCategory', function ($query) use ($categoryId) {
+//         $query->where('id', $categoryId);
+//     })->get();
+
+//     $category = CSRCategory::find($categoryId);
+
+//     return view('frontend.csr-requests', compact('csrRequests', 'category'));
+// }
     
 
     public function applyLoan()

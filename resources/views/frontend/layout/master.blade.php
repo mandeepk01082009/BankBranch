@@ -208,13 +208,13 @@
                     <div class="h-100 d-none d-lg-inline-block d-inline-flex align-items-center ms-1">
                         <small>Text Size
                             <a href="#" class="text-white ps-2">
-                                <img src="assets/images/fs14.gif" alt="Normal Font Size" title="Font Size Normal">
+                                <img src="{{ asset('assets/images/fs14.gif') }}" alt="Normal Font Size" title="Font Size Normal">
                             </a>
                             <a href="#" class="text-white ps-2">
-                                <img src="assets/images/fs12.gif" alt="Decrease Font Size" title="Font Size Decrease">
+                                <img src="{{ asset('assets/images/fs12.gif') }}" alt="Decrease Font Size" title="Font Size Decrease">
                             </a>
                             <a href="#" class="text-white ps-2">
-                                <img src="assets/images/fs16.gif" alt="Increase Font Size" title="Font Size Increase">
+                                <img src="{{ asset('assets/images/fs16.gif') }}" alt="Increase Font Size" title="Font Size Increase">
                             </a>
 
                         </small>

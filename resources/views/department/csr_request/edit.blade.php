@@ -11,7 +11,7 @@
                 <div class="bg-light rounded h-100 p-4">
                     <a href="{{ route('csr_requests') }}"><button type="button" class="btn btn-primary" style="float: right;">Back</button></a>
                     <h6 class="mb-4">Update CSR Request</h6>
-                    <form action="{{ route('update_csr_request',$csr_request->id) }}" method="post">
+                    <form action="{{ route('update_csr_request',$csr_request->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')               
 

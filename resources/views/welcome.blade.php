@@ -3,7 +3,7 @@
 @section('desc', 'Credit Monitoring System - Govt. of Punjab')
 @section('keywords', 'Credit Monitoring System - Govt. of Punjab')
 @section('styles')
-{{-- <style>
+    {{-- <style>
 /* Hide the first page arrow */
 .relative.inline-flex.items-center.px-2.py-2.text-sm.font-medium.text-gray-500.bg-white.border.border-gray-300.cursor-default.rounded-l-md.leading-5.dark:bg-gray-800.dark:border-gray-600:first-child {
     display: none;
@@ -92,10 +92,13 @@
                                     <tbody>
                                         @forelse ($govt_schemes as $scheme)
                                             <tr>
-                                               <td><a href="{{ $scheme->source_of_information }}" target="_blank" class="text-dark">{{ $scheme->scheme }}</a></td>
+                                                <td><a href="{{ $scheme->source_of_information }}" target="_blank"
+                                                        class="text-dark">{{ $scheme->scheme }}</a></td>
                                             </tr>
                                         @empty
-                                            <tr><td>No schemes found.</td></tr>
+                                            <tr>
+                                                <td>No schemes found.</td>
+                                            </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
@@ -103,7 +106,7 @@
                                 <div class="pagination-wrapper">
                                     {{ $govt_schemes->links() }}
                                 </div>
-                                
+
                             </div>
                             <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">View More</a></p>
                         </div>
@@ -193,18 +196,20 @@
                 <div class="col-lg-12 text-center mb-4">
                     <h4 class="text-dark">CSR Categories</h4>
                 </div>
-                @foreach($category as $categories)
-                <div class="col-lg-2">
-                    <a href="#">
-                        <div class="card border-0 bg-{{ $categories->bg_color}} text-white text-center">
-                            <div class="card-body py-4">
-                               <p> <img src="{{ asset('storage/' . $categories->logo) }}" style="width: 100px;height:100px;"></p>
-                                {{-- <p><i class="fas fa-book-reader fa-3x"></i></p> --}}
-                                <span>{{ $categories->csr_category_name }}</span>
+                @foreach ($category as $categories)
+                    <div class="col-lg-2">
+                        <a href="{{ route('show-csr-requests', $categories->id) }}">
+                            <div class="card border-0 bg-{{ $categories->bg_color }} text-white text-center">
+                                <div class="card-body py-4">
+                                    <p> <img src="{{ asset('storage/' . $categories->logo) }}"
+                                            style="width: 100px;height:100px;"></p>
+                                    {{-- <p><i class="fas fa-book-reader fa-3x"></i></p> --}}
+                                        <span>{{ $categories->csr_category_name }}
+                                            ({{ $categories->csrRequests->count() }})</span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
                 @endforeach
                 {{-- <div class="col-lg-2">
                     <a href="#">
@@ -269,7 +274,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <div class="container-fluid py-5 mb-3">
         <div class="container">

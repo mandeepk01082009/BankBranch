@@ -18,5 +18,10 @@ class CSRCategory extends Model
         'is_active',
         'status',
     ];
+
+    public function csrRequests()
+{
+    return $this->hasMany(CSR_Request::class, 'csr_category_id', 'id');
+}
     
 }

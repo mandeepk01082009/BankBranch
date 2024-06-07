@@ -47,6 +47,10 @@ Route::get('/about-us', [App\Http\Controllers\frontend\IndexController::class, '
 
 Route::get('/contact-us', [App\Http\Controllers\frontend\IndexController::class, 'contactUs'])->name('contact-us');
 
+Route::get('/csr-requests/{category}', [App\Http\Controllers\frontend\IndexController::class, 'showCsrRequests'])->name('show-csr-requests');
+
+// Route::get('/csr-requests/{category}', 'CSRRequestController@showRequestsByCategory')->name('csr-requests.by-category');
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
