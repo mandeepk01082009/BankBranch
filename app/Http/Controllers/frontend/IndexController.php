@@ -18,6 +18,7 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail; 
+use Illuminate\Support\Facades\Log;
 
 class IndexController extends Controller
 {
@@ -73,7 +74,159 @@ class IndexController extends Controller
          
     }
 
-    public function saveApplyLoan(Request $request)
+//     public function saveApplyLoan(Request $request)
+// {
+//     $validator = Validator::make($request->all(), [
+//         'name' => 'required|regex:/^[a-zA-Z\s]+$/',
+//         'phoneNumber' => 'required|digits:10',
+//         'email' => 'nullable|email|regex:/@.+\.\w{2,}$/',
+//         'address' => 'required',
+//         'city' => 'required',
+//         'state' => 'required',
+//         'pincode' => 'required',
+//         'loan_category' => 'required',
+//         'loanDescription' => 'required',
+//         'bankName' => 'required',
+//         'bankBranch' => 'required',
+//         'captcha' => 'required|captcha'
+//     ]);
+    
+    
+//     if ($validator->fails()) {
+//         return response()->json([
+//             'message' => $validator->errors()->first(),
+//         ]);
+//     }
+
+//     $phoneNumber = $request->input('phoneNumber');
+//     $otp = '1234'; // You can use a more secure method to generate OTPs
+//     $status = 'Verified';
+//     $user_type_id = 5;
+//     $mailPassword = Str::random(8);
+//     $savePassword = Hash::make($mailPassword);
+
+//     $user = User::updateOrCreate(
+//         ['email' => $request->input('email')],
+//         [
+//             'name' => $request->input('name'),
+//             'phoneNumber' => $phoneNumber,
+//             'password' => $savePassword,
+//             'otp' => $otp,
+//             'user_type_id' => $user_type_id,
+//         ]);
+
+//     $request->session()->put('applied_loan_password', $mailPassword);
+
+//     $applyLoanData = $request->except(['_token', 'otp', 'captcha']);
+//     $applyLoanData['status'] = $status;
+//     $applyLoanData['user_type_id'] = $user_type_id;
+//     $applyLoanData['password'] = $savePassword;
+//     $applyLoanData['captcha'] = $request->input('captcha');
+//     $applyLoanData['created_at'] = now();
+//     $applyLoanData['updated_at'] = now();
+
+//     DB::table('temp_apply_loans')->insert($applyLoanData);
+
+//     return response()->json([
+//         'message' => 'Loan applied successfully. Please verify your OTP.',
+//         'redirect_url' => route('applyLoanOtp', ['phoneNumber' => $phoneNumber]),
+//     ]);
+// }
+
+// public function saveApplyLoan(Request $request)
+// {
+//     $validator = Validator::make($request->all(), [
+//         'name' => 'required|regex:/^[a-zA-Z\s]+$/',
+//         'phoneNumber' => 'required|digits:10',
+//         'email' => 'nullable|email|regex:/@.+\.\w{2,}$/',
+//         'address' => 'required',
+//         'city' => 'required',
+//         'state' => 'required',
+//         'pincode' => 'required',
+//         'loan_category' => 'required',
+//         'loanDescription' => 'required',
+//         'bankName' => 'required',
+//         'bankBranch' => 'required',
+//         'captcha' => 'required|captcha'
+//     ]);
+
+//     if ($validator->fails()) {
+//         return response()->json([
+//             'message' => $validator->errors()->first(),
+//         ]);
+//     }
+
+//     $phoneNumber = $request->input('phoneNumber');
+//     $otp = rand(100000, 999999); // Generate a secure OTP
+//     $status = 'Applied';
+//     $user_type_id = 5;
+//     $mailPassword = Str::random(8);
+//     $savePassword = Hash::make($mailPassword);
+
+//     $user = User::updateOrCreate(
+//         ['email' => $request->input('email')],
+//         [
+//             'name' => $request->input('name'),
+//             'phoneNumber' => $phoneNumber,
+//             'password' => $savePassword,
+//             'otp' => $otp,
+//             'user_type_id' => $user_type_id,
+//         ]
+//     );
+
+//     $request->session()->put('applied_loan_password', $mailPassword);
+
+//     $applyLoanData = $request->except(['_token', 'otp', 'captcha']);
+//     $applyLoanData['status'] = $status;
+//     $applyLoanData['user_type_id'] = $user_type_id;
+//     $applyLoanData['password'] = $savePassword;
+//     $applyLoanData['captcha'] = $request->input('captcha');
+//     $applyLoanData['created_at'] = now();
+//     $applyLoanData['updated_at'] = now();
+
+//     DB::table('temp_apply_loans')->insert($applyLoanData);
+
+//     // Send voice OTP using cURL
+//     $target_url = "http://voice.thesmsworld.com/API/singleClipDialer.php?auth=D!2596hvz0nGNnUw";
+//     $postData = array(
+//         'clipid' => 12222,
+//         'msisdn' => $phoneNumber,
+//         'type' => 3,
+//         'otp' => $otp
+//     );
+
+//     $ch = curl_init($target_url);
+//     curl_setopt($ch, CURLOPT_POST, 1);
+//     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); // Change to 1 to verify cert
+//     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+//     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//     $json = curl_exec($ch);
+//     $curlError = curl_error($ch); // Capture any cURL errors
+//     curl_close($ch);
+
+//     // Log the cURL response and error
+//     Log::info('Voice OTP Response: ' . $json);
+//     if ($curlError) {
+//         Log::error('cURL Error: ' . $curlError);
+//     }
+
+//     // Check if the OTP response is successful
+//     $otpResponse = json_decode($json, true);
+//     if ($otpResponse['status'] === 'failure') {
+//         return response()->json([
+//             'message' => 'Failed to send OTP. Please try again.',
+//             'error' => $otpResponse['desc']
+//         ]);
+//     }
+
+//     return response()->json([
+//         'message' => 'Loan applied successfully. Please verify your OTP.',
+//         'redirect_url' => route('applyLoanOtp', ['phoneNumber' => $phoneNumber]),
+//     ]);
+// }
+
+
+public function saveApplyLoan(Request $request)
 {
     $validator = Validator::make($request->all(), [
         'name' => 'required|regex:/^[a-zA-Z\s]+$/',
@@ -89,8 +242,7 @@ class IndexController extends Controller
         'bankBranch' => 'required',
         'captcha' => 'required|captcha'
     ]);
-    
-    
+
     if ($validator->fails()) {
         return response()->json([
             'message' => $validator->errors()->first(),
@@ -98,8 +250,8 @@ class IndexController extends Controller
     }
 
     $phoneNumber = $request->input('phoneNumber');
-    $otp = '1234'; // You can use a more secure method to generate OTPs
-    $status = 'Verified';
+    $otp = rand(100000, 999999); // Generate a secure OTP
+    $status = 'Applied';
     $user_type_id = 5;
     $mailPassword = Str::random(8);
     $savePassword = Hash::make($mailPassword);
@@ -112,11 +264,13 @@ class IndexController extends Controller
             'password' => $savePassword,
             'otp' => $otp,
             'user_type_id' => $user_type_id,
-        ]);
+        ]
+    );
 
     $request->session()->put('applied_loan_password', $mailPassword);
 
     $applyLoanData = $request->except(['_token', 'otp', 'captcha']);
+    
     $applyLoanData['status'] = $status;
     $applyLoanData['user_type_id'] = $user_type_id;
     $applyLoanData['password'] = $savePassword;
@@ -126,10 +280,41 @@ class IndexController extends Controller
 
     DB::table('temp_apply_loans')->insert($applyLoanData);
 
+    // Send voice OTP using cURL
+    $target_url = "http://voice.thesmsworld.com/API/singleClipDialer.php?auth=D!25961pVtFkUOfu";
+    $postData = array(
+        'clipid' => 12222,
+        'msisdn' => $phoneNumber,
+        'type' => 3,
+        'otp' => $otp,
+        'retry' => 1,
+        'repeat' => 1,
+    );
+
+    $ch = curl_init($target_url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); // Change to 1 to verify cert
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $json = curl_exec($ch);
+    $curlError = curl_error($ch); // Capture any cURL errors
+    curl_close($ch);
+
+    // Log the cURL response and error
+    Log::info('Voice OTP Response: ' . $json);
+    if ($curlError) {
+        Log::error('cURL Error: ' . $curlError);
+    }
+    
+   // dd($json);
+
     return response()->json([
         'message' => 'Loan applied successfully. Please verify your OTP.',
         'redirect_url' => route('applyLoanOtp', ['phoneNumber' => $phoneNumber]),
+        'otp_response' => $json // Optional: include the response for debugging
     ]);
+    
+    
 }
 
 // public function addvendor(Request $request)
@@ -376,10 +561,10 @@ public function applicantDashboard()
         }])
         ->count();
 
-$verified = Applys::where('email', $applicant_email)->with(['bankNodal', 'bankBranches', 'messages' => function($query) {
+$applied = Applys::where('email', $applicant_email)->with(['bankNodal', 'bankBranches', 'messages' => function($query) {
     $query->where('status', '!=', 'Deleted');
 }])
-    ->where('status', 'Verified')
+    ->where('status', 'Applied')
 ->count();
 
     $inProcess = Applys::where('email', $applicant_email)->with(['bankNodal', 'bankBranches', 'messages' => function($query) {
@@ -408,14 +593,14 @@ $verified = Applys::where('email', $applicant_email)->with(['bankNodal', 'bankBr
 
 
     $statuses = [
-        'Verified',
+        'Applied',
         'In Process',
         'Send back to user',
         'Approved',
         'Rejected'
     ];
 
-        return view('applicants.dashboard',compact('all', 'verified', 'inProcess', 'sendBackToUser', 'accepted', 'rejected', 'statuses'));
+        return view('applicants.dashboard',compact('all', 'applied', 'inProcess', 'sendBackToUser', 'accepted', 'rejected', 'statuses'));
     }
 
 

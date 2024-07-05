@@ -107,6 +107,8 @@ public function show()
 
         $bank_branch->email = $request->input('email');
 
+        $bank_branch->password = Hash::make($request->input('password'));
+
         $bank_branch->block = $request->input('block');
 
         $bank_branch->is_active = 1;
@@ -153,7 +155,7 @@ $verified = Applys::where('bankBranch', $bank_branch_id)->with(['bankNodal', 'ba
         ->where('status', 'Send back to user')
     ->count();
 
-    $accepted = Applns::where('bankBranch', $bank_branch_id)->with(['bankNodal', 'bankBranches', 'messages' => function($query) {
+    $accepted = Applys::where('bankBranch', $bank_branch_id)->with(['bankNodal', 'bankBranches', 'messages' => function($query) {
         $query->where('status', '!=', 'Deleted');
     }])
         ->where('status', 'Approved')

@@ -225,110 +225,6 @@
 
                     <div class="h-100 d-inline-flex align-items-center me-4">
 
-                        @if (
-                            !auth()->check() &&
-                                !auth('bank_nodals')->check() &&
-                                !auth('bank_branches')->check() &&
-                                !auth('departments')->check() &&
-                                !auth('applicants')->check())
-                            <div class="dropdown">
-                                <button class="btn btn-link dropdown-toggle text-dark" type="button" id="userDropdown"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span style="font-size: 10px;">Login</span>
-                                </button>
-                                <ul class="dropdown-menu bg-light" aria-labelledby="userDropdown">
-                                    <small>
-                                        <li>
-                                            <a href="{{ route('guest.web_login') }}"> <span class="listcolor">Admin
-                                                </span> <span class="listicon1"><i
-                                                        class="fa fa-caret-right"></i></span></a>
-                                            <div class="dropdown-divider"></div>
-                                            <!-- Add this line to create a separator -->
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('guest.bank_nodals_login') }}"> <span class="listcolor">
-                                                    Bank Nodal </span> <span class="listicon2"><i
-                                                        class="fa fa-caret-right"></i></span></a>
-                                            <div class="dropdown-divider"></div>
-                                            <!-- Add this line to create a separator -->
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('guest.bank_branches_login') }}"> <span class="listcolor">
-                                                    Bank Branch </span> <span class="listicon3"><i
-                                                        class="fa fa-caret-right"></i></span></a>
-                                            <div class="dropdown-divider"></div>
-                                            <!-- Add this line to create a separator -->
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('guest.departments_login') }}"> <span class="listcolor">
-                                                    Department </span> <span class="listicon4"><i
-                                                        class="fa fa-caret-right"></i></span></a>
-                                            <div class="dropdown-divider"></div>
-                                            <!-- Add this line to create a separator -->
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('guest.applicants_login') }}"> <span class="listcolor">
-                                                    Applicant</span> </span> <span class="listicon5"><i
-                                                        class="fa fa-caret-right"></i></a>
-                                        </li>
-                                    </small>
-                                </ul>
-                            </div>
-                        @endif
-                        <!-- Dropdown Start -->
-                        @if (auth()->check() ||
-                                auth('bank_nodals')->check() ||
-                                auth('bank_branches')->check() ||
-                                auth('departments')->check() ||
-                                auth('applicants')->check())
-                            @php $name = ''; @endphp
-                            @auth('bank_nodals')
-                                @php $user = auth('bank_nodals')->user(); @endphp
-                                @php $dco_name = $user->dco_name; @endphp
-                                @php $name = $dco_name; @endphp
-                            @endauth
-
-                            @auth('bank_branches')
-                                @php $user = auth('bank_branches')->user(); @endphp
-                                @php $concerned_person = $user->concerned_person; @endphp
-                                @php $name = $concerned_person; @endphp
-                            @endauth
-
-                            @auth('departments')
-                                @php $user = auth('departments')->user(); @endphp
-                                @php $contact_person = $user->contact_person; @endphp
-                                @php $name = $contact_person; @endphp
-                            @endauth
-
-                            @auth('applicants')
-                                @php $user = auth('applicants')->user(); @endphp
-                                @php $name = $user->name; @endphp
-                            @endauth
-
-                            @auth
-                                @php $user = auth()->user(); @endphp
-                                @php $name = $user->name; @endphp
-                            @endauth
-
-                            <div class="dropdown">
-                                <button class="btn btn-link dropdown-toggle text-dark" type="button"
-                                    id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span style="font-size: 10px;">{{ $name }}</span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                    <li class="text-center">
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                                            @csrf
-                                        </form>
-                                        <a href="#"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        @endif
-                        <!-- Dropdown End -->
 
 
 
@@ -415,6 +311,128 @@
                     </div>
                     <a href="#" class="nav-item nav-link">Public Notices</a>
                     <a href="{{ url('/contact-us') }}" class="nav-item nav-link">Contact</a>
+                    
+                        @if (
+                            !auth()->check() &&
+                                !auth('bank_nodals')->check() &&
+                                !auth('bank_branches')->check() &&
+                                !auth('departments')->check() &&
+                                !auth('applicants')->check())
+                                
+                                 <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>
+                        <div class="dropdown-menu bg-light m-0">
+                            <a href="{{ route('guest.web_login') }}" class="dropdown-item">Admin</a>
+                            <a href="{{ route('guest.bank_nodals_login') }}" class="dropdown-item">Bank Nodal</a>
+                            <a href="{{ route('guest.bank_branches_login') }}" class="dropdown-item">Bank Branch</a>
+                            <a href="{{ route('guest.departments_login') }}" class="dropdown-item">Department</a>
+                              <a href="{{ route('guest.applicants_login') }}" class="dropdown-item">Applicant</a>
+                        </div>
+                    </div>
+                                <!--<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>-->
+                                <!--<ul class="dropdown-menu bg-light" aria-labelledby="userDropdown">-->
+                                <!--    <small>-->
+                                <!--        <li>-->
+                                <!--            <a href="{{ route('guest.web_login') }}"> <span class="listcolor">Admin-->
+                                <!--                </span> <span class="listicon1"><i-->
+                                <!--                        class="fa fa-caret-right"></i></span></a>-->
+                                <!--            <div class="dropdown-divider"></div>-->
+                                            <!-- Add this line to create a separator -->
+                                <!--        </li>-->
+                                <!--        <li>-->
+                                <!--            <a href="{{ route('guest.bank_nodals_login') }}"> <span class="listcolor">-->
+                                <!--                    Bank Nodal </span> <span class="listicon2"><i-->
+                                <!--                        class="fa fa-caret-right"></i></span></a>-->
+                                <!--            <div class="dropdown-divider"></div>-->
+                                            <!-- Add this line to create a separator -->
+                                <!--        </li>-->
+                                <!--        <li>-->
+                                <!--            <a href="{{ route('guest.bank_branches_login') }}"> <span class="listcolor">-->
+                                <!--                    Bank Branch </span> <span class="listicon3"><i-->
+                                <!--                        class="fa fa-caret-right"></i></span></a>-->
+                                <!--            <div class="dropdown-divider"></div>-->
+                                            <!-- Add this line to create a separator -->
+                                <!--        </li>-->
+                                <!--        <li>-->
+                                <!--            <a href="{{ route('guest.departments_login') }}"> <span class="listcolor">-->
+                                <!--                    Department </span> <span class="listicon4"><i-->
+                                <!--                        class="fa fa-caret-right"></i></span></a>-->
+                                <!--            <div class="dropdown-divider"></div>-->
+                                            <!-- Add this line to create a separator -->
+                                <!--        </li>-->
+                                <!--        <li>-->
+                                <!--            <a href="{{ route('guest.applicants_login') }}"> <span class="listcolor">-->
+                                <!--                    Applicant</span> </span> <span class="listicon5"><i-->
+                                <!--                        class="fa fa-caret-right"></i></a>-->
+                                <!--        </li>-->
+                                <!--    </small>-->
+                                <!--</ul>-->
+                           
+                        @endif
+                        <!-- Dropdown Start -->
+                        @if (auth()->check() ||
+                                auth('bank_nodals')->check() ||
+                                auth('bank_branches')->check() ||
+                                auth('departments')->check() ||
+                                auth('applicants')->check())
+                            @php $name = ''; @endphp
+                            @auth('bank_nodals')
+                                @php $user = auth('bank_nodals')->user(); @endphp
+                                @php $dco_name = $user->dco_name; @endphp
+                                @php $name = $dco_name; @endphp
+                            @endauth
+
+                            @auth('bank_branches')
+                                @php $user = auth('bank_branches')->user(); @endphp
+                                @php $concerned_person = $user->concerned_person; @endphp
+                                @php $name = $concerned_person; @endphp
+                            @endauth
+
+                            @auth('departments')
+                                @php $user = auth('departments')->user(); @endphp
+                                @php $contact_person = $user->contact_person; @endphp
+                                @php $name = $contact_person; @endphp
+                            @endauth
+
+                            @auth('applicants')
+                                @php $user = auth('applicants')->user(); @endphp
+                                @php $name = $user->name; @endphp
+                            @endauth
+
+                            @auth
+                                @php $user = auth()->user(); @endphp
+                                @php $name = $user->name; @endphp
+                            @endauth
+                            
+                            <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ $name }}</a>
+                        <div class="dropdown-menu bg-light m-0">
+                             <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                        </form>
+                            <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                        </div>
+                    </div>
+
+                            <!--<div class="dropdown">-->
+                            <!--    <button class="btn btn-link dropdown-toggle text-dark" type="button"-->
+                            <!--        id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">-->
+                            <!--        <span style="font-size: 10px;">{{ $name }}</span>-->
+                            <!--    </button>-->
+                            <!--    <ul class="dropdown-menu" aria-labelledby="userDropdown">-->
+                            <!--        <li class="text-center">-->
+                            <!--            <form id="logout-form" action="{{ route('logout') }}" method="POST">-->
+                            <!--                @csrf-->
+                            <!--            </form>-->
+                            <!--            <a href="#"-->
+                            <!--                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">-->
+                            <!--                Logout-->
+                            <!--            </a>-->
+                            <!--        </li>-->
+                            <!--    </ul>-->
+                            <!--</div>-->
+                        @endif
+                        <!-- Dropdown End -->
                 </div>
                 <!-- <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get Started<i class="fa fa-arrow-right ms-3"></i></a> -->
             </div>

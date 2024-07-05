@@ -94,7 +94,7 @@ class BankNodalController extends Controller
 
         $bank_nodal->mobile = $request->input('mobile');
 
-        // $bank_nodal->password = $request->input('password');
+        $bank_nodal->password = Hash::make($request->input('password'));
 
         $bank_nodal->email = $request->input('email');
 

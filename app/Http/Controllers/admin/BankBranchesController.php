@@ -106,7 +106,7 @@ class BankBranchesController extends Controller
 
         $bank_branch->email = $request->input('email');
 
-        $bank_branch->password = $request->input('password');
+        $bank_branch->password = Hash::make($request->input('password'));
 
         $bank_branch->block = $request->input('block');
 
