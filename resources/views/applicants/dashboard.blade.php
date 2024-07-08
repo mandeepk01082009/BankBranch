@@ -63,7 +63,7 @@
             </div>
             <div class="col-sm-6 col-xl-3">
                 {{-- <div class="bg-light rounded p-4 text-center"> --}}
-                    <button class="btn-link bg-light rounded text-center" style="border:none; padding:15px 75px;" data-status="Verified"
+                    <button class="btn-link bg-light rounded text-center" style="border:none; padding:15px 75px;" data-status="Applied"
                         onclick="filterApplications(this)">
                         <div class="card-box height-100-p widget-style1">
                             <div class="d-flex flex-wrap align-items-center">
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                     </button>
-                {{-- </div> --}}
+                {{-- </div> --}}    
             </div>
             <div class="col-sm-6 col-xl-3">
                 {{-- <div class="bg-light rounded p-4 text-center"> --}}

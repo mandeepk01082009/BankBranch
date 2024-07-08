@@ -18,7 +18,7 @@
                             <label for="status">Status:</label>
                             <select name="status" id="bankNodalstatus" class="form-select">
                                 <option value="">All</option>
-                                <option value="Verified" {{ request()->query('status') == 'Verified' ? 'selected' : '' }}>Verified</option>
+                                <option value="Applied" {{ request()->query('status') == 'Applied' ? 'selected' : '' }}>Applied</option>
                                 <option value="In Process" {{ request()->query('status') == 'In Process' ? 'selected' : '' }}>In Process</option>
                                 <option value="Send back to user" {{ request()->query('status') == 'Send back to user' ? 'selected' : '' }}>Send back to user</option>
                                 <option value="Approved" {{ request()->query('status') == 'Approved' ? 'selected' : '' }}>Approved</option>

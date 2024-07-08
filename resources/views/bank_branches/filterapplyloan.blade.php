@@ -18,8 +18,8 @@
                                 <label for="status">Status:</label>
                                 <select name="status" id="bankBranchstatus" class="form-select">
                                     <option value="">All</option>
-                                    <option value="Verified"
-                                        {{ request()->query('status') == 'Verified' ? 'selected' : '' }}>Verified</option>
+                                    <option value="Applied"
+                                        {{ request()->query('status') == 'Applied' ? 'selected' : '' }}>Applied</option>
                                     <option value="In Process"
                                         {{ request()->query('status') == 'In Process' ? 'selected' : '' }}>In Process
                                     </option>

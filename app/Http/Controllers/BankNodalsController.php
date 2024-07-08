@@ -144,10 +144,10 @@ public function bankNodalDashboard()
         }])
         ->count();
 
-$verified = Applys::where('bankName', $bank_nodal_id)->with(['bankNodal', 'bankBranches', 'messages' => function($query) {
+$applied = Applys::where('bankName', $bank_nodal_id)->with(['bankNodal', 'bankBranches', 'messages' => function($query) {
     $query->where('status', '!=', 'Deleted');
 }])
-    ->where('status', 'Verified')
+    ->where('status', 'Applied')
 ->count();
 
     $inProcess = Applys::where('bankName', $bank_nodal_id)->with(['bankNodal', 'bankBranches', 'messages' => function($query) {
@@ -176,14 +176,14 @@ $verified = Applys::where('bankName', $bank_nodal_id)->with(['bankNodal', 'bankB
 
 
     $statuses = [
-        'Verified',
+        'Applied',
         'In Process',
         'Send back to user',
         'Approved',
         'Rejected'
     ];
 
-    return view('bank_nodals.dashboard', compact('all', 'verified', 'inProcess', 'sendBackToUser', 'accepted', 'rejected', 'statuses'));
+    return view('bank_nodals.dashboard', compact('all', 'applied', 'inProcess', 'sendBackToUser', 'accepted', 'rejected', 'statuses'));
 }
 
 // public function filterapplyloan(Request $request)
