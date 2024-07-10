@@ -128,10 +128,10 @@ public function adminDashboard()
     }])
     ->count();
 
-    $verified = Applys::with(['bankNodal', 'bankBranches', 'messages' => function($query) {
+    $applied = Applys::with(['bankNodal', 'bankBranches', 'messages' => function($query) {
         $query->where('status', '!=', 'Deleted');
     }])
-        ->where('status', 'Verified')
+        ->where('status', 'Applied')
     ->count();
 
     $inProcess = Applys::with(['bankNodal', 'bankBranches', 'messages' => function($query) {
@@ -159,14 +159,14 @@ public function adminDashboard()
     ->count();
 
     $statuses = [
-        'Verified',
+        'Applied',
         'In Process',
         'Send back to user',
         'Approved',
         'Rejected'
     ];
 
-    return view('dashboard', compact('all', 'verified', 'inProcess', 'sendBackToUser', 'accepted', 'rejected', 'statuses'));
+    return view('dashboard', compact('all', 'applied', 'inProcess', 'sendBackToUser', 'accepted', 'rejected', 'statuses'));
 }
 
 public function filterapplyloan(Request $request)

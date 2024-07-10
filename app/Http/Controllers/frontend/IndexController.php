@@ -722,7 +722,7 @@ public function trackLoanOtp($phoneNumber)
         $captcha = $request->input('captcha');
     
         // Generate OTP (for simplicity, you can use a fixed OTP '1234')
-        $otp = '1234'; // You can use a more secure method to generate OTPs
+        $otp = rand(100000, 999999); // Generate a secure OTP
         // Store the validated data, OTP, and password in the session
         $trackLoanData = $request->except('_token');
         $trackLoanData['otp'] = $otp;
@@ -733,6 +733,41 @@ public function trackLoanOtp($phoneNumber)
             'otp' => $otp,
             'captcha' => $captcha,
         ]);
+
+         // Send voice OTP using cURL
+    $target_url = "http://voice.thesmsworld.com/API/singleClipDialer.php?auth=D!25961pVtFkUOfu";
+    $postData = array(
+        'clipid' => 12222,
+        'msisdn' => $phoneNumber,
+        'type' => 3,
+        'otp' => $otp,
+        'retry' => 1,
+        'repeat' => 1,
+    );
+
+    $ch = curl_init($target_url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); // Change to 1 to verify cert
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $json = curl_exec($ch);
+    $curlError = curl_error($ch); // Capture any cURL errors
+    curl_close($ch);
+
+    // Log the cURL response and error
+    Log::info('Voice OTP Response: ' . $json);
+    if ($curlError) {
+        Log::error('cURL Error: ' . $curlError);
+    }
+    
+   // dd($json);
+
+    // return response()->json([
+    //    // 'message' => 'Loan applied successfully. Please verify your OTP.',
+    //     'redirect_url' => route('trackLoanOtp', ['phoneNumber' => $phoneNumber]),
+    //     'otp_response' => $json // Optional: include the response for debugging
+    // ]);
+    
     
         // If no validation errors, redirect to applyLoanOtp route
         return redirect()->route('trackLoanOtp', compact('phoneNumber'));
@@ -752,7 +787,12 @@ public function trackLoanOtp($phoneNumber)
     $phoneNumber = $request->session()->get('trackLoanData')['phoneNumber'];
 
     // Retrieve the user record with the given phone number
-    $user = DB::table('track_loan_status')->where('phoneNumber', $phoneNumber)->first();
+    $user = DB::table('track_loan_status')
+    ->where('phoneNumber', $phoneNumber)
+    ->orderBy('id', 'desc')
+    ->first();
+
+    //dd($user);
     if (!$user) {
         return back()->with('error', 'User not found');
     }
