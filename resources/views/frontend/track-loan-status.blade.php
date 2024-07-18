@@ -64,17 +64,6 @@
                                     <p><span class="text-danger">*</span> Denotes Mandatory Fields</p>
                                     <form action="{{ route('show-loan-status') }}" method="POST">
                                         @csrf
-                                        {{-- <div class="col-md-12">
-                                        <div class="alert alert-danger" role="alert">
-                                            Phone No. entered is not in our database.
-                                        </div>
-                                    </div> --}}
-                                        {{-- <div class="mb-3 row">
-                                        <label for="" class="col-sm-3 col-form-label">Application ID <span class="text-danger">*</span></label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="" placeholder="">
-                                        </div>
-                                    </div> --}}
                                         <div class="mb-3 row">
                                             <label for="" class="col-sm-3 col-form-label">Mobile No. <span
                                                     class="text-danger">*</span></label>
@@ -134,7 +123,7 @@
                                         </div>
                                         <div class="mb-3 row">
                                             <div class="col-lg-12">
-                                                <button type="submit" class="btn btn-primary loginBtn">Submit Form</button>
+                                                <button type="submit" class="btn btn-primary loginBtn trackBtn">Submit Form</button>
                                             </div>
                                         </div>
                                     </form>
@@ -168,5 +157,42 @@
             });
         });
     </script>
+<script>
+    $(document).ready(function() {
+        // Handle the form submission
+        $('.trackBtn').click(function(e) {
+            e.preventDefault();
+
+            // Serialize the form data
+            var formData = $(this).closest('form').serialize();
+
+            // Send the AJAX request with the CSRF token
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('show-loan-status') }}',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.redirect_url) {
+                        // Redirect to the trackLoanOtp route
+                        window.location.href = response.redirect_url;
+                    }
+                },
+                error: function(xhr) {
+                    // Handle the error response
+                    if (xhr.responseJSON.message) {
+                        alert(xhr.responseJSON.message);
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 @stop

@@ -281,7 +281,7 @@
     </script>
 
     <script type="text/javascript">
-        $('.reload').click(function() {
+        $('.reload').click(function() {   
             $.ajax({
                 type: 'GET',
                 url: 'reload-captcha',

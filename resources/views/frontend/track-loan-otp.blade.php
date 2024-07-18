@@ -61,6 +61,11 @@
                                             {{ session('error') }}
                                         </div>
                                     @endif
+                                    @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
                                     <p>Applying for a loan involves several key steps to ensure a smooth process. Here's a
                                         form below to apply for a loan. Remember, it's essential to borrow responsibly and
                                         only take out a loan if you can afford to repay it.</p>
@@ -76,10 +81,20 @@
                                         </div>
                                         <div class="mb-3 row">
                                             <div class="col-lg-12">
-                                                <button type="submit" class="btn btn-primary">Submit Application</button>
+                                                <button type="submit" class="btn btn-primary trackLoanButton">Verify OTP</button>
                                             </div>
                                         </div>
                                     </form>
+                                    <div class="mb-3 row">
+                                        <div class="col-sm-2">
+                                            <form action="{{ route('tlsresendOtp') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="phoneNumber" value="{{ $phoneNumber }}">
+                                                <button type="submit" class="btn btn-success">Resend OTP</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-sm-7"></div>
+                                    </div>
                                 </div>
                                 {{-- <div class="col-md-12">
                                     <div class="alert alert-success" role="alert">
@@ -97,6 +112,6 @@
             </div>
         </div>
     </div>
-
+   
 
 @stop

@@ -2,6 +2,11 @@
 @section('title', 'Credit Monitoring System - Govt. of Punjab')
 @section('desc', 'Credit Monitoring System - Govt. of Punjab')
 @section('keywords', 'Credit Monitoring System - Govt. of Punjab')
+<style>
+    .verifyOtpButton, .resendOtpButton {
+        width: 100%;
+    }
+</style>
 @section('content')
 
     @php
@@ -66,36 +71,43 @@
                                             {{ session('error') }}
                                         </div>
                                     @endif
-                                    <p>Applying for a loan involves several key steps to ensure a smooth process. Here's a
-                                        form below to apply for a loan. Remember, it's essential to borrow responsibly and
-                                        only take out a loan if you can afford to repay it.</p>
-                                    <p><span class="text-danger">*</span> Kindly enter the OTP sent on your mobile +91
-                                        {{ $phoneNumber }}</p>
+                                    @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+                                    <p>Applying for a loan involves several key steps to ensure a smooth process. Here's a form below to apply for a loan. Remember, it's essential to borrow responsibly and only take out a loan if you can afford to repay it.</p>
+                                    <p><span class="text-danger">*</span> Kindly enter the OTP sent on your mobile +91 {{ $phoneNumber }}</p>
                                     <form action="{{ route('verifyOtp', ['phoneNumber' => $phoneNumber]) }}" method="post">
                                         @csrf
                                         <div class="mb-3 row">
-                                            <label for="" class="col-sm-3 col-form-label">Enter OTP <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="" class="col-sm-3 col-form-label">Enter OTP <span class="text-danger">*</span></label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="otp" id=""
-                                                    required>
+                                                <input type="text" class="form-control" name="otp" id="" required>
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
-                                            <div class="col-lg-12">
-                                                <button type="submit" class="btn btn-primary verifyOtpButton">OTP
-                                                    Verified</button>
+                                            <div class="col-sm-2">
+                                                <button type="submit" class="btn btn-primary verifyOtpButton">Verify OTP</button>
                                             </div>
+                                            <div class="col-sm-1"></div>
                                         </div>
                                     </form>
-                                </div>
-                                {{-- <div class="col-md-12">
-                                    <div class="alert alert-success" role="alert">
-                                        Your application has been submitted successfully. We will get in touch with you soon
-                                        on your registered mobile number. Your application ID is: <strong>SP-123456</strong>
+                                    <div class="mb-3 row">
+                                        <div class="col-sm-2">
+                                            <form action="{{ route('resendOtp') }}" method="post" id="resendOtpForm">
+                                                @csrf
+                                                <input type="hidden" name="phoneNumber" value="{{ $phoneNumber }}">
+                                                <button type="submit" class="btn btn-success resendOtpButton">Resend OTP</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-sm-7"></div>
                                     </div>
-                                </div> --}}
+                                </div>
+                                
                             </div>
+                            
+                            
                         </div>
                     </div>
                 </div>

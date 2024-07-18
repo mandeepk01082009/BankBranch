@@ -241,13 +241,16 @@ public function saveApplyLoan(Request $request)
         'bankName' => 'required',
         'bankBranch' => 'required',
         'captcha' => 'required|captcha'
+    ], [
+        'captcha.captcha' => 'Kindly recheck your captcha'
     ]);
-
+    
     if ($validator->fails()) {
         return response()->json([
             'message' => $validator->errors()->first(),
         ]);
     }
+    
 
     $phoneNumber = $request->input('phoneNumber');
     $otp = rand(100000, 999999); // Generate a secure OTP
@@ -316,6 +319,50 @@ public function saveApplyLoan(Request $request)
     
     
 }
+
+public function resendOtp(Request $request)
+{
+    $phoneNumber = $request->input('phoneNumber');
+    $otp = rand(100000, 999999); // Generate a new secure OTP
+
+    // Update the OTP in the database for the user
+    $user = User::where('phoneNumber', $phoneNumber)->first();
+    if ($user) {
+        $user->otp = $otp;
+        $user->save();
+
+        // Send voice OTP using cURL
+        $target_url = "http://voice.thesmsworld.com/API/singleClipDialer.php?auth=D!25961pVtFkUOfu";
+        $postData = array(
+            'clipid' => 12222,
+            'msisdn' => $phoneNumber,
+            'type' => 3,
+            'otp' => $otp,
+            'retry' => 1,
+            'repeat' => 1,
+        );
+
+        $ch = curl_init($target_url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); // Change to 1 to verify cert
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $json = curl_exec($ch);
+        $curlError = curl_error($ch); // Capture any cURL errors
+        curl_close($ch);
+
+        // Log the cURL response and error
+        Log::info('Voice OTP Response: ' . $json);
+        if ($curlError) {
+            Log::error('cURL Error: ' . $curlError);
+        }
+
+        return redirect()->back()->with('success', 'OTP has been resent successfully.');
+    } else {
+        return redirect()->back()->with('error', 'User not found.');
+    }
+}
+
 
 // public function addvendor(Request $request)
 // {
@@ -707,14 +754,17 @@ public function trackLoanOtp($phoneNumber)
 
     public function show_loan_status(Request $request)
     {
-        //dd("kk");
         $validator = Validator::make($request->all(), [
             'phoneNumber' => 'required',
             'captcha' => 'required|captcha'
+        ], [
+            'captcha.captcha' => 'Kindly recheck your captcha'
         ]);
-    
+        
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return response()->json([
+                'message' => $validator->errors()->first(),
+            ]);
         }
     
         // Store the phone number in a variable
@@ -770,9 +820,64 @@ public function trackLoanOtp($phoneNumber)
     
     
         // If no validation errors, redirect to applyLoanOtp route
-        return redirect()->route('trackLoanOtp', compact('phoneNumber'));
+       // return redirect()->route('trackLoanOtp', compact('phoneNumber'));
+       return response()->json([
+        //'message' => 'Loan applied successfully. Please verify your OTP.',
+        'redirect_url' => route('trackLoanOtp', ['phoneNumber' => $phoneNumber]),
+        'otp_response' => $json // Optional: include the response for debugging
+    ]);
 
     }
+
+    public function tlsresendOtp(Request $request)
+{
+    $phoneNumber = $request->input('phoneNumber');
+
+    // Generate a new OTP
+    $otp = rand(100000, 999999); // Generate a secure OTP
+
+    // Update the OTP in the session
+    $trackLoanData = $request->session()->get('trackLoanData', []);
+    $trackLoanData['otp'] = $otp;
+    $request->session()->put('trackLoanData', $trackLoanData);
+
+    // Update the OTP in the database
+    DB::table('track_loan_status')
+        ->where('phoneNumber', $phoneNumber)
+        ->update(['otp' => $otp]);
+
+    // Send voice OTP using cURL
+    $target_url = "http://voice.thesmsworld.com/API/singleClipDialer.php?auth=D!25961pVtFkUOfu";
+    $postData = array(
+        'clipid' => 12222,
+        'msisdn' => $phoneNumber,
+        'type' => 3,
+        'otp' => $otp,
+        'retry' => 1,
+        'repeat' => 1,
+    );
+
+    $ch = curl_init($target_url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); // Change to 1 to verify cert
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $json = curl_exec($ch);
+    $curlError = curl_error($ch); // Capture any cURL errors
+    curl_close($ch);
+
+    // Log the cURL response and error
+    Log::info('Voice OTP Response: ' . $json);
+    if ($curlError) {
+        Log::error('cURL Error: ' . $curlError);
+    }
+
+    // return response()->json([
+    //     'message' => 'OTP resent successfully',
+    //     'otp_response' => $json // Optional: include the response for debugging
+    // ]);
+    return redirect()->back()->with('success', 'OTP has been resent successfully.');
+}
 
     public function verify_track_loan_otp(Request $request)
 {

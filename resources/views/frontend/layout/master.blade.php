@@ -254,7 +254,7 @@
                 <div class="col-md-6">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
-                            <img src="assets/images/punlogo.gif" class="" width="80" alt="">
+                            <img src="{{asset('assets/images/punlogo.gif')}}" class="" width="80" alt="">
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <a href="{{ url('/') }}" class="">

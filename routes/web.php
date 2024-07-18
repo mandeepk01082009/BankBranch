@@ -49,6 +49,10 @@ Route::get('/contact-us', [App\Http\Controllers\frontend\IndexController::class,
 
 Route::get('/csr-requests/{category}', [App\Http\Controllers\frontend\IndexController::class, 'showCsrRequests'])->name('show-csr-requests');
 
+Route::post('/resend-otp', [App\Http\Controllers\frontend\IndexController::class, 'resendOtp'])->name('resendOtp');
+
+Route::post('/tlsresendOtp', [App\Http\Controllers\frontend\IndexController::class, 'resendOtp'])->name('tlsresendOtp');
+
 // Route::get('/csr-requests/{category}', 'CSRRequestController@showRequestsByCategory')->name('csr-requests.by-category');
 
 // Route::get('/', function () {
